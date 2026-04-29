@@ -1,0 +1,7 @@
+export enum UserLevelDto {
+  OWNER = "OWNER",
+  ADMIN = "ADMIN",
+  AFFILIATE = "AFFILIATE",
+  OPERATOR = "OPERATOR",
+  CUSTOMER = "CUSTOMER",
+}
