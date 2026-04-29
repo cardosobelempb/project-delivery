@@ -177,12 +177,54 @@ exports.Prisma.EstablishmentScalarFieldEnum = {
   affiliate: 'affiliate',
   name: 'name',
   description: 'description',
-  stateLegacy: 'stateLegacy',
-  cityLegacy: 'cityLegacy',
   subdomain: 'subdomain',
   profileImage: 'profileImage',
   coverImage: 'coverImage',
   themeColor: 'themeColor',
+  email: 'email',
+  status: 'status',
+  forcedStatus: 'forcedStatus',
+  operationStatus: 'operationStatus',
+  expirationStatus: 'expirationStatus',
+  excluded: 'excluded',
+  excludedAt: 'excludedAt',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt',
+  lastLoginAt: 'lastLoginAt'
+};
+
+exports.Prisma.AddressScalarFieldEnum = {
+  id: 'id',
+  establishmentId: 'establishmentId',
+  userId: 'userId',
+  customerId: 'customerId',
+  stateId: 'stateId',
+  cityId: 'cityId',
+  stateLegacy: 'stateLegacy',
+  cityLegacy: 'cityLegacy',
+  zipCode: 'zipCode',
+  addressNumber: 'addressNumber',
+  neighborhood: 'neighborhood',
+  street: 'street',
+  complement: 'complement',
+  reference: 'reference',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.ContactScalarFieldEnum = {
+  id: 'id',
+  establishmentId: 'establishmentId',
+  whatsapp: 'whatsapp',
+  email: 'email',
+  instagram: 'instagram',
+  facebook: 'facebook',
+  youtube: 'youtube'
+};
+
+exports.Prisma.SettingScalarFieldEnum = {
+  id: 'id',
+  establishmentId: 'establishmentId',
   minimumOrder: 'minimumOrder',
   acceptsMoney: 'acceptsMoney',
   acceptsDebitCard: 'acceptsDebitCard',
@@ -194,45 +236,18 @@ exports.Prisma.EstablishmentScalarFieldEnum = {
   acceptsOtherPayment: 'acceptsOtherPayment',
   otherPaymentDescription: 'otherPaymentDescription',
   acceptsPix: 'acceptsPix',
-  zipCode: 'zipCode',
-  addressNumber: 'addressNumber',
-  neighborhood: 'neighborhood',
-  street: 'street',
-  complement: 'complement',
-  reference: 'reference',
+  pixType: 'pixType',
+  pixKey: 'pixKey',
+  pixBeneficiary: 'pixBeneficiary',
+  establishmentPixData: 'establishmentPixData',
   businessHoursText: 'businessHoursText',
+  businessHoursJson: 'businessHoursJson',
   allowPickup: 'allowPickup',
   allowDelivery: 'allowDelivery',
   deliveryType: 'deliveryType',
   deliveryValue: 'deliveryValue',
-  whatsapp: 'whatsapp',
-  contactEmail: 'contactEmail',
-  instagram: 'instagram',
-  facebook: 'facebook',
-  youtube: 'youtube',
-  analyticsCode: 'analyticsCode',
-  pixelCode: 'pixelCode',
-  customHtml: 'customHtml',
-  responsibleName: 'responsibleName',
-  responsibleBirthDate: 'responsibleBirthDate',
-  responsibleDocumentType: 'responsibleDocumentType',
-  responsibleDocument: 'responsibleDocument',
-  email: 'email',
-  status: 'status',
-  forcedStatus: 'forcedStatus',
-  operationStatus: 'operationStatus',
-  marketplaceFeature: 'marketplaceFeature',
-  variationFeature: 'variationFeature',
-  bannerFeature: 'bannerFeature',
-  triggerFeature: 'triggerFeature',
-  expirationStatus: 'expirationStatus',
-  excluded: 'excluded',
-  excludedAt: 'excludedAt',
   productLimit: 'productLimit',
   displayMode: 'displayMode',
-  pixType: 'pixType',
-  pixKey: 'pixKey',
-  pixBeneficiary: 'pixBeneficiary',
   deliveryName: 'deliveryName',
   pickupName: 'pickupName',
   tableName: 'tableName',
@@ -241,14 +256,31 @@ exports.Prisma.EstablishmentScalarFieldEnum = {
   tableEnabled: 'tableEnabled',
   otherEnabled: 'otherEnabled',
   otherName: 'otherName',
-  token: 'token',
-  businessHoursJson: 'businessHoursJson',
-  accessToken: 'accessToken',
   calculateShipping: 'calculateShipping',
   shippingType: 'shippingType',
   shippingCompany: 'shippingCompany',
   shippingPassword: 'shippingPassword',
-  establishmentPixData: 'establishmentPixData',
+  validity: 'validity',
+  triggerCount: 'triggerCount'
+};
+
+exports.Prisma.FlagScalarFieldEnum = {
+  id: 'id',
+  establishmentId: 'establishmentId',
+  marketplaceFeature: 'marketplaceFeature',
+  variationFeature: 'variationFeature',
+  bannerFeature: 'bannerFeature',
+  triggerFeature: 'triggerFeature'
+};
+
+exports.Prisma.IntegrationScalarFieldEnum = {
+  id: 'id',
+  establishmentId: 'establishmentId',
+  analyticsCode: 'analyticsCode',
+  pixelCode: 'pixelCode',
+  customHtml: 'customHtml',
+  token: 'token',
+  accessToken: 'accessToken',
   mercadoPagoEnabled: 'mercadoPagoEnabled',
   mercadoPagoSandbox: 'mercadoPagoSandbox',
   mercadoPagoPublicKey: 'mercadoPagoPublicKey',
@@ -263,12 +295,16 @@ exports.Prisma.EstablishmentScalarFieldEnum = {
   getnetSandbox: 'getnetSandbox',
   getnetClientId: 'getnetClientId',
   getnetClientSecret: 'getnetClientSecret',
-  getnetSellerId: 'getnetSellerId',
-  validity: 'validity',
-  triggerCount: 'triggerCount',
-  createdAt: 'createdAt',
-  updatedAt: 'updatedAt',
-  lastLoginAt: 'lastLoginAt'
+  getnetSellerId: 'getnetSellerId'
+};
+
+exports.Prisma.ResponsibleScalarFieldEnum = {
+  id: 'id',
+  establishmentId: 'establishmentId',
+  name: 'name',
+  birthDate: 'birthDate',
+  documentType: 'documentType',
+  document: 'document'
 };
 
 exports.Prisma.ScheduleScalarFieldEnum = {
@@ -282,7 +318,8 @@ exports.Prisma.ScheduleScalarFieldEnum = {
   friday: 'friday',
   saturday: 'saturday',
   time: 'time',
-  action: 'action'
+  action: 'action',
+  addressid: 'addressid'
 };
 
 exports.Prisma.CategoryScalarFieldEnum = {
@@ -720,6 +757,12 @@ exports.Prisma.ModelName = {
   City: 'City',
   Segment: 'Segment',
   Establishment: 'Establishment',
+  Address: 'Address',
+  Contact: 'Contact',
+  Setting: 'Setting',
+  Flag: 'Flag',
+  Integration: 'Integration',
+  Responsible: 'Responsible',
   Schedule: 'Schedule',
   Category: 'Category',
   Product: 'Product',

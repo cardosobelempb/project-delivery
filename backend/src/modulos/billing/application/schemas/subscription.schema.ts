@@ -1,3 +1,4 @@
+import { ValidatorMessage } from "@/common/domain/validations";
 import { SubscriptionModeDto } from "@/shared/dto/subscription-mode.dto";
 import { SubscriptionStatusDto } from "@/shared/dto/subscription-status.dto";
 import { YesNoStatusDto } from "@/shared/dto/yes-no-status.dto";
@@ -15,14 +16,42 @@ export const createSubscriptionSchema = z
   .object({
     planId: z.string().uuid().optional(),
     establishmentId: z.string().uuid().optional(),
-    establishmentName: z.string().max(255).optional(),
-    establishmentSubdomain: z.string().max(255).optional(),
-    affiliate: z.string().max(255).optional(),
-    name: z.string().max(255).optional(),
+    establishmentName: z
+      .string(ValidatorMessage.REQUIRED_FIELD)
+      .min(2, ValidatorMessage.MIN_VALUE)
+      .max(255, ValidatorMessage.MAX_VALUE)
+      .optional(),
+    establishmentSubdomain: z
+      .string(ValidatorMessage.REQUIRED_FIELD)
+      .min(2, ValidatorMessage.MIN_VALUE)
+      .max(255, ValidatorMessage.MAX_VALUE)
+      .optional(),
+    affiliate: z
+      .string(ValidatorMessage.REQUIRED_FIELD)
+      .min(2, ValidatorMessage.MIN_VALUE)
+      .max(255, ValidatorMessage.MAX_VALUE)
+      .optional(),
+    name: z
+      .string(ValidatorMessage.REQUIRED_FIELD)
+      .min(2, ValidatorMessage.MIN_VALUE)
+      .max(255, ValidatorMessage.MAX_VALUE)
+      .optional(),
     description: z.string().optional(),
-    commission: z.string().max(255).optional(),
-    durationMonths: z.string().max(255).optional(),
-    durationDays: z.string().max(255).optional(),
+    commission: z
+      .string(ValidatorMessage.REQUIRED_FIELD)
+      .min(2, ValidatorMessage.MIN_VALUE)
+      .max(255, ValidatorMessage.MAX_VALUE)
+      .optional(),
+    durationMonths: z
+      .string(ValidatorMessage.REQUIRED_FIELD)
+      .min(2, ValidatorMessage.MIN_VALUE)
+      .max(255, ValidatorMessage.MAX_VALUE)
+      .optional(),
+    durationDays: z
+      .string(ValidatorMessage.REQUIRED_FIELD)
+      .min(2, ValidatorMessage.MIN_VALUE)
+      .max(255, ValidatorMessage.MAX_VALUE)
+      .optional(),
     totalValue: z.union([z.number(), z.string()]).optional(),
     receivedValue: z.union([z.number(), z.string()]).optional(),
     monthlyValue: z.union([z.number(), z.string()]).optional(),
@@ -31,20 +60,48 @@ export const createSubscriptionSchema = z
     marketplaceFeature: z.nativeEnum(YesNoStatusDto).optional(),
     variationFeature: z.nativeEnum(YesNoStatusDto).optional(),
     bannerFeature: z.nativeEnum(YesNoStatusDto).optional(),
-    gatewayReference: z.string().max(255).optional(),
-    gatewayLink: z.string().max(255).optional(),
-    gatewayTransaction: z.string().max(255).optional(),
+    gatewayReference: z
+      .string(ValidatorMessage.REQUIRED_FIELD)
+      .min(2, ValidatorMessage.MIN_VALUE)
+      .max(255, ValidatorMessage.MAX_VALUE)
+      .optional(),
+    gatewayLink: z
+      .string(ValidatorMessage.REQUIRED_FIELD)
+      .min(2, ValidatorMessage.MIN_VALUE)
+      .max(255, ValidatorMessage.MAX_VALUE)
+      .optional(),
+    gatewayTransaction: z
+      .string(ValidatorMessage.REQUIRED_FIELD)
+      .min(2, ValidatorMessage.MIN_VALUE)
+      .max(255, ValidatorMessage.MAX_VALUE)
+      .optional(),
     gatewayPayableAt: z.coerce.date().optional(),
     gatewayExpirationAt: z.coerce.date().optional(),
-    gatewayPayment: z.string().max(255).optional(),
+    gatewayPayment: z
+      .string(ValidatorMessage.REQUIRED_FIELD)
+      .min(2, ValidatorMessage.MIN_VALUE)
+      .max(255, ValidatorMessage.MAX_VALUE)
+      .optional(),
     mode: z.nativeEnum(SubscriptionModeDto).optional(),
-    voucherCode: z.string().max(255).optional(),
+    voucherCode: z
+      .string(ValidatorMessage.REQUIRED_FIELD)
+      .min(2, ValidatorMessage.MIN_VALUE)
+      .max(255, ValidatorMessage.MAX_VALUE)
+      .optional(),
     status: z.nativeEnum(SubscriptionStatusDto).optional(),
     used: z.coerce.boolean().optional(),
     expiresAt: z.coerce.date().optional(),
     createdAt: z.coerce.date().optional(),
-    excluded: z.string().max(255).optional(),
-    productLimit: z.string().max(255).optional(),
+    excluded: z
+      .string(ValidatorMessage.REQUIRED_FIELD)
+      .min(2, ValidatorMessage.MIN_VALUE)
+      .max(255, ValidatorMessage.MAX_VALUE)
+      .optional(),
+    productLimit: z
+      .string(ValidatorMessage.REQUIRED_FIELD)
+      .min(2, ValidatorMessage.MIN_VALUE)
+      .max(255, ValidatorMessage.MAX_VALUE)
+      .optional(),
   })
   .strict();
 

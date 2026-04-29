@@ -1,3 +1,4 @@
+import { ValidatorMessage } from "@/common/domain/validations";
 import { DeliveryFeeTypeDto } from "@/shared/dto/delivery-fee-type.dto";
 import { DocumentTypeDto } from "@/shared/dto/document-type.dto";
 import { EntityStatusDto } from "@/shared/dto/entity-status.dto";
@@ -18,73 +19,231 @@ export const createEstablishmentSchema = z
     segmentId: z.string().uuid().optional(),
     licenseId: z.coerce.number().int().optional(),
     oneSignalId: z.string().uuid().max(150).optional(),
-    affiliate: z.string().max(255).optional(),
-    name: z.string().max(255).optional(),
+    affiliate: z
+      .string(ValidatorMessage.REQUIRED_FIELD)
+      .min(2, ValidatorMessage.MIN_VALUE)
+      .max(255, ValidatorMessage.MAX_VALUE)
+      .optional(),
+    name: z
+      .string(ValidatorMessage.REQUIRED_FIELD)
+      .min(2, ValidatorMessage.MIN_VALUE)
+      .max(255, ValidatorMessage.MAX_VALUE)
+      .optional(),
     description: z.string().optional(),
-    stateLegacy: z.string().max(255).optional(),
-    cityLegacy: z.string().max(255).optional(),
-    subdomain: z.string().max(255).optional(),
-    profileImage: z.string().max(255).optional(),
-    coverImage: z.string().max(255).optional(),
-    themeColor: z.string().max(255).optional(),
+    stateLegacy: z
+      .string(ValidatorMessage.REQUIRED_FIELD)
+      .min(2, ValidatorMessage.MIN_VALUE)
+      .max(255, ValidatorMessage.MAX_VALUE)
+      .optional(),
+    cityLegacy: z
+      .string(ValidatorMessage.REQUIRED_FIELD)
+      .min(2, ValidatorMessage.MIN_VALUE)
+      .max(255, ValidatorMessage.MAX_VALUE)
+      .optional(),
+    subdomain: z
+      .string(ValidatorMessage.REQUIRED_FIELD)
+      .min(2, ValidatorMessage.MIN_VALUE)
+      .max(255, ValidatorMessage.MAX_VALUE)
+      .optional(),
+    profileImage: z
+      .string(ValidatorMessage.REQUIRED_FIELD)
+      .min(2, ValidatorMessage.MIN_VALUE)
+      .max(255, ValidatorMessage.MAX_VALUE)
+      .optional(),
+    coverImage: z
+      .string(ValidatorMessage.REQUIRED_FIELD)
+      .min(2, ValidatorMessage.MIN_VALUE)
+      .max(255, ValidatorMessage.MAX_VALUE)
+      .optional(),
+    themeColor: z
+      .string(ValidatorMessage.REQUIRED_FIELD)
+      .min(2, ValidatorMessage.MIN_VALUE)
+      .max(255, ValidatorMessage.MAX_VALUE)
+      .optional(),
     minimumOrder: z.union([z.number(), z.string()]).optional(),
     acceptsMoney: z.nativeEnum(YesNoStatusDto).optional(),
     acceptsDebitCard: z.nativeEnum(YesNoStatusDto).optional(),
-    debitCardBrands: z.string().max(255).optional(),
+    debitCardBrands: z
+      .string(ValidatorMessage.REQUIRED_FIELD)
+      .min(2, ValidatorMessage.MIN_VALUE)
+      .max(255, ValidatorMessage.MAX_VALUE)
+      .optional(),
     acceptsCreditCard: z.nativeEnum(YesNoStatusDto).optional(),
-    creditCardBrands: z.string().max(255).optional(),
+    creditCardBrands: z
+      .string(ValidatorMessage.REQUIRED_FIELD)
+      .min(2, ValidatorMessage.MIN_VALUE)
+      .max(255, ValidatorMessage.MAX_VALUE)
+      .optional(),
     acceptsFoodCard: z.nativeEnum(YesNoStatusDto).optional(),
-    foodCardBrands: z.string().max(255).optional(),
+    foodCardBrands: z
+      .string(ValidatorMessage.REQUIRED_FIELD)
+      .min(2, ValidatorMessage.MIN_VALUE)
+      .max(255, ValidatorMessage.MAX_VALUE)
+      .optional(),
     acceptsOtherPayment: z.nativeEnum(YesNoStatusDto).optional(),
-    otherPaymentDescription: z.string().max(255).optional(),
+    otherPaymentDescription: z
+      .string(ValidatorMessage.REQUIRED_FIELD)
+      .min(2, ValidatorMessage.MIN_VALUE)
+      .max(255, ValidatorMessage.MAX_VALUE)
+      .optional(),
     acceptsPix: z.nativeEnum(YesNoStatusDto).optional(),
-    zipCode: z.string().max(255).optional(),
-    addressNumber: z.string().max(255).optional(),
-    neighborhood: z.string().max(255).optional(),
-    street: z.string().max(255).optional(),
-    complement: z.string().max(255).optional(),
-    reference: z.string().max(255).optional(),
+    zipCode: z
+      .string(ValidatorMessage.REQUIRED_FIELD)
+      .min(2, ValidatorMessage.MIN_VALUE)
+      .max(255, ValidatorMessage.MAX_VALUE)
+      .optional(),
+    addressNumber: z
+      .string(ValidatorMessage.REQUIRED_FIELD)
+      .min(2, ValidatorMessage.MIN_VALUE)
+      .max(255, ValidatorMessage.MAX_VALUE)
+      .optional(),
+    neighborhood: z
+      .string(ValidatorMessage.REQUIRED_FIELD)
+      .min(2, ValidatorMessage.MIN_VALUE)
+      .max(255, ValidatorMessage.MAX_VALUE)
+      .optional(),
+    street: z
+      .string(ValidatorMessage.REQUIRED_FIELD)
+      .min(2, ValidatorMessage.MIN_VALUE)
+      .max(255, ValidatorMessage.MAX_VALUE)
+      .optional(),
+    complement: z
+      .string(ValidatorMessage.REQUIRED_FIELD)
+      .min(2, ValidatorMessage.MIN_VALUE)
+      .max(255, ValidatorMessage.MAX_VALUE)
+      .optional(),
+    reference: z
+      .string(ValidatorMessage.REQUIRED_FIELD)
+      .min(2, ValidatorMessage.MIN_VALUE)
+      .max(255, ValidatorMessage.MAX_VALUE)
+      .optional(),
     businessHoursText: z.string().optional(),
     allowPickup: z.nativeEnum(YesNoStatusDto).optional(),
     allowDelivery: z.nativeEnum(YesNoStatusDto).optional(),
     deliveryType: z.nativeEnum(DeliveryFeeTypeDto).optional(),
     deliveryValue: z.union([z.number(), z.string()]).optional(),
-    whatsapp: z.string().max(255).optional(),
-    contactEmail: z.string().max(255).email().optional(),
-    instagram: z.string().max(255).optional(),
-    facebook: z.string().max(255).optional(),
-    youtube: z.string().max(255).optional(),
-    analyticsCode: z.string().max(255).optional(),
-    pixelCode: z.string().max(255).optional(),
+    whatsapp: z
+      .string(ValidatorMessage.REQUIRED_FIELD)
+      .min(2, ValidatorMessage.MIN_VALUE)
+      .max(255, ValidatorMessage.MAX_VALUE)
+      .optional(),
+    contactEmail: z
+      .string(ValidatorMessage.REQUIRED_FIELD)
+      .min(2, ValidatorMessage.MIN_VALUE)
+      .max(255, ValidatorMessage.MAX_VALUE)
+      .email()
+      .optional(),
+    instagram: z
+      .string(ValidatorMessage.REQUIRED_FIELD)
+      .min(2, ValidatorMessage.MIN_VALUE)
+      .max(255, ValidatorMessage.MAX_VALUE)
+      .optional(),
+    facebook: z
+      .string(ValidatorMessage.REQUIRED_FIELD)
+      .min(2, ValidatorMessage.MIN_VALUE)
+      .max(255, ValidatorMessage.MAX_VALUE)
+      .optional(),
+    youtube: z
+      .string(ValidatorMessage.REQUIRED_FIELD)
+      .min(2, ValidatorMessage.MIN_VALUE)
+      .max(255, ValidatorMessage.MAX_VALUE)
+      .optional(),
+    analyticsCode: z
+      .string(ValidatorMessage.REQUIRED_FIELD)
+      .min(2, ValidatorMessage.MIN_VALUE)
+      .max(255, ValidatorMessage.MAX_VALUE)
+      .optional(),
+    pixelCode: z
+      .string(ValidatorMessage.REQUIRED_FIELD)
+      .min(2, ValidatorMessage.MIN_VALUE)
+      .max(255, ValidatorMessage.MAX_VALUE)
+      .optional(),
     customHtml: z.string().optional(),
-    responsibleName: z.string().max(255).optional(),
-    responsibleBirthDate: z.string().max(255).optional(),
+    responsibleName: z
+      .string(ValidatorMessage.REQUIRED_FIELD)
+      .min(2, ValidatorMessage.MIN_VALUE)
+      .max(255, ValidatorMessage.MAX_VALUE)
+      .optional(),
+    responsibleBirthDate: z
+      .string(ValidatorMessage.REQUIRED_FIELD)
+      .min(2, ValidatorMessage.MIN_VALUE)
+      .max(255, ValidatorMessage.MAX_VALUE)
+      .optional(),
     responsibleDocumentType: z.nativeEnum(DocumentTypeDto).optional(),
-    responsibleDocument: z.string().max(255).optional(),
-    email: z.string().max(255).email().optional(),
+    responsibleDocument: z
+      .string(ValidatorMessage.REQUIRED_FIELD)
+      .min(2, ValidatorMessage.MIN_VALUE)
+      .max(255, ValidatorMessage.MAX_VALUE)
+      .optional(),
+    email: z
+      .string(ValidatorMessage.REQUIRED_FIELD)
+      .min(2, ValidatorMessage.MIN_VALUE)
+      .max(255, ValidatorMessage.MAX_VALUE)
+      .email()
+      .optional(),
     status: z.nativeEnum(EntityStatusDto).optional(),
-    forcedStatus: z.string().max(255).optional(),
-    operationStatus: z.string().max(255).optional(),
+    forcedStatus: z
+      .string(ValidatorMessage.REQUIRED_FIELD)
+      .min(2, ValidatorMessage.MIN_VALUE)
+      .max(255, ValidatorMessage.MAX_VALUE)
+      .optional(),
+    operationStatus: z
+      .string(ValidatorMessage.REQUIRED_FIELD)
+      .min(2, ValidatorMessage.MIN_VALUE)
+      .max(255, ValidatorMessage.MAX_VALUE)
+      .optional(),
     marketplaceFeature: z.nativeEnum(YesNoStatusDto).optional(),
     variationFeature: z.nativeEnum(YesNoStatusDto).optional(),
     bannerFeature: z.nativeEnum(YesNoStatusDto).optional(),
     triggerFeature: z.nativeEnum(YesNoStatusDto).optional(),
-    expirationStatus: z.string().max(255).optional(),
-    excluded: z.string().max(255).optional(),
+    expirationStatus: z
+      .string(ValidatorMessage.REQUIRED_FIELD)
+      .min(2, ValidatorMessage.MIN_VALUE)
+      .max(255, ValidatorMessage.MAX_VALUE)
+      .optional(),
+    excluded: z
+      .string(ValidatorMessage.REQUIRED_FIELD)
+      .min(2, ValidatorMessage.MIN_VALUE)
+      .max(255, ValidatorMessage.MAX_VALUE)
+      .optional(),
     excludedAt: z.coerce.date().optional(),
-    productLimit: z.string().max(255).optional(),
+    productLimit: z
+      .string(ValidatorMessage.REQUIRED_FIELD)
+      .min(2, ValidatorMessage.MIN_VALUE)
+      .max(255, ValidatorMessage.MAX_VALUE)
+      .optional(),
     displayMode: z.string().max(11).optional(),
-    pixType: z.string().max(255).optional(),
+    pixType: z
+      .string(ValidatorMessage.REQUIRED_FIELD)
+      .min(2, ValidatorMessage.MIN_VALUE)
+      .max(255, ValidatorMessage.MAX_VALUE)
+      .optional(),
     pixKey: z.string().max(99).optional(),
     pixBeneficiary: z.string().max(25).optional(),
-    deliveryName: z.string().max(255).optional(),
-    pickupName: z.string().max(255).optional(),
-    tableName: z.string().max(255).optional(),
+    deliveryName: z
+      .string(ValidatorMessage.REQUIRED_FIELD)
+      .min(2, ValidatorMessage.MIN_VALUE)
+      .max(255, ValidatorMessage.MAX_VALUE)
+      .optional(),
+    pickupName: z
+      .string(ValidatorMessage.REQUIRED_FIELD)
+      .min(2, ValidatorMessage.MIN_VALUE)
+      .max(255, ValidatorMessage.MAX_VALUE)
+      .optional(),
+    tableName: z
+      .string(ValidatorMessage.REQUIRED_FIELD)
+      .min(2, ValidatorMessage.MIN_VALUE)
+      .max(255, ValidatorMessage.MAX_VALUE)
+      .optional(),
     deliveryEnabled: z.nativeEnum(YesNoStatusDto).optional(),
     pickupEnabled: z.nativeEnum(YesNoStatusDto).optional(),
     tableEnabled: z.nativeEnum(YesNoStatusDto).optional(),
     otherEnabled: z.nativeEnum(YesNoStatusDto).optional(),
-    otherName: z.string().max(255).optional(),
+    otherName: z
+      .string(ValidatorMessage.REQUIRED_FIELD)
+      .min(2, ValidatorMessage.MIN_VALUE)
+      .max(255, ValidatorMessage.MAX_VALUE)
+      .optional(),
     token: z.string().max(250).optional(),
     businessHoursJson: z.string().optional(),
     accessToken: z.string().max(250).optional(),

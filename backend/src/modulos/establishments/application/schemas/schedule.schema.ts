@@ -1,3 +1,4 @@
+import { ValidatorMessage } from "@/common/domain/validations";
 import { ScheduleActionDto } from "@/shared/dto/schedule-action.dto";
 import { z } from "zod";
 
@@ -19,7 +20,11 @@ export const createScheduleSchema = z
     thursday: z.coerce.boolean().optional(),
     friday: z.coerce.boolean().optional(),
     saturday: z.coerce.boolean().optional(),
-    time: z.string().max(255).optional(),
+    time: z
+      .string(ValidatorMessage.REQUIRED_FIELD)
+      .min(2, ValidatorMessage.MIN_VALUE)
+      .max(255, ValidatorMessage.MAX_VALUE)
+      .optional(),
     action: z.nativeEnum(ScheduleActionDto).optional(),
   })
   .strict();

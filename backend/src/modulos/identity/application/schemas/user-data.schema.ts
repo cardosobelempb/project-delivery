@@ -1,4 +1,4 @@
-import { DocumentTypeDto } from "@/shared/dto/document-type.dto";
+import { ValidatorMessage } from "@/common/domain/validations";
 import { z } from "zod";
 
 /**
@@ -11,14 +11,14 @@ import { z } from "zod";
  */
 export const createUserDataSchema = z
   .object({
-    userId: z.string().uuid(),
-    birthDate: z.string().max(255).optional(),
-    documentType: z.nativeEnum(DocumentTypeDto).optional(),
-    document: z.string().max(255).optional(),
-    stateLegacyId: z.string().uuid().max(255).optional(),
-    cityLegacyId: z.string().uuid().max(255).optional(),
-    phone: z.string().max(255).optional(),
-    commission: z.string().max(255).optional(),
+    userId: z.string(ValidatorMessage.REQUIRED_FIELD).uuid().optional(),
+    birthDate: z.string(ValidatorMessage.REQUIRED_FIELD).optional(),
+    documentType: z.enum(["CPF", "CNPJ", "RG", "OTHER"]).optional(),
+    document: z.string(ValidatorMessage.REQUIRED_FIELD).optional(),
+    stateLegacyId: z.string(ValidatorMessage.REQUIRED_FIELD).uuid().optional(),
+    cityLegacyId: z.string(ValidatorMessage.REQUIRED_FIELD).uuid().optional(),
+    phone: z.string(ValidatorMessage.REQUIRED_FIELD).optional(),
+    commission: z.string(ValidatorMessage.REQUIRED_FIELD).optional(),
   })
   .strict();
 
@@ -26,15 +26,27 @@ export const updateUserDataSchema = createUserDataSchema.partial().strict();
 
 export const userDataPresenterSchema = z
   .object({
-    id: z.string().uuid(),
-    userId: z.string().uuid(),
-    birthDate: z.string().max(255).nullable().optional(),
-    documentType: z.nativeEnum(DocumentTypeDto).nullable().optional(),
-    document: z.string().max(255).nullable().optional(),
-    stateLegacyId: z.string().uuid().max(255).nullable().optional(),
-    cityLegacyId: z.string().uuid().max(255).nullable().optional(),
-    phone: z.string().max(255).nullable().optional(),
-    commission: z.string().max(255).nullable().optional(),
+    id: z.string(ValidatorMessage.REQUIRED_FIELD).uuid(),
+    userId: z
+      .string(ValidatorMessage.REQUIRED_FIELD)
+      .uuid()
+      .nullable()
+      .optional(),
+    birthDate: z.string(ValidatorMessage.REQUIRED_FIELD).nullable().optional(),
+    documentType: z.enum(["CPF", "CNPJ", "RG", "OTHER"]).nullable().optional(),
+    document: z.string(ValidatorMessage.REQUIRED_FIELD).nullable().optional(),
+    stateLegacyId: z
+      .string(ValidatorMessage.REQUIRED_FIELD)
+      .uuid()
+      .nullable()
+      .optional(),
+    cityLegacyId: z
+      .string(ValidatorMessage.REQUIRED_FIELD)
+      .uuid()
+      .nullable()
+      .optional(),
+    phone: z.string(ValidatorMessage.REQUIRED_FIELD).nullable().optional(),
+    commission: z.string(ValidatorMessage.REQUIRED_FIELD).nullable().optional(),
   })
   .strict();
 
@@ -43,24 +55,24 @@ export type UpdateUserDataInput = z.infer<typeof updateUserDataSchema>;
 export type UserDataPresenter = z.infer<typeof userDataPresenterSchema>;
 
 export const createUserDataRawExample: CreateUserDataInput = {
-  userId: "550e8400-e29b-41d4-a716-446655440000",
-  birthDate: "valor_exemplo",
-  documentType: DocumentTypeDto.CPF,
-  document: "valor_exemplo",
-  stateLegacyId: "550e8400-e29b-41d4-a716-446655440000",
-  cityLegacyId: "550e8400-e29b-41d4-a716-446655440000",
+  userId: "00000000-0000-4000-8000-000000000000",
+  birthDate: "example",
+  documentType: "CPF",
+  document: "example",
+  stateLegacyId: "00000000-0000-4000-8000-000000000000",
+  cityLegacyId: "00000000-0000-4000-8000-000000000000",
   phone: "85999999999",
-  commission: "valor_exemplo",
+  commission: "example",
 };
 
 export const userDataPresenterRawExample: UserDataPresenter = {
-  id: "550e8400-e29b-41d4-a716-446655440000",
-  userId: "550e8400-e29b-41d4-a716-446655440000",
-  birthDate: "valor_exemplo",
-  documentType: DocumentTypeDto.CPF,
-  document: "valor_exemplo",
-  stateLegacyId: "550e8400-e29b-41d4-a716-446655440000",
-  cityLegacyId: "550e8400-e29b-41d4-a716-446655440000",
+  id: "00000000-0000-4000-8000-000000000000",
+  userId: "00000000-0000-4000-8000-000000000000",
+  birthDate: "example",
+  documentType: "CPF",
+  document: "example",
+  stateLegacyId: "00000000-0000-4000-8000-000000000000",
+  cityLegacyId: "00000000-0000-4000-8000-000000000000",
   phone: "85999999999",
-  commission: "valor_exemplo",
+  commission: "example",
 };

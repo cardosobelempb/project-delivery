@@ -1,4 +1,5 @@
-import { z } from 'zod';
+import { ValidatorMessage } from "@/common/domain/validations";
+import { z } from "zod";
 
 /**
  * Validações Zod para Segment.
@@ -8,20 +9,32 @@ import { z } from 'zod';
  * - update: valida payload parcial para atualização.
  * - presenter: valida objeto de saída/retorno da API.
  */
-export const createSegmentSchema = z.object({
-  icon: z.string().max(255).optional(),
-  name: z.string().max(75).optional(),
-  ageRating: z.string().max(255).optional(),
-}).strict();
+export const createSegmentSchema = z
+  .object({
+    icon: z
+      .string(ValidatorMessage.REQUIRED_FIELD)
+      .min(2, ValidatorMessage.MIN_VALUE)
+      .max(255, ValidatorMessage.MAX_VALUE)
+      .optional(),
+    name: z.string().max(75).optional(),
+    ageRating: z
+      .string(ValidatorMessage.REQUIRED_FIELD)
+      .min(2, ValidatorMessage.MIN_VALUE)
+      .max(255, ValidatorMessage.MAX_VALUE)
+      .optional(),
+  })
+  .strict();
 
 export const updateSegmentSchema = createSegmentSchema.partial().strict();
 
-export const segmentPresenterSchema = z.object({
-  id: z.string().uuid(),
-  icon: z.string().max(255).nullable().optional(),
-  name: z.string().max(75).nullable().optional(),
-  ageRating: z.string().max(255).nullable().optional(),
-}).strict();
+export const segmentPresenterSchema = z
+  .object({
+    id: z.string().uuid(),
+    icon: z.string().max(255).nullable().optional(),
+    name: z.string().max(75).nullable().optional(),
+    ageRating: z.string().max(255).nullable().optional(),
+  })
+  .strict();
 
 export type CreateSegmentInput = z.infer<typeof createSegmentSchema>;
 export type UpdateSegmentInput = z.infer<typeof updateSegmentSchema>;

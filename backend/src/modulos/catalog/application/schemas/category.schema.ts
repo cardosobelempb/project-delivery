@@ -1,3 +1,4 @@
+import { ValidatorMessage } from "@/common/domain/validations";
 import { EntityStatusDto } from "@/shared/dto/entity-status.dto";
 import { VisibilityStatusDto } from "@/shared/dto/visibility-status.dto";
 import { z } from "zod";
@@ -14,7 +15,11 @@ export const createCategorySchema = z
   .object({
     establishmentId: z.string().uuid().optional(),
     order: z.coerce.number().int(),
-    name: z.string().max(255).optional(),
+    name: z
+      .string(ValidatorMessage.REQUIRED_FIELD)
+      .min(2, ValidatorMessage.MIN_VALUE)
+      .max(255, ValidatorMessage.MAX_VALUE)
+      .optional(),
     visible: z.nativeEnum(VisibilityStatusDto).optional(),
     status: z.nativeEnum(EntityStatusDto).optional(),
     sunday: z.coerce.boolean().optional(),

@@ -1,3 +1,4 @@
+import { ValidatorMessage } from "@/common/domain/validations";
 import { VoucherStatusDto } from "@/shared/dto/voucher-status.dto";
 import { z } from "zod";
 
@@ -13,8 +14,16 @@ export const createVoucherSchema = z
   .object({
     planId: z.string().uuid().optional(),
     subscriptionId: z.string().uuid().optional(),
-    description: z.string().max(255).optional(),
-    code: z.string().max(255).optional(),
+    description: z
+      .string(ValidatorMessage.REQUIRED_FIELD)
+      .min(2, ValidatorMessage.MIN_VALUE)
+      .max(255, ValidatorMessage.MAX_VALUE)
+      .optional(),
+    code: z
+      .string(ValidatorMessage.REQUIRED_FIELD)
+      .min(2, ValidatorMessage.MIN_VALUE)
+      .max(255, ValidatorMessage.MAX_VALUE)
+      .optional(),
     status: z.nativeEnum(VoucherStatusDto).optional(),
     affiliate: z.string().max(5).optional(),
   })

@@ -1,4 +1,5 @@
-import { z } from 'zod';
+import { ValidatorMessage } from "@/common/domain/validations";
+import { z } from "zod";
 
 /**
  * Validações Zod para City.
@@ -8,20 +9,28 @@ import { z } from 'zod';
  * - update: valida payload parcial para atualização.
  * - presenter: valida objeto de saída/retorno da API.
  */
-export const createCitySchema = z.object({
-  name: z.string().max(120).optional(),
-  stateId: z.string().uuid().optional(),
-  subdomain: z.string().max(255).optional(),
-}).strict();
+export const createCitySchema = z
+  .object({
+    name: z.string().max(120).optional(),
+    stateId: z.string().uuid().optional(),
+    subdomain: z
+      .string(ValidatorMessage.REQUIRED_FIELD)
+      .min(2, ValidatorMessage.MIN_VALUE)
+      .max(255, ValidatorMessage.MAX_VALUE)
+      .optional(),
+  })
+  .strict();
 
 export const updateCitySchema = createCitySchema.partial().strict();
 
-export const cityPresenterSchema = z.object({
-  id: z.string().uuid(),
-  name: z.string().max(120).nullable().optional(),
-  stateId: z.string().uuid().nullable().optional(),
-  subdomain: z.string().max(255).nullable().optional(),
-}).strict();
+export const cityPresenterSchema = z
+  .object({
+    id: z.string().uuid(),
+    name: z.string().max(120).nullable().optional(),
+    stateId: z.string().uuid().nullable().optional(),
+    subdomain: z.string().max(255).nullable().optional(),
+  })
+  .strict();
 
 export type CreateCityInput = z.infer<typeof createCitySchema>;
 export type UpdateCityInput = z.infer<typeof updateCitySchema>;

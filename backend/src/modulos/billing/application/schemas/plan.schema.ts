@@ -1,3 +1,4 @@
+import { ValidatorMessage } from "@/common/domain/validations";
 import { EntityStatusDto } from "@/shared/dto/entity-status.dto";
 import { VisibilityStatusDto } from "@/shared/dto/visibility-status.dto";
 import { YesNoStatusDto } from "@/shared/dto/yes-no-status.dto";
@@ -14,23 +15,59 @@ import { z } from "zod";
 export const createPlanSchema = z
   .object({
     highlighted: z.nativeEnum(YesNoStatusDto).optional(),
-    name: z.string().max(255).optional(),
-    description: z.string().optional(),
-    commission: z.string().max(255).optional(),
-    durationMonths: z.string().max(255).optional(),
-    durationDays: z.string().max(255).optional(),
+    name: z
+      .string(ValidatorMessage.REQUIRED_FIELD)
+      .min(2, ValidatorMessage.MIN_VALUE)
+      .max(255, ValidatorMessage.MAX_VALUE)
+      .optional(),
+    description: z
+      .string(ValidatorMessage.REQUIRED_FIELD)
+      .min(2, ValidatorMessage.MIN_VALUE)
+      .max(255, ValidatorMessage.MAX_VALUE)
+      .optional(),
+    commission: z
+      .string(ValidatorMessage.REQUIRED_FIELD)
+      .min(2, ValidatorMessage.MIN_VALUE)
+      .max(255, ValidatorMessage.MAX_VALUE)
+      .optional(),
+    durationMonths: z
+      .string(ValidatorMessage.REQUIRED_FIELD)
+      .min(2, ValidatorMessage.MIN_VALUE)
+      .max(255, ValidatorMessage.MAX_VALUE)
+      .optional(),
+    durationDays: z
+      .string(ValidatorMessage.REQUIRED_FIELD)
+      .min(2, ValidatorMessage.MIN_VALUE)
+      .max(255, ValidatorMessage.MAX_VALUE)
+      .optional(),
     totalValue: z.union([z.number(), z.string()]).optional(),
     monthlyValue: z.union([z.number(), z.string()]).optional(),
-    link: z.string().max(255).optional(),
-    terms: z.string().optional(),
+    link: z
+      .string(ValidatorMessage.REQUIRED_FIELD)
+      .min(2, ValidatorMessage.MIN_VALUE)
+      .max(255, ValidatorMessage.MAX_VALUE)
+      .optional(),
+    terms: z
+      .string(ValidatorMessage.REQUIRED_FIELD)
+      .min(2, ValidatorMessage.MIN_VALUE)
+      .max(255, ValidatorMessage.MAX_VALUE)
+      .optional(),
     marketplaceFeature: z.nativeEnum(YesNoStatusDto).optional(),
     variationFeature: z.nativeEnum(YesNoStatusDto).optional(),
     bannerFeature: z.nativeEnum(YesNoStatusDto).optional(),
     triggerFeature: z.nativeEnum(YesNoStatusDto).optional(),
     visible: z.nativeEnum(VisibilityStatusDto).optional(),
     status: z.nativeEnum(EntityStatusDto).optional(),
-    order: z.string().max(255).optional(),
-    productLimit: z.string().max(255).optional(),
+    order: z
+      .string(ValidatorMessage.REQUIRED_FIELD)
+      .min(2, ValidatorMessage.MIN_VALUE)
+      .max(255, ValidatorMessage.MAX_VALUE)
+      .optional(),
+    productLimit: z
+      .string(ValidatorMessage.REQUIRED_FIELD)
+      .min(2, ValidatorMessage.MIN_VALUE)
+      .max(255, ValidatorMessage.MAX_VALUE)
+      .optional(),
   })
   .strict();
 

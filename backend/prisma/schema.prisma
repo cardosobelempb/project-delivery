@@ -135,22 +135,27 @@ enum ScheduleAction {
   CLOSE
 }
 
+
+// ============================================================
+// MODULE: IDENTITY_ACCESS
+// ============================================================
 model User {
   id           String       @id @default(uuid()) @db.Uuid
-  name         String?      @map("nome") @db.VarChar(255)
+  name         String?      @map("name") @db.VarChar(255)
   email        String?      @unique @db.VarChar(255)
-  passwordHash String?      @map("password") @db.VarChar(255)
+  passwordHash String?      @map("password_hash") @db.VarChar(255)
   level        UserLevel    @default(OPERATOR)
-  operation    YesNoStatus  @default(NO) @map("operacao")
+  operation    YesNoStatus  @default(NO) @map("operation")
   status       EntityStatus @default(ACTIVE)
   recoverKey   String?      @map("recover_key") @db.VarChar(255)
   keepAlive    String?      @map("keepalive") @db.VarChar(255)
-  commission   String?      @map("comis") @db.VarChar(255)
-  createdAt    DateTime?    @map("created")
+  commission   String?      @map("commission") @db.VarChar(255)
+  createdAt    DateTime?    @map("created_at")
   lastLoginAt  DateTime?    @map("last_login")
   updatedAt    DateTime?    @updatedAt @map("updated_at")
 
   profile        UserData?
+  address        Address?
   establishments Establishment[]
   logs           Log[]
 
@@ -161,14 +166,14 @@ model User {
 
 model UserData {
   id             String        @id @default(uuid()) @db.Uuid
-  userId         String        @unique @map("rel_users_id") @db.Uuid
-  birthDate      String?       @map("nascimento") @db.VarChar(255)
-  documentType   DocumentType? @map("documento_tipo")
-  document       String?       @map("documento") @db.VarChar(255)
-  stateLegacyId  String?       @map("estado") @db.VarChar(255)
-  cityLegacyId   String?       @map("cidade") @db.VarChar(255)
-  phone          String?       @map("telefone") @db.VarChar(255)
-  commission     String?       @map("comissao") @db.VarChar(255)
+  userId         String        @unique @map("user_id") @db.Uuid
+  birthDate      String?       @map("birth_date") @db.VarChar(255)
+  documentType   DocumentType? @map("document_type")
+  document       String?       @map("document") @db.VarChar(255)
+  stateLegacyId  String?       @map("state_id") @db.VarChar(255)
+  cityLegacyId   String?       @map("city_id") @db.VarChar(255)
+  phone          String?       @map("phone") @db.VarChar(255)
+  commission     String?       @map("commission") @db.VarChar(255)
 
   user User @relation(fields: [userId], references: [id], onDelete: Cascade)
 
@@ -176,147 +181,87 @@ model UserData {
   @@map("users_data")
 }
 
+
+// ============================================================
+// MODULE: GEO
+// ============================================================
 model State {
   id     String  @id @default(uuid()) @db.Uuid
-  name   String? @map("nome") @db.VarChar(75)
+  name   String? @map("name") @db.VarChar(75)
   uf     String? @db.VarChar(5)
 
-  cities City[]
+  cities    City[]
+  addresses Address[]
 
   @@unique([uf])
-  @@map("estados")
+  @@map("states")
 }
 
 model City {
   id        String  @id @default(uuid()) @db.Uuid
-  name      String? @map("nome") @db.VarChar(120)
-  stateId   String? @map("estado") @db.Uuid
-  subdomain String? @map("subdominio") @db.VarChar(255)
+  name      String? @map("name") @db.VarChar(120)
+  stateId   String? @map("state_id") @db.Uuid
+  subdomain String? @map("subdomain") @db.VarChar(255)
 
   state         State?          @relation(fields: [stateId], references: [id], onDelete: SetNull)
   marketplaces  MarketplaceBanner[]
   customers     Customer[]
+  addresses     Address[]
 
   @@index([stateId])
   @@index([subdomain])
-  @@map("cidades")
+  @@map("cities")
 }
 
+
+// ============================================================
+// MODULE: ESTABLISHMENTS_CORE
+// ============================================================
 model Segment {
   id         String  @id @default(uuid()) @db.Uuid
-  icon       String? @map("icone") @db.VarChar(255)
-  name       String? @map("nome") @db.VarChar(75)
-  ageRating  String? @map("censura") @db.VarChar(255)
+  icon       String? @map("icon") @db.VarChar(255)
+  name       String? @map("name") @db.VarChar(75)
+  ageRating  String? @map("age_rating") @db.VarChar(255)
 
   establishments Establishment[]
 
-  @@map("segmentos")
+  @@map("segments")
 }
 
 model Establishment {
-  id                              String       @id @default(uuid()) @db.Uuid
-  userId                          String?      @map("rel_users_id") @db.Uuid
-  segmentId                       String?      @map("segmento") @db.Uuid
-  licenseId                       Int          @default(0) @map("id_licenca")
-  oneSignalId                     String?      @map("id_onesignal") @db.VarChar(150)
-  affiliate                       String?      @map("afiliado") @db.VarChar(255)
-  name                            String?      @map("nome") @db.VarChar(255)
-  description                     String?      @map("descricao") @db.Text
-  stateLegacy                     String?      @map("estado") @db.VarChar(255)
-  cityLegacy                      String?      @map("cidade") @db.VarChar(255)
-  subdomain                       String?      @unique @map("subdominio") @db.VarChar(255)
-  profileImage                    String?      @map("perfil") @db.VarChar(255)
-  coverImage                      String?      @map("capa") @db.VarChar(255)
-  themeColor                      String?      @map("cor") @db.VarChar(255)
-  minimumOrder                    Decimal?     @map("pedido_minimo") @db.Decimal(10, 2)
-  acceptsMoney                    YesNoStatus? @map("pagamento_dinheiro")
-  acceptsDebitCard                YesNoStatus? @map("pagamento_cartao_debito")
-  debitCardBrands                 String?      @map("pagamento_cartao_debito_bandeiras") @db.VarChar(255)
-  acceptsCreditCard               YesNoStatus? @map("pagamento_cartao_credito")
-  creditCardBrands                String?      @map("pagamento_cartao_credito_bandeiras") @db.VarChar(255)
-  acceptsFoodCard                 YesNoStatus? @map("pagamento_cartao_alimentacao")
-  foodCardBrands                  String?      @map("pagamento_cartao_alimentacao_bandeiras") @db.VarChar(255)
-  acceptsOtherPayment             YesNoStatus? @map("pagamento_outros")
-  otherPaymentDescription         String?      @map("pagamento_outros_descricao") @db.VarChar(255)
-  acceptsPix                      YesNoStatus? @map("pagamento_pix")
-  zipCode                         String?      @map("endereco_cep") @db.VarChar(255)
-  addressNumber                   String?      @map("endereco_numero") @db.VarChar(255)
-  neighborhood                    String?      @map("endereco_bairro") @db.VarChar(255)
-  street                          String?      @map("endereco_rua") @db.VarChar(255)
-  complement                      String?      @map("endereco_complemento") @db.VarChar(255)
-  reference                       String?      @map("endereco_referencia") @db.VarChar(255)
-  businessHoursText               String?      @map("horario_funcionamento") @db.Text
-  allowPickup                     YesNoStatus? @map("entrega_retirada")
-  allowDelivery                   YesNoStatus? @map("entrega_entrega")
-  deliveryType                    DeliveryFeeType? @map("entrega_entrega_tipo")
-  deliveryValue                   Decimal?     @map("entrega_entrega_valor") @db.Decimal(10, 2)
-  whatsapp                        String?      @map("contato_whatsapp") @db.VarChar(255)
-  contactEmail                    String?      @map("contato_email") @db.VarChar(255)
-  instagram                       String?      @map("contato_instagram") @db.VarChar(255)
-  facebook                        String?      @map("contato_facebook") @db.VarChar(255)
-  youtube                         String?      @map("contato_youtube") @db.VarChar(255)
-  analyticsCode                   String?      @map("estatisticas_analytics") @db.VarChar(255)
-  pixelCode                       String?      @map("estatisticas_pixel") @db.VarChar(255)
-  customHtml                      String?      @map("html") @db.Text
-  responsibleName                 String?      @map("responsavel_nome") @db.VarChar(255)
-  responsibleBirthDate            String?      @map("responsavel_nascimento") @db.VarChar(255)
-  responsibleDocumentType         DocumentType? @map("responsavel_documento_tipo")
-  responsibleDocument             String?      @map("responsavel_documento") @db.VarChar(255)
-  email                           String?      @db.VarChar(255)
-  status                          EntityStatus @default(ACTIVE)
-  forcedStatus                    String?      @map("status_force") @db.VarChar(255)
-  operationStatus                 String?      @map("funcionamento") @db.VarChar(255)
-  marketplaceFeature              YesNoStatus? @map("funcionalidade_marketplace")
-  variationFeature                YesNoStatus? @map("funcionalidade_variacao")
-  bannerFeature                   YesNoStatus? @map("funcionalidade_banners")
-  triggerFeature                  YesNoStatus  @default(YES) @map("funcionalidade_disparador")
-  expirationStatus                String?      @default("1") @map("expiracao") @db.VarChar(255)
-  excluded                        String?      @db.VarChar(255)
-  excludedAt                      DateTime?    @map("excluded_date")
-  productLimit                    String?      @map("limite_produtos") @db.VarChar(255)
-  displayMode                     String?      @default("1") @map("exibicao") @db.VarChar(11)
-  pixType                         String?      @map("tipopix") @db.VarChar(255)
-  pixKey                          String?      @map("chave_pix") @db.VarChar(99)
-  pixBeneficiary                  String?      @map("beneficiario_pix") @db.VarChar(25)
-  deliveryName                    String?      @default("Delivery") @map("nomedelivery") @db.VarChar(255)
-  pickupName                      String?      @default("Retirada no Balcão") @map("nomeretirada") @db.VarChar(255)
-  tableName                       String?      @default("Mesa") @map("nomemesa") @db.VarChar(255)
-  deliveryEnabled                 YesNoStatus  @default(YES) @map("delivery")
-  pickupEnabled                   YesNoStatus  @default(YES) @map("balcao")
-  tableEnabled                    YesNoStatus  @default(YES) @map("mesa")
-  otherEnabled                    YesNoStatus  @default(NO) @map("outros")
-  otherName                       String?      @map("nomeoutros") @db.VarChar(255)
-  token                           String?      @db.VarChar(250)
-  businessHoursJson               String?      @map("horarios") @db.Text
-  accessToken                     String?      @map("accesstoken") @db.VarChar(250)
-  calculateShipping               YesNoStatus  @default(NO) @map("calcularfrete")
-  shippingType                    DeliveryFeeType? @map("tipofrete")
-  shippingCompany                 String?      @map("empresa") @db.VarChar(150)
-  shippingPassword                String?      @map("senha") @db.VarChar(50)
-  establishmentPixData            String?      @map("pix_estabelecimento") @db.Text
-  mercadoPagoEnabled              YesNoStatus  @default(NO) @map("pagamento_mercadopago")
-  mercadoPagoSandbox              Boolean      @default(false) @map("pagamento_mercadopago_sandbox")
-  mercadoPagoPublicKey            String?      @map("pagamento_mercadopago_public") @db.VarChar(200)
-  mercadoPagoSecretKey            String?      @map("pagamento_mercadopago_secret") @db.VarChar(200)
-  pagSeguroEnabled                YesNoStatus  @default(NO) @map("pagamento_pagseguro")
-  pagSeguroSandbox                Boolean      @default(false) @map("pagamento_pagseguro_sandbox")
-  pagSeguroEmail                  String?      @map("pagamento_pagseguro_email") @db.VarChar(200)
-  pagSeguroToken                  String?      @map("pagamento_pagseguro_token") @db.VarChar(200)
-  mercadoPagoPixEnabled           YesNoStatus  @default(NO) @map("pagamento_mercadopago_pix")
-  mercadoPagoPixToken             String?      @map("pagamento_mercadopago_pix_token") @db.VarChar(100)
-  getnetEnabled                   YesNoStatus  @default(NO) @map("pagamento_getnet")
-  getnetSandbox                   Boolean      @default(false) @map("pagamento_getnet_sandbox")
-  getnetClientId                  String?      @map("pagamento_getnet_client_id") @db.VarChar(200)
-  getnetClientSecret              String?      @map("pagamento_getnet_client_secret") @db.VarChar(200)
-  getnetSellerId                  String?      @map("pagamento_getnet_seller_id") @db.VarChar(200)
-  validity                        Int          @default(0) @map("validade")
-  triggerCount                    Int          @default(0) @map("disparo")
-  createdAt                       DateTime?    @map("created")
-  updatedAt                       DateTime?    @updatedAt @map("last_modified")
-  lastLoginAt                     DateTime?    @map("last_login")
+  id               String       @id @default(uuid()) @db.Uuid
+  userId           String?      @map("user_id") @db.Uuid
+  segmentId        String?      @map("segment_id") @db.Uuid
+  licenseId        Int          @default(0) @map("license_id")
+  oneSignalId      String?      @map("onesignal_id") @db.VarChar(150)
+  affiliate        String?      @map("affiliate") @db.VarChar(255)
+  name             String?      @map("name") @db.VarChar(255)
+  description      String?      @map("description") @db.Text
+  subdomain        String?      @unique @map("subdomain") @db.VarChar(255)
+  profileImage     String?      @map("profile_image") @db.VarChar(255)
+  coverImage       String?      @map("cover_image") @db.VarChar(255)
+  themeColor       String?      @map("theme_color") @db.VarChar(255)
+  email            String?      @db.VarChar(255)
+  status           EntityStatus @default(ACTIVE)
+  forcedStatus     String?      @map("status_force") @db.VarChar(255)
+  operationStatus  String?      @map("operation_status") @db.VarChar(255)
+  expirationStatus String?      @default("1") @map("expiration_status") @db.VarChar(255)
+  excluded         String?      @db.VarChar(255)
+  excludedAt       DateTime?    @map("excluded_date")
+  createdAt        DateTime?    @map("created_at")
+  updatedAt        DateTime?    @updatedAt @map("last_modified")
+  lastLoginAt      DateTime?    @map("last_login")
 
-  user          User?          @relation(fields: [userId], references: [id], onDelete: SetNull)
-  segment       Segment?       @relation(fields: [segmentId], references: [id], onDelete: SetNull)
+  user          User?    @relation(fields: [userId], references: [id], onDelete: SetNull)
+  segment       Segment? @relation(fields: [segmentId], references: [id], onDelete: SetNull)
+
+  address       Address?
+  contact       Contact?
+  setting       Setting?
+  flag          Flag?
+  integration   Integration?
+  responsible   Responsible?
+
   schedules     Schedule[]
   subscriptions Subscription[]
   banners       Banner[]
@@ -335,12 +280,169 @@ model Establishment {
   @@index([segmentId])
   @@index([status])
   @@index([subdomain])
-  @@map("estabelecimentos")
+  @@map("establishments")
+}
+
+// ============================================================
+// MODULE: SHARED_ADDRESSES
+// Reutilizável por Establishment, User e Customer.
+// ============================================================
+model Address {
+  id              String    @id @default(uuid()) @db.Uuid
+  establishmentId String?   @unique @map("establishment_id") @db.Uuid
+  userId          String?   @unique @map("user_id") @db.Uuid
+  customerId      String?   @unique @map("customer_id") @db.Uuid
+  stateId         String?   @map("state_id") @db.Uuid
+  cityId          String?   @map("city_id") @db.Uuid
+  stateLegacy     String?   @map("state_legacy") @db.VarChar(255)
+  cityLegacy      String?   @map("city_legacy") @db.VarChar(255)
+  zipCode         String?   @map("zip_code") @db.VarChar(255)
+  addressNumber   String?   @map("address_number") @db.VarChar(255)
+  neighborhood    String?   @map("neighborhood") @db.VarChar(255)
+  street          String?   @map("street") @db.VarChar(255)
+  complement      String?   @map("complement") @db.VarChar(255)
+  reference       String?   @map("reference") @db.VarChar(255)
+  createdAt       DateTime? @map("created_at")
+  updatedAt       DateTime? @updatedAt @map("updated_at")
+
+  establishment Establishment? @relation(fields: [establishmentId], references: [id], onDelete: Cascade)
+  user          User?          @relation(fields: [userId], references: [id], onDelete: Cascade)
+  customer      Customer?      @relation(fields: [customerId], references: [id], onDelete: Cascade)
+  state         State?         @relation(fields: [stateId], references: [id], onDelete: SetNull)
+  city          City?          @relation(fields: [cityId], references: [id], onDelete: SetNull)
+
+  @@index([establishmentId])
+  @@index([userId])
+  @@index([customerId])
+  @@index([stateId])
+  @@index([cityId])
+
+  @@map("addresses")
+}
+
+model Contact {
+  id              String  @id @default(uuid()) @db.Uuid
+  establishmentId String  @unique @map("establishment_id") @db.Uuid
+  whatsapp        String? @map("whatsapp") @db.VarChar(255)
+  email           String? @map("email") @db.VarChar(255)
+  instagram       String? @map("instagram") @db.VarChar(255)
+  facebook        String? @map("facebook") @db.VarChar(255)
+  youtube         String? @map("youtube") @db.VarChar(255)
+
+  establishment Establishment @relation(fields: [establishmentId], references: [id], onDelete: Cascade)
+
+  @@index([establishmentId])
+  @@map("establishment_contact")
+}
+
+model Setting {
+  id                      String           @id @default(uuid()) @db.Uuid
+  establishmentId         String           @unique @map("establishment_id") @db.Uuid
+  minimumOrder            Decimal?         @map("minimum_order") @db.Decimal(10, 2)
+  acceptsMoney            YesNoStatus?     @map("payment_cash")
+  acceptsDebitCard        YesNoStatus?     @map("payment_debit_card")
+  debitCardBrands         String?          @map("payment_debit_card_brands") @db.VarChar(255)
+  acceptsCreditCard       YesNoStatus?     @map("payment_credit_card")
+  creditCardBrands        String?          @map("payment_credit_card_brands") @db.VarChar(255)
+  acceptsFoodCard         YesNoStatus?     @map("payment_food_card")
+  foodCardBrands          String?          @map("payment_food_card_brands") @db.VarChar(255)
+  acceptsOtherPayment     YesNoStatus?     @map("payment_other")
+  otherPaymentDescription String?          @map("payment_other_description") @db.VarChar(255)
+  acceptsPix              YesNoStatus?     @map("payment_pix")
+  pixType                 String?          @map("pix_type") @db.VarChar(255)
+  pixKey                  String?          @map("pix_key") @db.VarChar(99)
+  pixBeneficiary          String?          @map("pix_beneficiary") @db.VarChar(25)
+  establishmentPixData    String?          @map("establishment_pix_data") @db.Text
+  businessHoursText       String?          @map("business_hours_text") @db.Text
+  businessHoursJson       String?          @map("business_hours_json") @db.Text
+  allowPickup             YesNoStatus?     @map("pickup_enabled_legacy")
+  allowDelivery           YesNoStatus?     @map("delivery_enabled_legacy")
+  deliveryType            DeliveryFeeType? @map("delivery_fee_type")
+  deliveryValue           Decimal?         @map("delivery_fee_value") @db.Decimal(10, 2)
+  productLimit            String?          @map("product_limit") @db.VarChar(255)
+  displayMode             String?          @default("1") @map("display_mode") @db.VarChar(11)
+  deliveryName            String?          @default("Delivery") @map("delivery_name") @db.VarChar(255)
+  pickupName              String?          @default("Retirada no Balcão") @map("pickup_name") @db.VarChar(255)
+  tableName               String?          @default("Mesa") @map("table_name") @db.VarChar(255)
+  deliveryEnabled         YesNoStatus      @default(YES) @map("delivery")
+  pickupEnabled           YesNoStatus      @default(YES) @map("pickup_enabled")
+  tableEnabled            YesNoStatus      @default(YES) @map("table_enabled")
+  otherEnabled            YesNoStatus      @default(NO) @map("other_enabled")
+  otherName               String?          @map("other_name") @db.VarChar(255)
+  calculateShipping       YesNoStatus      @default(NO) @map("calculate_shipping")
+  shippingType            DeliveryFeeType? @map("shipping_type")
+  shippingCompany         String?          @map("shipping_company") @db.VarChar(150)
+  shippingPassword        String?          @map("shipping_password") @db.VarChar(50)
+  validity                Int              @default(0) @map("validity")
+  triggerCount            Int              @default(0) @map("trigger_count")
+
+  establishment Establishment @relation(fields: [establishmentId], references: [id], onDelete: Cascade)
+
+  @@index([establishmentId])
+  @@map("establishment_settings")
+}
+
+model Flag {
+  id                 String       @id @default(uuid()) @db.Uuid
+  establishmentId    String       @unique @map("establishment_id") @db.Uuid
+  marketplaceFeature YesNoStatus? @map("marketplace_feature")
+  variationFeature   YesNoStatus? @map("variation_feature")
+  bannerFeature      YesNoStatus? @map("banner_feature")
+  triggerFeature     YesNoStatus  @default(YES) @map("trigger_feature")
+
+  establishment Establishment @relation(fields: [establishmentId], references: [id], onDelete: Cascade)
+
+  @@index([establishmentId])
+  @@map("establishment_flags")
+}
+
+model Integration {
+  id                    String      @id @default(uuid()) @db.Uuid
+  establishmentId       String      @unique @map("establishment_id") @db.Uuid
+  analyticsCode         String?     @map("analytics_code") @db.VarChar(255)
+  pixelCode             String?     @map("pixel_code") @db.VarChar(255)
+  customHtml            String?     @map("html") @db.Text
+  token                 String?     @db.VarChar(250)
+  accessToken           String?     @map("access_token") @db.VarChar(250)
+  mercadoPagoEnabled    YesNoStatus @default(NO) @map("mercado_pago_payment")
+  mercadoPagoSandbox    Boolean     @default(false) @map("mercado_pago_sandbox")
+  mercadoPagoPublicKey  String?     @map("mercado_pago_public_key") @db.VarChar(200)
+  mercadoPagoSecretKey  String?     @map("mercado_pago_secret_key") @db.VarChar(200)
+  pagSeguroEnabled      YesNoStatus @default(NO) @map("pagseguro_payment")
+  pagSeguroSandbox      Boolean     @default(false) @map("pagseguro_sandbox")
+  pagSeguroEmail        String?     @map("pagseguro_email") @db.VarChar(200)
+  pagSeguroToken        String?     @map("pagseguro_token") @db.VarChar(200)
+  mercadoPagoPixEnabled YesNoStatus @default(NO) @map("mercado_pago_pix_payment")
+  mercadoPagoPixToken   String?     @map("mercado_pago_pix_token") @db.VarChar(100)
+  getnetEnabled         YesNoStatus @default(NO) @map("getnet_payment")
+  getnetSandbox         Boolean     @default(false) @map("getnet_sandbox")
+  getnetClientId        String?     @map("getnet_client_id") @db.VarChar(200)
+  getnetClientSecret    String?     @map("getnet_client_secret") @db.VarChar(200)
+  getnetSellerId        String?     @map("getnet_seller_id") @db.VarChar(200)
+
+  establishment Establishment @relation(fields: [establishmentId], references: [id], onDelete: Cascade)
+
+  @@index([establishmentId])
+  @@map("establishment_integrations")
+}
+
+model Responsible {
+  id              String        @id @default(uuid()) @db.Uuid
+  establishmentId String        @unique @map("establishment_id") @db.Uuid
+  name            String?       @map("responsible_name") @db.VarChar(255)
+  birthDate       String?       @map("responsible_birth_date") @db.VarChar(255)
+  documentType    DocumentType? @map("responsible_document_type")
+  document        String?       @map("responsible_document") @db.VarChar(255)
+
+  establishment Establishment @relation(fields: [establishmentId], references: [id], onDelete: Cascade)
+
+  @@index([establishmentId])
+  @@map("establishment_responsibles")
 }
 
 model Schedule {
   id              String         @id @default(uuid()) @db.Uuid
-  establishmentId String?        @map("rel_estabelecimentos_id") @db.Uuid
+  establishmentId String?        @map("establishment_id") @db.Uuid
   sunday          Boolean?       @map("sun")
   monday          Boolean?       @map("mon")
   tuesday         Boolean?       @map("tue")
@@ -348,93 +450,99 @@ model Schedule {
   thursday        Boolean?       @map("thu")
   friday          Boolean?       @map("fri")
   saturday        Boolean?       @map("sat")
-  time            String?        @map("hora") @db.VarChar(255)
-  action          ScheduleAction? @map("acao")
+  time            String?        @map("time") @db.VarChar(255)
+  action          ScheduleAction? @map("action")
 
   establishment Establishment? @relation(fields: [establishmentId], references: [id], onDelete: Cascade)
 
   @@index([establishmentId])
-  @@map("agendamentos")
+  @@map("schedules")
 }
 
+
+// ============================================================
+// MODULE: CATALOG
+// ============================================================
 model Category {
   id              String           @id @default(uuid()) @db.Uuid
-  establishmentId String?          @map("rel_estabelecimentos_id") @db.Uuid
-  order           Int              @map("ordem")
-  name            String?          @map("nome") @db.VarChar(255)
+  establishmentId String?          @map("establishment_id") @db.Uuid
+  order           Int              @map("sort_order")
+  name            String?          @map("name") @db.VarChar(255)
   visible         VisibilityStatus? @map("visible")
   status          EntityStatus     @default(ACTIVE)
   updatedAt       DateTime?        @updatedAt @map("last_modified")
-  sunday          Boolean          @default(true) @map("domingo")
-  monday          Boolean          @default(true) @map("segunda")
-  tuesday         Boolean          @default(true) @map("terca")
-  wednesday       Boolean          @default(true) @map("quarta")
-  thursday        Boolean          @default(true) @map("quinta")
-  friday          Boolean          @default(true) @map("sexta")
-  saturday        Boolean          @default(true) @map("sabado")
-  holidays        Boolean          @default(false) @map("feriados")
+  sunday          Boolean          @default(true) @map("sunday")
+  monday          Boolean          @default(true) @map("monday")
+  tuesday         Boolean          @default(true) @map("tuesday")
+  wednesday       Boolean          @default(true) @map("wednesday")
+  thursday        Boolean          @default(true) @map("thursday")
+  friday          Boolean          @default(true) @map("friday")
+  saturday        Boolean          @default(true) @map("saturday")
+  holidays        Boolean          @default(false) @map("holidays")
 
   establishment Establishment? @relation(fields: [establishmentId], references: [id], onDelete: Cascade)
   products      Product[]
 
   @@index([establishmentId])
   @@index([status])
-  @@map("categorias")
+  @@map("categories")
 }
 
 model Product {
   id               String            @id @default(uuid()) @db.Uuid
-  establishmentId  String?           @map("rel_estabelecimentos_id") @db.Uuid
-  categoryId       String?           @map("rel_categorias_id") @db.Uuid
-  featured         YesNoStatus?      @map("destaque")
+  establishmentId  String?           @map("establishment_id") @db.Uuid
+  featured         YesNoStatus?      @map("featured")
   reference        String?           @map("ref") @db.VarChar(255)
-  pdvCode          Int?              @map("codigo_pdv")
-  points           Float             @default(0) @map("pontos")
-  allowExchange    Boolean           @default(false) @map("permitir_troca")
-  itemPoints       Int               @default(0) @map("pontos_item")
-  name             String?           @map("nome") @db.VarChar(255)
+  pdvCode          Int?              @map("pdv_code")
+  points           Float             @default(0) @map("points")
+  allowExchange    Boolean           @default(false) @map("allow_exchange")
+  itemPoints       Int               @default(0) @map("item_points")
+  name             String?           @map("name") @db.VarChar(255)
   videoLink        String?           @map("video_link") @db.VarChar(255)
-  description      String?           @map("descricao") @db.Text
-  price            Decimal?          @map("valor") @db.Decimal(10, 2)
-  offer            YesNoStatus?      @map("oferta")
-  promotionalPrice Decimal?          @map("valor_promocional") @db.Decimal(10, 2)
-  variationJson    String?           @map("variacao") @db.Text
+  description      String?           @map("description") @db.Text
+  price            Decimal?          @map("value") @db.Decimal(10, 2)
+  offer            YesNoStatus?      @map("offer")
+  promotionalPrice Decimal?          @map("promotional_value") @db.Decimal(10, 2)
+  variationJson    String?           @map("variation_json") @db.Text
   visible          VisibilityStatus? @map("visible")
   status           EntityStatus      @default(ACTIVE)
-  orderStatus      String?           @default("1") @map("statusp") @db.VarChar(2)
-  integrated       String?           @map("integrado") @db.VarChar(255)
-  shippingWeight   Float?            @map("pesofrete")
-  shippingHeight   Float?            @map("alturafrete")
-  shippingWidth    Float?            @map("largurafrete")
-  shippingLength   Float?            @map("comprimentofrete")
-  shippingDiameter Float?            @map("diametrofrete")
-  stockEnabled     YesNoStatus       @default(YES) @map("estoque")
-  position         String?           @default("0") @map("posicao") @db.VarChar(9)
-  createdAt        DateTime?         @map("created")
+  orderStatus      String?           @default("1") @map("public_status") @db.VarChar(2)
+  integrated       String?           @map("integrated") @db.VarChar(255)
+  shippingWeight   Float?            @map("shipping_weight")
+  shippingHeight   Float?            @map("shipping_height")
+  shippingWidth    Float?            @map("shipping_width")
+  shippingLength   Float?            @map("shipping_length")
+  shippingDiameter Float?            @map("shipping_diameter")
+  stockEnabled     YesNoStatus       @default(YES) @map("stock_enabled")
+  position         String?           @default("0") @map("position") @db.VarChar(9)
+  createdAt        DateTime?         @map("created_at")
   updatedAt        DateTime?         @updatedAt @map("last_modified")
 
   establishment Establishment? @relation(fields: [establishmentId], references: [id], onDelete: Cascade)
-  category      Category?      @relation(fields: [categoryId], references: [id], onDelete: SetNull)
-  media         Media[]
+  categories      Category[]
+  medias         Media[]
   validities    Validity[]
 
   @@index([establishmentId])
-  @@index([categoryId])
   @@index([status])
   @@index([name])
-  @@map("produtos")
+  @@map("products")
 }
 
+
+// ============================================================
+// MODULE: MARKETING
+// ============================================================
 model Banner {
   id              String       @id @default(uuid()) @db.Uuid
-  establishmentId String?      @map("rel_estabelecimentos_id") @db.Uuid
-  title           String?      @map("titulo") @db.VarChar(255)
-  desktopImage    String?      @map("desktop") @db.VarChar(255)
-  mobileImage     String?      @map("mobile") @db.VarChar(255)
+  establishmentId String?      @map("establishment_id") @db.Uuid
+  title           String?      @map("title") @db.VarChar(255)
+  desktopImage    String?      @map("desktop_image") @db.VarChar(255)
+  mobileImage     String?      @map("mobile_image") @db.VarChar(255)
   videoLink       String?      @map("video_link") @db.VarChar(255)
   link            String?      @db.VarChar(255)
   status          EntityStatus @default(ACTIVE)
-  createdAt       DateTime?    @map("created")
+  createdAt       DateTime?    @map("created_at")
   updatedAt       DateTime?    @updatedAt @map("last_modified")
 
   establishment Establishment? @relation(fields: [establishmentId], references: [id], onDelete: Cascade)
@@ -446,15 +554,15 @@ model Banner {
 
 model MarketplaceBanner {
   id              String       @id @default(uuid()) @db.Uuid
-  establishmentId String?      @map("rel_estabelecimentos_id") @db.Uuid
-  cityId          String?      @map("rel_cidade_id") @db.Uuid
-  title           String?      @map("titulo") @db.VarChar(255)
-  desktopImage    String?      @map("desktop") @db.VarChar(255)
-  mobileImage     String?      @map("mobile") @db.VarChar(255)
+  establishmentId String?      @map("establishment_id") @db.Uuid
+  cityId          String?      @map("city_id") @db.Uuid
+  title           String?      @map("title") @db.VarChar(255)
+  desktopImage    String?      @map("desktop_image") @db.VarChar(255)
+  mobileImage     String?      @map("mobile_image") @db.VarChar(255)
   videoLink       String?      @map("video_link") @db.VarChar(255)
   link            String?      @db.VarChar(255)
   status          EntityStatus @default(ACTIVE)
-  createdAt       DateTime?    @map("created")
+  createdAt       DateTime?    @map("created_at")
   updatedAt       DateTime?    @updatedAt @map("last_modified")
 
   city City? @relation(fields: [cityId], references: [id], onDelete: SetNull)
@@ -462,32 +570,36 @@ model MarketplaceBanner {
   @@index([establishmentId])
   @@index([cityId])
   @@index([status])
-  @@map("banners_marketplace")
+  @@map("marketplace_banners")
 }
 
+
+// ============================================================
+// MODULE: CUSTOMERS
+// ============================================================
 model Customer {
   id               String       @id @default(uuid()) @db.Uuid
-  establishmentId  String?      @map("id_estabelecimento") @db.Uuid
-  cityId           String?      @map("cidade") @db.Uuid
-  greetingCount    Int          @default(0) @map("countSaud")
-  lastMessage      String?      @map("ultima_msg") @db.Text
-  name             String?      @map("nome") @db.VarChar(150)
+  establishmentId  String?      @map("establishment_id") @db.Uuid
+  cityId           String?      @map("city_id") @db.Uuid
+  greetingCount    Int          @default(0) @map("greeting_count")
+  lastMessage      String?      @map("last_message") @db.Text
+  name             String?      @map("name") @db.VarChar(150)
   timestamp        String?      @db.VarChar(255)
   triggerStatus    YesNoStatus  @default(YES) @map("sts_disparador")
   includedAt       DateTime?    @default(now()) @map("datadeinclusao")
   whatsapp         String?      @db.VarChar(15)
-  password         String?      @map("senha") @db.VarChar(35)
+  password         String?      @map("shipping_password") @db.VarChar(35)
   pointsQuantity   Float        @default(0) @map("qtdpontos")
   pointsOperations String?      @map("pontos_op") @db.Text
   ordersQuantity   Int          @default(0) @map("qtdpedidos")
-  active           Boolean?     @map("ativo")
+  active           Boolean?     @map("active")
   zipCode          String?      @map("cep") @db.VarChar(15)
   street           String?      @map("rua") @db.VarChar(250)
   number           String?      @map("numero") @db.VarChar(15)
   neighborhood     String?      @map("bairro") @db.VarChar(150)
   stateLegacyId    Int?         @map("uf")
   complement       String?      @map("complemento") @db.VarChar(250)
-  reference        String?      @map("referencia") @db.VarChar(250)
+  reference        String?      @map("payment_reference") @db.VarChar(250)
   p256dh           String?      @db.VarChar(350)
   auth             String?      @db.VarChar(250)
   endpoint         String?      @db.Text
@@ -498,42 +610,55 @@ model Customer {
   @@index([establishmentId])
   @@index([cityId])
   @@index([whatsapp])
-  @@map("clientes")
+  @@map("customers")
+  addresses Address[]
 }
 
+
+// ============================================================
+// MODULE: MARKETING
+// ============================================================
 model Coupon {
   id                 String    @id @default(uuid()) @db.Uuid
-  establishmentId    String?   @map("rel_estabelecimentos_id") @db.Uuid
-  name               String?   @map("nome") @db.VarChar(255)
-  description        String?   @map("descricao") @db.Text
-  code               String?   @map("codigo") @db.VarChar(255)
-  type               String?   @map("tipo") @db.VarChar(255)
+  establishmentId    String?   @map("establishment_id") @db.Uuid
+  name               String?   @map("name") @db.VarChar(255)
+  description        String?   @map("description") @db.Text
+  code               String?   @map("code") @db.VarChar(255)
+  type               String?   @map("type") @db.VarChar(255)
   discountPercentage String?   @map("desconto_porcentagem") @db.VarChar(255)
   fixedDiscount      Decimal?  @map("desconto_fixo") @db.Decimal(10, 2)
   maxValue           Decimal?  @map("valor_maximo") @db.Decimal(10, 2)
   quantity           String?   @map("quantidade") @db.VarChar(255)
-  validUntil         DateTime? @map("validade")
+  validUntil         DateTime? @map("validity")
 
   establishment Establishment? @relation(fields: [establishmentId], references: [id], onDelete: Cascade)
 
   @@unique([establishmentId, code])
   @@index([establishmentId])
-  @@map("cupons")
+  @@map("coupons")
 }
 
+
+// ============================================================
+// MODULE: ESTABLISHMENTS_FULFILLMENT
+// ============================================================
 model Freight {
   id              String   @id @default(uuid()) @db.Uuid
-  establishmentId String?  @map("rel_estabelecimentos_id") @db.Uuid
-  name            String?  @map("nome") @db.VarChar(255)
-  value           Decimal? @map("valor") @db.Decimal(10, 2)
-  other           Boolean  @default(false) @map("outros")
+  establishmentId String?  @map("establishment_id") @db.Uuid
+  name            String?  @map("name") @db.VarChar(255)
+  value           Decimal? @map("value") @db.Decimal(10, 2)
+  other           Boolean  @default(false) @map("other_enabled")
 
   establishment Establishment? @relation(fields: [establishmentId], references: [id], onDelete: Cascade)
 
   @@index([establishmentId])
-  @@map("frete")
+  @@map("freights")
 }
 
+
+// ============================================================
+// MODULE: PRINTING
+// ============================================================
 model PrinterSession {
   id     String      @id @default(uuid()) @db.Uuid
   ide    String?     @db.VarChar(9)
@@ -543,17 +668,25 @@ model PrinterSession {
   @@map("impressao")
 }
 
+
+// ============================================================
+// MODULE: MARKETING
+// ============================================================
 model Link {
   id   String  @id @default(uuid()) @db.Uuid
   url  String? @map("link") @db.VarChar(550)
-  name String? @map("nome") @db.VarChar(255)
+  name String? @map("name") @db.VarChar(255)
 
   @@map("link")
 }
 
+
+// ============================================================
+// MODULE: AUDIT
+// ============================================================
 model Log {
   id              String    @id @default(uuid()) @db.Uuid
-  userId          String    @map("rel_users_id") @db.Uuid
+  userId          String    @map("user_id") @db.Uuid
   establishmentId String?   @map("rel_lojas_id") @db.Uuid
   info            String?   @db.Text
   createdAt       DateTime  @map("date_time")
@@ -566,11 +699,15 @@ model Log {
   @@map("logs")
 }
 
+
+// ============================================================
+// MODULE: CATALOG
+// ============================================================
 model Media {
   id              String    @id @default(uuid()) @db.Uuid
   type            MediaType? @map("type")
-  establishmentId String?   @map("rel_estabelecimentos_id") @db.Uuid
-  relatedId       String?   @map("rel_id") @db.Uuid
+  establishmentId String?   @map("establishment_id") @db.Uuid
+  relatedId       String?   @map("related_id") @db.Uuid
   url             String?   @db.VarChar(255)
 
   establishment Establishment? @relation(fields: [establishmentId], references: [id], onDelete: Cascade)
@@ -581,41 +718,45 @@ model Media {
   @@map("midia")
 }
 
+
+// ============================================================
+// MODULE: ORDERS
+// ============================================================
 model Order {
   id                     String         @id @default(uuid()) @db.Uuid
-  licenseId              Int?           @map("id_licenca")
+  licenseId              Int?           @map("license_id")
   segmentId              String?        @map("rel_segmentos_id") @db.Uuid
-  establishmentId         String?        @map("rel_estabelecimentos_id") @db.Uuid
-  customerName            String?        @map("nome") @db.VarChar(255)
+  establishmentId         String?        @map("establishment_id") @db.Uuid
+  customerName            String?        @map("name") @db.VarChar(255)
   whatsapp                String?        @db.VarChar(255)
-  deliveryMethod          DeliveryMethod? @map("forma_entrega")
-  stateLegacy             String?        @map("estado") @db.VarChar(255)
-  cityLegacy              String?        @map("cidade") @db.VarChar(255)
-  zipCode                 String?        @map("endereco_cep") @db.VarChar(255)
-  addressNumber           String?        @map("endereco_numero") @db.VarChar(255)
-  neighborhood            String?        @map("endereco_bairro") @db.VarChar(255)
-  street                  String?        @map("endereco_rua") @db.VarChar(255)
-  complement              String?        @map("endereco_complemento") @db.VarChar(255)
-  reference               String?        @map("endereco_referencia") @db.VarChar(255)
-  paymentMethod           PaymentMethod? @map("forma_pagamento")
-  paymentInfo             String?        @map("forma_pagamento_informacao") @db.VarChar(255)
-  receipt                 String?        @map("comprovante") @db.Text
-  payloadJson             String?        @map("json") @db.Text
+  deliveryMethod          DeliveryMethod? @map("delivery_method")
+  stateLegacy             String?        @map("state_id") @db.VarChar(255)
+  cityLegacy              String?        @map("city_id") @db.VarChar(255)
+  zipCode                 String?        @map("zip_code") @db.VarChar(255)
+  addressNumber           String?        @map("address_number") @db.VarChar(255)
+  neighborhood            String?        @map("neighborhood") @db.VarChar(255)
+  street                  String?        @map("street") @db.VarChar(255)
+  complement              String?        @map("complement") @db.VarChar(255)
+  reference               String?        @map("reference") @db.VarChar(255)
+  paymentMethod           PaymentMethod? @map("payment_method")
+  paymentInfo             String?        @map("payment_info") @db.VarChar(255)
+  receipt                 String?        @map("receipt") @db.Text
+  payloadJson             String?        @map("payload_json") @db.Text
   status                  OrderStatus    @default(PENDING)
-  orderedAt               DateTime?      @map("data_hora")
-  coupon                  String?        @map("cupom") @db.VarChar(255)
-  orderValue              Decimal?       @map("v_pedido") @db.Decimal(10, 2)
-  fee                     Float?         @map("taxa")
-  tableNumber             Int?           @map("mesa")
-  publicStatus            String         @default("1") @map("statusp") @db.VarChar(2)
-  integrated              Int?           @map("integrado")
-  message                 String?        @map("mensagem") @db.VarChar(250)
-  paymentLink             String?        @map("linkpagamento") @db.VarChar(400)
-  paymentReference        String?        @map("referencia") @db.VarChar(120)
-  paidAt                  DateTime?      @map("datadepagamento")
-  paymentStatus           PaymentStatus? @map("statuspagamento")
-  paymentType             String?        @map("pagamentotipo") @db.VarChar(25)
-  paymentDetails          String?        @map("detalhespagamento") @db.Text
+  orderedAt               DateTime?      @map("ordered_at")
+  coupon                  String?        @map("coupon") @db.VarChar(255)
+  orderValue              Decimal?       @map("order_value") @db.Decimal(10, 2)
+  fee                     Float?         @map("fee")
+  tableNumber             Int?           @map("table_enabled")
+  publicStatus            String         @default("1") @map("public_status") @db.VarChar(2)
+  integrated              Int?           @map("integrated")
+  message                 String?        @map("message") @db.VarChar(250)
+  paymentLink             String?        @map("payment_link") @db.VarChar(400)
+  paymentReference        String?        @map("payment_reference") @db.VarChar(120)
+  paidAt                  DateTime?      @map("paid_at")
+  paymentStatus           PaymentStatus? @map("payment_status")
+  paymentType             String?        @map("payment_type") @db.VarChar(25)
+  paymentDetails          String?        @map("payment_details") @db.Text
 
   establishment Establishment? @relation(fields: [establishmentId], references: [id], onDelete: Cascade)
   payments      Payment[]
@@ -624,18 +765,22 @@ model Order {
   @@index([status])
   @@index([orderedAt])
   @@index([whatsapp])
-  @@map("pedidos")
+  @@map("orders")
 }
 
+
+// ============================================================
+// MODULE: BILLING
+// ============================================================
 model Payment {
   id              String         @id @default(uuid()) @db.Uuid
-  establishmentId String         @map("estabelecimento") @db.Uuid
-  orderId         String         @map("pedido") @db.Uuid
-  date            String         @map("data") @db.VarChar(200)
-  time            String         @map("hora") @db.VarChar(200)
-  value           String         @map("valor") @db.VarChar(200)
+  establishmentId String         @map("establishment_id") @db.Uuid
+  orderId         String         @map("order_id") @db.Uuid
+  date            String         @map("date") @db.VarChar(200)
+  time            String         @map("time") @db.VarChar(200)
+  value           String         @map("value") @db.VarChar(200)
   gateway         PaymentGateway @map("gateway")
-  code            String         @map("codigo") @db.VarChar(200)
+  code            String         @map("code") @db.VarChar(200)
   status          PaymentStatus  @default(PENDING)
 
   establishment Establishment @relation(fields: [establishmentId], references: [id], onDelete: Cascade)
@@ -644,57 +789,57 @@ model Payment {
   @@index([establishmentId])
   @@index([orderId])
   @@index([status])
-  @@map("pagamentos")
+  @@map("payments")
 }
 
 model Plan {
   id              String       @id @default(uuid()) @db.Uuid
-  highlighted     YesNoStatus? @map("destaque")
-  name            String?      @map("nome") @db.VarChar(255)
-  description     String?      @map("descricao") @db.Text
-  commission      String?      @map("comissionamento") @db.VarChar(255)
-  durationMonths  String?      @map("duracao_meses") @db.VarChar(255)
-  durationDays    String?      @map("duracao_dias") @db.VarChar(255)
-  totalValue      Decimal?     @map("valor_total") @db.Decimal(10, 2)
-  monthlyValue    Decimal?     @map("valor_mensal") @db.Decimal(10, 2)
+  highlighted     YesNoStatus? @map("featured")
+  name            String?      @map("name") @db.VarChar(255)
+  description     String?      @map("description") @db.Text
+  commission      String?      @map("commission") @db.VarChar(255)
+  durationMonths  String?      @map("duration_months") @db.VarChar(255)
+  durationDays    String?      @map("duration_days") @db.VarChar(255)
+  totalValue      Decimal?     @map("total_value") @db.Decimal(10, 2)
+  monthlyValue    Decimal?     @map("monthly_value") @db.Decimal(10, 2)
   link            String?      @db.VarChar(255)
-  terms           String?      @map("termos") @db.Text
-  marketplaceFeature YesNoStatus? @map("funcionalidade_marketplace")
-  variationFeature   YesNoStatus? @map("funcionalidade_variacao")
-  bannerFeature      YesNoStatus? @map("funcionalidade_banners")
-  triggerFeature     YesNoStatus  @default(NO) @map("funcionalidade_disparador")
+  terms           String?      @map("terms") @db.Text
+  marketplaceFeature YesNoStatus? @map("marketplace_feature")
+  variationFeature   YesNoStatus? @map("variation_feature")
+  bannerFeature      YesNoStatus? @map("banner_feature")
+  triggerFeature     YesNoStatus  @default(NO) @map("trigger_feature")
   visible            VisibilityStatus? @map("visible")
   status             EntityStatus @default(ACTIVE)
-  order              String?      @map("ordem") @db.VarChar(255)
-  productLimit       String?      @map("limite_produtos") @db.VarChar(255)
+  order              String?      @map("sort_order") @db.VarChar(255)
+  productLimit       String?      @map("product_limit") @db.VarChar(255)
 
   subscriptions Subscription[]
   vouchers      Voucher[]
 
   @@index([status])
-  @@map("planos")
+  @@map("plans")
 }
 
 model Subscription {
   id                       String             @id @default(uuid()) @db.Uuid
-  planId                   String?            @map("rel_planos_id") @db.Uuid
-  establishmentId           String?            @map("rel_estabelecimentos_id") @db.Uuid
-  establishmentName         String?            @map("rel_estabelecimentos_nome") @db.VarChar(255)
-  establishmentSubdomain    String?            @map("rel_estabelecimentos_subdominio") @db.VarChar(255)
-  affiliate                 String?            @map("afiliado") @db.VarChar(255)
-  name                      String?            @map("nome") @db.VarChar(255)
-  description               String?            @map("descricao") @db.Text
-  commission                String?            @map("comissionamento") @db.VarChar(255)
-  durationMonths            String?            @map("duracao_meses") @db.VarChar(255)
-  durationDays              String?            @map("duracao_dias") @db.VarChar(255)
-  totalValue                Decimal?           @map("valor_total") @db.Decimal(10, 2)
-  receivedValue             Decimal?           @map("valor_recebido") @db.Decimal(10, 2)
-  monthlyValue              Decimal?           @map("valor_mensal") @db.Decimal(10, 2)
-  terms                     String?            @map("termos") @db.Text
-  triggerFeature            YesNoStatus        @default(NO) @map("funcionalidade_disparador")
-  marketplaceFeature        YesNoStatus?       @map("funcionalidade_marketplace")
-  variationFeature          YesNoStatus?       @map("funcionalidade_variacao")
-  bannerFeature             YesNoStatus?       @map("funcionalidade_banners")
+  planId                   String?            @map("plan_id") @db.Uuid
+  establishmentId           String?            @map("establishment_id") @db.Uuid
+  establishmentName         String?            @map("establishment_name") @db.VarChar(255)
+  establishmentSubdomain    String?            @map("establishment_subdomain") @db.VarChar(255)
+  affiliate                 String?            @map("affiliate") @db.VarChar(255)
+  name                      String?            @map("name") @db.VarChar(255)
+  description               String?            @map("description") @db.Text
+  commission                String?            @map("commission") @db.VarChar(255)
+  durationMonths            String?            @map("duration_months") @db.VarChar(255)
+  durationDays              String?            @map("duration_days") @db.VarChar(255)
+  totalValue                Decimal?           @map("total_value") @db.Decimal(10, 2)
+  receivedValue             Decimal?           @map("received_value") @db.Decimal(10, 2)
+  monthlyValue              Decimal?           @map("monthly_value") @db.Decimal(10, 2)
+  terms                     String?            @map("terms") @db.Text
+  triggerFeature            YesNoStatus        @default(NO) @map("trigger_feature")
+  marketplaceFeature        YesNoStatus?       @map("marketplace_feature")
+  variationFeature          YesNoStatus?       @map("variation_feature")
+  bannerFeature             YesNoStatus?       @map("banner_feature")
   gatewayReference          String?            @map("gateway_ref") @db.VarChar(255)
   gatewayLink               String?            @map("gateway_link") @db.VarChar(255)
   gatewayTransaction        String?            @map("gateway_transaction") @db.VarChar(255)
@@ -702,13 +847,13 @@ model Subscription {
   gatewayExpirationAt       DateTime?          @map("gateway_expiration") @db.Date
   gatewayPayment            String?            @map("gateway_payment") @db.VarChar(255)
   mode                      SubscriptionMode?  @map("mode")
-  voucherCode               String?            @map("voucher") @db.VarChar(255)
+  voucherCode               String?            @map("voucher_code") @db.VarChar(255)
   status                    SubscriptionStatus @default(PENDING)
   used                      Boolean?           @map("used")
   expiresAt                 DateTime?          @map("expiration") @db.Date
-  createdAt                 DateTime?          @map("created")
+  createdAt                 DateTime?          @map("created_at")
   excluded                  String?            @db.VarChar(255)
-  productLimit              String?            @map("limite_produtos") @db.VarChar(255)
+  productLimit              String?            @map("product_limit") @db.VarChar(255)
 
   plan          Plan?          @relation(fields: [planId], references: [id], onDelete: SetNull)
   establishment Establishment? @relation(fields: [establishmentId], references: [id], onDelete: Cascade)
@@ -718,17 +863,17 @@ model Subscription {
   @@index([establishmentId])
   @@index([status])
   @@index([expiresAt])
-  @@map("assinaturas")
+  @@map("subscriptions")
 }
 
 model Voucher {
   id             String        @id @default(uuid()) @db.Uuid
-  planId         String?       @map("rel_planos_id") @db.Uuid
-  subscriptionId String?       @map("rel_assinaturas_id") @db.Uuid
-  description    String?       @map("descricao") @db.VarChar(255)
-  code           String?       @map("codigo") @db.VarChar(255)
+  planId         String?       @map("plan_id") @db.Uuid
+  subscriptionId String?       @map("subscription_id") @db.Uuid
+  description    String?       @map("description") @db.VarChar(255)
+  code           String?       @map("code") @db.VarChar(255)
   status         VoucherStatus @default(UNUSED)
-  affiliate      String?       @map("afiliado") @db.VarChar(5)
+  affiliate      String?       @map("affiliate") @db.VarChar(5)
 
   plan         Plan?         @relation(fields: [planId], references: [id], onDelete: SetNull)
   subscription Subscription? @relation(fields: [subscriptionId], references: [id], onDelete: Cascade)
@@ -739,31 +884,39 @@ model Voucher {
   @@map("vouchers")
 }
 
+
+// ============================================================
+// MODULE: ESTABLISHMENTS_CORE
+// ============================================================
 model Subdomain {
   id          String     @id @default(uuid()) @db.Uuid
-  relatedId   String?    @map("rel_id") @db.Uuid
-  type        DomainType? @map("tipo")
-  subdomain   String?    @map("subdominio") @db.VarChar(255)
+  relatedId   String?    @map("related_id") @db.Uuid
+  type        DomainType? @map("type")
+  subdomain   String?    @map("subdomain") @db.VarChar(255)
   url         String?    @db.VarChar(255)
 
   @@index([relatedId])
   @@index([subdomain])
-  @@map("subdominios")
+  @@map("subdomains")
 }
 
+
+// ============================================================
+// MODULE: CATALOG
+// ============================================================
 model Validity {
   id              String  @id @default(uuid()) @db.Uuid
-  day             String  @default("1") @map("dia") @db.VarChar(550)
-  month           String? @map("mes") @db.VarChar(550)
-  year            String? @map("ano") @db.VarChar(550)
-  productId       String? @map("produto") @db.Uuid
-  establishmentId String  @map("rel_estabelecimentos_id") @db.Uuid
-  quantity        String? @default("-1") @map("qtd") @db.VarChar(550)
+  day             String  @default("1") @map("day") @db.VarChar(550)
+  month           String? @map("month") @db.VarChar(550)
+  year            String? @map("year") @db.VarChar(550)
+  productId       String? @map("product_id") @db.Uuid
+  establishmentId String  @map("establishment_id") @db.Uuid
+  quantity        String? @default("-1") @map("quantity") @db.VarChar(550)
 
   establishment Establishment @relation(fields: [establishmentId], references: [id], onDelete: Cascade)
   product       Product?      @relation(fields: [productId], references: [id], onDelete: Cascade)
 
   @@index([establishmentId])
   @@index([productId])
-  @@map("validades")
+  @@map("validities")
 }

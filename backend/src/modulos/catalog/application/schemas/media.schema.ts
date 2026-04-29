@@ -1,3 +1,4 @@
+import { ValidatorMessage } from "@/common/domain/validations";
 import { MediaTypeDto } from "@/shared/dto/media-type.dto";
 import { z } from "zod";
 
@@ -14,7 +15,11 @@ export const createMediaSchema = z
     type: z.nativeEnum(MediaTypeDto).optional(),
     establishmentId: z.string().uuid().optional(),
     relatedId: z.string().uuid().optional(),
-    url: z.string().max(255).optional(),
+    url: z
+      .string(ValidatorMessage.REQUIRED_FIELD)
+      .min(2, ValidatorMessage.MIN_VALUE)
+      .max(255, ValidatorMessage.MAX_VALUE)
+      .optional(),
   })
   .strict();
 

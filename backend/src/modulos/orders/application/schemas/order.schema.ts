@@ -1,3 +1,4 @@
+import { ValidatorMessage } from "@/common/domain/validations";
 import { DeliveryMethodDto } from "@/shared/dto/delivery-method.dto";
 import { OrderStatusDto } from "@/shared/dto/order-status.dto";
 import { PaymentMethodDto } from "@/shared/dto/payment-method.dto";
@@ -17,24 +18,72 @@ export const createOrderSchema = z
     licenseId: z.coerce.number().int().optional(),
     segmentId: z.string().uuid().optional(),
     establishmentId: z.string().uuid().optional(),
-    customerName: z.string().max(255).optional(),
-    whatsapp: z.string().max(255).optional(),
+    customerName: z
+      .string(ValidatorMessage.REQUIRED_FIELD)
+      .min(2, ValidatorMessage.MIN_VALUE)
+      .max(255, ValidatorMessage.MAX_VALUE)
+      .optional(),
+    whatsapp: z
+      .string(ValidatorMessage.REQUIRED_FIELD)
+      .min(2, ValidatorMessage.MIN_VALUE)
+      .max(255, ValidatorMessage.MAX_VALUE)
+      .optional(),
     deliveryMethod: z.nativeEnum(DeliveryMethodDto).optional(),
-    stateLegacy: z.string().max(255).optional(),
-    cityLegacy: z.string().max(255).optional(),
-    zipCode: z.string().max(255).optional(),
-    addressNumber: z.string().max(255).optional(),
-    neighborhood: z.string().max(255).optional(),
-    street: z.string().max(255).optional(),
-    complement: z.string().max(255).optional(),
-    reference: z.string().max(255).optional(),
+    stateLegacy: z
+      .string(ValidatorMessage.REQUIRED_FIELD)
+      .min(2, ValidatorMessage.MIN_VALUE)
+      .max(255, ValidatorMessage.MAX_VALUE)
+      .optional(),
+    cityLegacy: z
+      .string(ValidatorMessage.REQUIRED_FIELD)
+      .min(2, ValidatorMessage.MIN_VALUE)
+      .max(255, ValidatorMessage.MAX_VALUE)
+      .optional(),
+    zipCode: z
+      .string(ValidatorMessage.REQUIRED_FIELD)
+      .min(2, ValidatorMessage.MIN_VALUE)
+      .max(255, ValidatorMessage.MAX_VALUE)
+      .optional(),
+    addressNumber: z
+      .string(ValidatorMessage.REQUIRED_FIELD)
+      .min(2, ValidatorMessage.MIN_VALUE)
+      .max(255, ValidatorMessage.MAX_VALUE)
+      .optional(),
+    neighborhood: z
+      .string(ValidatorMessage.REQUIRED_FIELD)
+      .min(2, ValidatorMessage.MIN_VALUE)
+      .max(255, ValidatorMessage.MAX_VALUE)
+      .optional(),
+    street: z
+      .string(ValidatorMessage.REQUIRED_FIELD)
+      .min(2, ValidatorMessage.MIN_VALUE)
+      .max(255, ValidatorMessage.MAX_VALUE)
+      .optional(),
+    complement: z
+      .string(ValidatorMessage.REQUIRED_FIELD)
+      .min(2, ValidatorMessage.MIN_VALUE)
+      .max(255, ValidatorMessage.MAX_VALUE)
+      .optional(),
+    reference: z
+      .string(ValidatorMessage.REQUIRED_FIELD)
+      .min(2, ValidatorMessage.MIN_VALUE)
+      .max(255, ValidatorMessage.MAX_VALUE)
+      .optional(),
     paymentMethod: z.nativeEnum(PaymentMethodDto).optional(),
-    paymentInfo: z.string().max(255).optional(),
+    paymentInfo: z
+      .string(ValidatorMessage.REQUIRED_FIELD)
+      .min(2, ValidatorMessage.MIN_VALUE)
+      .max(255, ValidatorMessage.MAX_VALUE)
+      .optional(),
     receipt: z.string().optional(),
     payloadJson: z.string().optional(),
     status: z.nativeEnum(OrderStatusDto).optional(),
     orderedAt: z.coerce.date().optional(),
-    coupon: z.string().max(255).optional(),
+    coupon: z
+      .string(ValidatorMessage.REQUIRED_FIELD)
+      .min(2, ValidatorMessage.MIN_VALUE)
+      .max(255, ValidatorMessage.MAX_VALUE)
+      .optional(),
     orderValue: z.union([z.number(), z.string()]).optional(),
     fee: z.coerce.number().optional(),
     tableNumber: z.coerce.number().int().optional(),

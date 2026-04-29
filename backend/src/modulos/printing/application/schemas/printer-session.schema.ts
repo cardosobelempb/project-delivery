@@ -1,3 +1,4 @@
+import { ValidatorMessage } from "@/common/domain/validations";
 import { YesNoStatusDto } from "@/shared/dto/yes-no-status.dto";
 import { z } from "zod";
 
@@ -13,7 +14,11 @@ export const createPrinterSessionSchema = z
   .object({
     ide: z.string().max(9).optional(),
     status: z.nativeEnum(YesNoStatusDto).optional(),
-    token: z.string().max(255).optional(),
+    token: z
+      .string(ValidatorMessage.REQUIRED_FIELD)
+      .min(2, ValidatorMessage.MIN_VALUE)
+      .max(255, ValidatorMessage.MAX_VALUE)
+      .optional(),
   })
   .strict();
 

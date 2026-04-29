@@ -1,12 +1,11 @@
 import { DeepPartial } from "@/common/domain/types/DeepPartial";
-import { YesNoStatusDto } from "@/shared/dto/yes-no-status.dto";
 
 export interface CreateCustomerDto {
   establishmentId?: string;
 
   cityId?: string;
 
-  greetingCount: number;
+  greetingCount?: number;
 
   lastMessage?: string;
 
@@ -14,7 +13,7 @@ export interface CreateCustomerDto {
 
   timestamp?: string;
 
-  triggerStatus: YesNoStatusDto;
+  triggerStatus?: "YES" | "NO";
 
   includedAt?: Date | string;
 
@@ -22,11 +21,11 @@ export interface CreateCustomerDto {
 
   password?: string;
 
-  pointsQuantity: number;
+  pointsQuantity?: number;
 
   pointsOperations?: string;
 
-  ordersQuantity: number;
+  ordersQuantity?: number;
 
   active?: boolean;
 
@@ -49,6 +48,7 @@ export interface CreateCustomerDto {
   auth?: string;
 
   endpoint?: string;
+
 }
 
 export interface UpdateCustomerDto extends DeepPartial<CreateCustomerDto> {}
@@ -60,7 +60,7 @@ export interface CustomerPresenterDto {
 
   cityId?: string;
 
-  greetingCount: number;
+  greetingCount?: number;
 
   lastMessage?: string;
 
@@ -68,7 +68,7 @@ export interface CustomerPresenterDto {
 
   timestamp?: string;
 
-  triggerStatus: YesNoStatusDto;
+  triggerStatus?: "YES" | "NO";
 
   includedAt?: Date | string;
 
@@ -76,11 +76,11 @@ export interface CustomerPresenterDto {
 
   password?: string;
 
-  pointsQuantity: number;
+  pointsQuantity?: number;
 
   pointsOperations?: string;
 
-  ordersQuantity: number;
+  ordersQuantity?: number;
 
   active?: boolean;
 
@@ -103,59 +103,60 @@ export interface CustomerPresenterDto {
   auth?: string;
 
   endpoint?: string;
+
 }
 
 export const createCustomerRawExample: CreateCustomerDto = {
-  establishmentId: "00000000-0000-4000-8000-000000000000",
-  cityId: "00000000-0000-4000-8000-000000000000",
-  greetingCount: 1,
-  lastMessage: "example",
-  name: "Exemplo",
-  timestamp: "example",
-  triggerStatus: YesNoStatusDto.YES,
-  includedAt: "2026-04-28T12:00:00.000Z",
-  whatsapp: "85999999999",
-  password: "secret-value",
-  pointsQuantity: 10.5,
-  pointsOperations: "example",
-  ordersQuantity: 1,
-  active: true,
-  zipCode: "60000000",
-  street: "example",
-  number: "example",
-  neighborhood: "example",
-  stateLegacyId: 1,
-  complement: "example",
-  reference: "example",
-  p256dh: "example",
-  auth: "example",
-  endpoint: "example",
+  "establishmentId": "00000000-0000-4000-8000-000000000000",
+  "cityId": "00000000-0000-4000-8000-000000000000",
+  "greetingCount": 1,
+  "lastMessage": "example",
+  "name": "Exemplo",
+  "timestamp": "example",
+  "triggerStatus": "YES",
+  "includedAt": "2026-04-28T12:00:00.000Z",
+  "whatsapp": "85999999999",
+  "password": "secret-value",
+  "pointsQuantity": 10.5,
+  "pointsOperations": "example",
+  "ordersQuantity": 1,
+  "active": true,
+  "zipCode": "60000000",
+  "street": "example",
+  "number": "example",
+  "neighborhood": "example",
+  "stateLegacyId": 1,
+  "complement": "example",
+  "reference": "example",
+  "p256dh": "example",
+  "auth": "example",
+  "endpoint": "example"
 };
 
 export const customerPresenterRawExample: CustomerPresenterDto = {
-  id: "00000000-0000-4000-8000-000000000000",
-  establishmentId: "00000000-0000-4000-8000-000000000000",
-  cityId: "00000000-0000-4000-8000-000000000000",
-  greetingCount: 1,
-  lastMessage: "example",
-  name: "Exemplo",
-  timestamp: "example",
-  triggerStatus: YesNoStatusDto.YES,
-  includedAt: "2026-04-28T12:00:00.000Z",
-  whatsapp: "85999999999",
-  password: "secret-value",
-  pointsQuantity: 10.5,
-  pointsOperations: "example",
-  ordersQuantity: 1,
-  active: true,
-  zipCode: "60000000",
-  street: "example",
-  number: "example",
-  neighborhood: "example",
-  stateLegacyId: 1,
-  complement: "example",
-  reference: "example",
-  p256dh: "example",
-  auth: "example",
-  endpoint: "example",
+  "id": "00000000-0000-4000-8000-000000000000",
+  "establishmentId": "00000000-0000-4000-8000-000000000000",
+  "cityId": "00000000-0000-4000-8000-000000000000",
+  "greetingCount": 1,
+  "lastMessage": "example",
+  "name": "Exemplo",
+  "timestamp": "example",
+  "triggerStatus": "YES",
+  "includedAt": "2026-04-28T12:00:00.000Z",
+  "whatsapp": "85999999999",
+  "password": "secret-value",
+  "pointsQuantity": 10.5,
+  "pointsOperations": "example",
+  "ordersQuantity": 1,
+  "active": true,
+  "zipCode": "60000000",
+  "street": "example",
+  "number": "example",
+  "neighborhood": "example",
+  "stateLegacyId": 1,
+  "complement": "example",
+  "reference": "example",
+  "p256dh": "example",
+  "auth": "example",
+  "endpoint": "example"
 };

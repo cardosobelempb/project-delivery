@@ -1,6 +1,4 @@
-import { EntityStatusDto } from "@/shared/dto/entity-status.dto";
-import { UserLevelDto } from "@/shared/dto/user-level.dto";
-import { YesNoStatusDto } from "@/shared/dto/yes-no-status.dto";
+import { ValidatorMessage } from "@/common/domain/validations";
 import { z } from "zod";
 
 /**
@@ -13,17 +11,18 @@ import { z } from "zod";
  */
 export const createUserSchema = z
   .object({
-    name: z.string().max(255).optional(),
-    email: z.string().max(255).email().optional(),
-    passwordHash: z.string().max(255).optional(),
-    level: z.nativeEnum(UserLevelDto).optional(),
-    operation: z.nativeEnum(YesNoStatusDto).optional(),
-    status: z.nativeEnum(EntityStatusDto).optional(),
-    recoverKey: z.string().max(255).optional(),
-    keepAlive: z.string().max(255).optional(),
-    commission: z.string().max(255).optional(),
-    createdAt: z.coerce.date().optional(),
-    lastLoginAt: z.coerce.date().optional(),
+    name: z.string(ValidatorMessage.REQUIRED_FIELD).optional(),
+    email: z.string(ValidatorMessage.REQUIRED_FIELD).optional(),
+    passwordHash: z.string(ValidatorMessage.REQUIRED_FIELD).optional(),
+    level: z
+      .enum(["OWNER", "ADMIN", "AFFILIATE", "OPERATOR", "CUSTOMER"])
+      .optional(),
+    operation: z.enum(["YES", "NO"]).optional(),
+    status: z.enum(["ACTIVE", "INACTIVE", "BLOCKED", "DELETED"]).optional(),
+    recoverKey: z.string(ValidatorMessage.REQUIRED_FIELD).optional(),
+    keepAlive: z.string(ValidatorMessage.REQUIRED_FIELD).optional(),
+    commission: z.string(ValidatorMessage.REQUIRED_FIELD).optional(),
+    lastLoginAt: z.string(ValidatorMessage.REQUIRED_FIELD).optional(),
   })
   .strict();
 
@@ -31,19 +30,31 @@ export const updateUserSchema = createUserSchema.partial().strict();
 
 export const userPresenterSchema = z
   .object({
-    id: z.string().uuid(),
-    name: z.string().max(255).nullable().optional(),
-    email: z.string().max(255).email().nullable().optional(),
-    passwordHash: z.string().max(255).nullable().optional(),
-    level: z.nativeEnum(UserLevelDto).nullable().optional(),
-    operation: z.nativeEnum(YesNoStatusDto).nullable().optional(),
-    status: z.nativeEnum(EntityStatusDto).nullable().optional(),
-    recoverKey: z.string().max(255).nullable().optional(),
-    keepAlive: z.string().max(255).nullable().optional(),
-    commission: z.string().max(255).nullable().optional(),
-    createdAt: z.coerce.date().nullable().optional(),
-    lastLoginAt: z.coerce.date().nullable().optional(),
-    updatedAt: z.coerce.date().nullable().optional(),
+    id: z.string(ValidatorMessage.REQUIRED_FIELD).uuid(),
+    name: z.string(ValidatorMessage.REQUIRED_FIELD).nullable().optional(),
+    email: z.string(ValidatorMessage.REQUIRED_FIELD).nullable().optional(),
+    passwordHash: z
+      .string(ValidatorMessage.REQUIRED_FIELD)
+      .nullable()
+      .optional(),
+    level: z
+      .enum(["OWNER", "ADMIN", "AFFILIATE", "OPERATOR", "CUSTOMER"])
+      .nullable()
+      .optional(),
+    operation: z.enum(["YES", "NO"]).nullable().optional(),
+    status: z
+      .enum(["ACTIVE", "INACTIVE", "BLOCKED", "DELETED"])
+      .nullable()
+      .optional(),
+    recoverKey: z.string(ValidatorMessage.REQUIRED_FIELD).nullable().optional(),
+    keepAlive: z.string(ValidatorMessage.REQUIRED_FIELD).nullable().optional(),
+    commission: z.string(ValidatorMessage.REQUIRED_FIELD).nullable().optional(),
+    createdAt: z.string(ValidatorMessage.REQUIRED_FIELD).nullable().optional(),
+    lastLoginAt: z
+      .string(ValidatorMessage.REQUIRED_FIELD)
+      .nullable()
+      .optional(),
+    updatedAt: z.string(ValidatorMessage.REQUIRED_FIELD).nullable().optional(),
   })
   .strict();
 
@@ -53,30 +64,28 @@ export type UserPresenter = z.infer<typeof userPresenterSchema>;
 
 export const createUserRawExample: CreateUserInput = {
   name: "Exemplo",
-  email: "contato@exemplo.com",
-  passwordHash: "senha_hash_exemplo",
-  level: UserLevelDto.OWNER,
-  operation: YesNoStatusDto.YES,
-  status: EntityStatusDto.ACTIVE,
-  recoverKey: "valor_exemplo",
-  keepAlive: "valor_exemplo",
-  commission: "valor_exemplo",
-  createdAt: new Date("2026-04-28T12:00:00.000Z"),
-  lastLoginAt: new Date("2026-04-28T12:00:00.000Z"),
+  email: "cliente@example.com",
+  passwordHash: "secret-value",
+  level: "OWNER",
+  operation: "YES",
+  status: "ACTIVE",
+  recoverKey: "secret-value",
+  keepAlive: "example",
+  commission: "example",
 };
 
 export const userPresenterRawExample: UserPresenter = {
-  id: "550e8400-e29b-41d4-a716-446655440000",
+  id: "00000000-0000-4000-8000-000000000000",
   name: "Exemplo",
-  email: "contato@exemplo.com",
-  passwordHash: "senha_hash_exemplo",
-  level: UserLevelDto.OWNER,
-  operation: YesNoStatusDto.YES,
-  status: EntityStatusDto.ACTIVE,
-  recoverKey: "valor_exemplo",
-  keepAlive: "valor_exemplo",
-  commission: "valor_exemplo",
-  createdAt: new Date("2026-04-28T12:00:00.000Z"),
-  lastLoginAt: new Date("2026-04-28T12:00:00.000Z"),
-  updatedAt: new Date("2026-04-28T12:00:00.000Z"),
+  email: "cliente@example.com",
+  passwordHash: "secret-value",
+  level: "OWNER",
+  operation: "YES",
+  status: "ACTIVE",
+  recoverKey: "secret-value",
+  keepAlive: "example",
+  commission: "example",
+  createdAt: "2026-04-28T12:00:00.000Z",
+  lastLoginAt: "2026-04-28T12:00:00.000Z",
+  updatedAt: "2026-04-28T12:00:00.000Z",
 };

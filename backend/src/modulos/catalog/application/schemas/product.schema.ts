@@ -1,3 +1,4 @@
+import { ValidatorMessage } from "@/common/domain/validations";
 import { EntityStatusDto } from "@/shared/dto/entity-status.dto";
 import { VisibilityStatusDto } from "@/shared/dto/visibility-status.dto";
 import { YesNoStatusDto } from "@/shared/dto/yes-no-status.dto";
@@ -16,13 +17,25 @@ export const createProductSchema = z
     establishmentId: z.string().uuid().optional(),
     categoryId: z.string().uuid().optional(),
     featured: z.nativeEnum(YesNoStatusDto).optional(),
-    reference: z.string().max(255).optional(),
+    reference: z
+      .string(ValidatorMessage.REQUIRED_FIELD)
+      .min(2, ValidatorMessage.MIN_VALUE)
+      .max(255, ValidatorMessage.MAX_VALUE)
+      .optional(),
     pdvCode: z.coerce.number().int().optional(),
     points: z.coerce.number().optional(),
     allowExchange: z.coerce.boolean().optional(),
     itemPoints: z.coerce.number().int().optional(),
-    name: z.string().max(255).optional(),
-    videoLink: z.string().max(255).optional(),
+    name: z
+      .string(ValidatorMessage.REQUIRED_FIELD)
+      .min(2, ValidatorMessage.MIN_VALUE)
+      .max(255, ValidatorMessage.MAX_VALUE)
+      .optional(),
+    videoLink: z
+      .string(ValidatorMessage.REQUIRED_FIELD)
+      .min(2, ValidatorMessage.MIN_VALUE)
+      .max(255, ValidatorMessage.MAX_VALUE)
+      .optional(),
     description: z.string().optional(),
     price: z.union([z.number(), z.string()]).optional(),
     offer: z.nativeEnum(YesNoStatusDto).optional(),
@@ -31,7 +44,11 @@ export const createProductSchema = z
     visible: z.nativeEnum(VisibilityStatusDto).optional(),
     status: z.nativeEnum(EntityStatusDto).optional(),
     orderStatus: z.string().max(2).optional(),
-    integrated: z.string().max(255).optional(),
+    integrated: z
+      .string(ValidatorMessage.REQUIRED_FIELD)
+      .min(2, ValidatorMessage.MIN_VALUE)
+      .max(255, ValidatorMessage.MAX_VALUE)
+      .optional(),
     shippingWeight: z.coerce.number().optional(),
     shippingHeight: z.coerce.number().optional(),
     shippingWidth: z.coerce.number().optional(),

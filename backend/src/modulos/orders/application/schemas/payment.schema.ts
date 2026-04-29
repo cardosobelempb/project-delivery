@@ -1,3 +1,4 @@
+import { ValidatorMessage } from "@/common/domain/validations";
 import { PaymentGatewayDto } from "@/shared/dto/payment-gateway.dto";
 import { PaymentStatusDto } from "@/shared/dto/payment-status.dto";
 import { z } from "zod";
@@ -14,11 +15,23 @@ export const createPaymentSchema = z
   .object({
     establishmentId: z.string().uuid(),
     orderId: z.string().uuid(),
-    date: z.string().max(200),
-    time: z.string().max(200),
-    value: z.string().max(200),
+    date: z
+      .string(ValidatorMessage.REQUIRED_FIELD)
+      .min(2, ValidatorMessage.MIN_VALUE)
+      .max(200, ValidatorMessage.MAX_VALUE),
+    time: z
+      .string(ValidatorMessage.REQUIRED_FIELD)
+      .min(2, ValidatorMessage.MIN_VALUE)
+      .max(200, ValidatorMessage.MAX_VALUE),
+    value: z
+      .string(ValidatorMessage.REQUIRED_FIELD)
+      .min(2, ValidatorMessage.MIN_VALUE)
+      .max(200, ValidatorMessage.MAX_VALUE),
     gateway: z.nativeEnum(PaymentGatewayDto),
-    code: z.string().max(200),
+    code: z
+      .string(ValidatorMessage.REQUIRED_FIELD)
+      .min(2, ValidatorMessage.MIN_VALUE)
+      .max(255, ValidatorMessage.MAX_VALUE),
     status: z.nativeEnum(PaymentStatusDto).optional(),
   })
   .strict();

@@ -1,3 +1,4 @@
+import { ValidatorMessage } from "@/common/domain/validations";
 import { DomainTypeDto } from "@/shared/dto/domain-type.dto";
 import { z } from "zod";
 
@@ -13,8 +14,16 @@ export const createSubdomainSchema = z
   .object({
     relatedId: z.string().uuid().optional(),
     type: z.nativeEnum(DomainTypeDto).optional(),
-    subdomain: z.string().max(255).optional(),
-    url: z.string().max(255).optional(),
+    subdomain: z
+      .string(ValidatorMessage.REQUIRED_FIELD)
+      .min(2, ValidatorMessage.MIN_VALUE)
+      .max(255, ValidatorMessage.MAX_VALUE)
+      .optional(),
+    url: z
+      .string(ValidatorMessage.REQUIRED_FIELD)
+      .min(2, ValidatorMessage.MIN_VALUE)
+      .max(255, ValidatorMessage.MAX_VALUE)
+      .optional(),
   })
   .strict();
 

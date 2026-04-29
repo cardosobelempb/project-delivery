@@ -1,3 +1,4 @@
+import { ValidatorMessage } from "@/common/domain/validations";
 import { EntityStatusDto } from "@/shared/dto/entity-status.dto";
 import { z } from "zod";
 
@@ -12,11 +13,31 @@ import { z } from "zod";
 export const createBannerSchema = z
   .object({
     establishmentId: z.string().uuid().optional(),
-    title: z.string().max(255).optional(),
-    desktopImage: z.string().max(255).optional(),
-    mobileImage: z.string().max(255).optional(),
-    videoLink: z.string().max(255).optional(),
-    link: z.string().max(255).optional(),
+    title: z
+      .string(ValidatorMessage.REQUIRED_FIELD)
+      .min(2, ValidatorMessage.MIN_VALUE)
+      .max(255, ValidatorMessage.MAX_VALUE)
+      .optional(),
+    desktopImage: z
+      .string(ValidatorMessage.REQUIRED_FIELD)
+      .min(2, ValidatorMessage.MIN_VALUE)
+      .max(255, ValidatorMessage.MAX_VALUE)
+      .optional(),
+    mobileImage: z
+      .string(ValidatorMessage.REQUIRED_FIELD)
+      .min(2, ValidatorMessage.MIN_VALUE)
+      .max(255, ValidatorMessage.MAX_VALUE)
+      .optional(),
+    videoLink: z
+      .string(ValidatorMessage.REQUIRED_FIELD)
+      .min(2, ValidatorMessage.MIN_VALUE)
+      .max(255, ValidatorMessage.MAX_VALUE)
+      .optional(),
+    link: z
+      .string(ValidatorMessage.REQUIRED_FIELD)
+      .min(2, ValidatorMessage.MIN_VALUE)
+      .max(255, ValidatorMessage.MAX_VALUE)
+      .optional(),
     status: z.nativeEnum(EntityStatusDto).optional(),
     createdAt: z.coerce.date().optional(),
   })
