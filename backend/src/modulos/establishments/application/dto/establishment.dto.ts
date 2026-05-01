@@ -1,8 +1,8 @@
 import { DeepPartial } from "@/common/domain/types/DeepPartial";
-import { DocumentTypeDto } from "@/shared/dto/document-type.dto";
-import { EntityStatusDto } from "@/shared/dto/entity-status.dto";
-import { DeliveryFeeTypeDto } from "../../../../shared/dto/delivery-fee-type.dto";
-import { YesNoStatusDto } from "../../../../shared/dto/yes-no-status.dto";
+import { DocumentTypeDto } from "@/shared/enums/document-type.enum";
+import { EntityStatusDto } from "@/shared/enums/entity-status.enum";
+import { DeliveryFeeTypeDto } from "../../../../shared/enums/delivery-fee-type.enum";
+import { YesNoStatusDto } from "../../../../shared/enums/yes-no-status.enum";
 
 export interface CreateEstablishmentDto {
   userId?: string;

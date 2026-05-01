@@ -1,5 +1,5 @@
 import { DeepPartial } from "@/common/domain/types/DeepPartial";
-import { DomainTypeDto } from "../../../../shared/dto/domain-type.dto";
+import { DomainTypeDto } from "../../../../shared/enums/domain-type.enum";
 
 export interface CreateSubdomainDto {
   relatedId?: string;

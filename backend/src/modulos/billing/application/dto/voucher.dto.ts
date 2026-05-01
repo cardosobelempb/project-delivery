@@ -1,6 +1,6 @@
 import { DeepPartial } from "@/common/domain/types/DeepPartial";
 
-import { VoucherStatusDto } from "@/shared/dto/voucher-status.dto";
+import { VoucherStatusDto } from "@/shared/enums/voucher-status.enum";
 
 export interface CreateVoucherDto {
   planId?: string;

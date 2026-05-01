@@ -1,4 +1,4 @@
-export enum PaymentStatusDto {
+export enum PaymentStatus {
   PENDING = "PENDING",
   APPROVED = "APPROVED",
   REJECTED = "REJECTED",

@@ -1,4 +1,4 @@
-export enum SubscriptionModeDto {
+export enum SubscriptionMode {
   TRIAL = "TRIAL",
   PAID = "PAID",
   VOUCHER = "VOUCHER",

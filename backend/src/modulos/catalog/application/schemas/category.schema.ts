@@ -1,6 +1,6 @@
 import { ValidatorMessage } from "@/common/domain/validations";
-import { EntityStatusDto } from "@/shared/dto/entity-status.dto";
-import { VisibilityStatusDto } from "@/shared/dto/visibility-status.dto";
+import { EntityStatusDto } from "@/shared/enums/entity-status.enum";
+import { VisibilityStatusDto } from "@/shared/enums/visibility-status.enum";
 import { z } from "zod";
 
 /**

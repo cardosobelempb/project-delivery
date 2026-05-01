@@ -1,4 +1,4 @@
-export enum DeliveryMethodDto {
+export enum DeliveryMethod {
   DELIVERY = "DELIVERY",
   PICKUP = "PICKUP",
   TABLE = "TABLE",

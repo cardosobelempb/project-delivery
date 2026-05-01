@@ -1,4 +1,4 @@
-export enum OrderStatusDto {
+export enum OrderStatus {
   PENDING = "PENDING",
   ACCEPTED = "ACCEPTED",
   PREPARING = "PREPARING",

@@ -1,5 +1,5 @@
 import { DeepPartial } from "@/common/domain/types/DeepPartial";
-import { ScheduleActionDto } from "../../../../shared/dto/schedule-action.dto";
+import { ScheduleActionDto } from "../../../../shared/enums/schedule-action.enum";
 
 export interface CreateScheduleDto {
   establishmentId?: string;

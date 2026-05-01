@@ -1,4 +1,4 @@
-export enum MediaTypeDto {
+export enum MediaType {
   PRODUCT = "PRODUCT",
   CATEGORY = "CATEGORY",
   STORE = "STORE",

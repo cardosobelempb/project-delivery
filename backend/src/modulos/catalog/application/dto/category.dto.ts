@@ -1,6 +1,6 @@
 import { DeepPartial } from "@/common/domain/types/DeepPartial";
-import { EntityStatusDto } from "@/shared/dto/entity-status.dto";
-import { VisibilityStatusDto } from "@/shared/dto/visibility-status.dto";
+import { EntityStatusDto } from "@/shared/enums/entity-status.enum";
+import { VisibilityStatusDto } from "@/shared/enums/visibility-status.enum";
 
 export interface CreateCategoryDto {
   establishmentId?: string;

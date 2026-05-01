@@ -1,4 +1,4 @@
-export enum PaymentGatewayDto {
+export enum PaymentGateway {
   MERCADO_PAGO = "MERCADO_PAGO",
   PAGSEGURO = "PAGSEGURO",
   GETNET = "GETNET",

@@ -1,5 +1,5 @@
 import { ValidatorMessage } from "@/common/domain/validations";
-import { DomainTypeDto } from "@/shared/dto/domain-type.dto";
+import { DomainTypeDto } from "@/shared/enums/domain-type.enum";
 import { z } from "zod";
 
 /**

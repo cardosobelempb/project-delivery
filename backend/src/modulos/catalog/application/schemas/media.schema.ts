@@ -1,5 +1,5 @@
 import { ValidatorMessage } from "@/common/domain/validations";
-import { MediaTypeDto } from "@/shared/dto/media-type.dto";
+import { MediaTypeDto } from "@/shared/enums/media-type.enum";
 import { z } from "zod";
 
 /**

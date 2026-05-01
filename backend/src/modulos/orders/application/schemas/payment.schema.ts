@@ -1,6 +1,6 @@
 import { ValidatorMessage } from "@/common/domain/validations";
-import { PaymentGatewayDto } from "@/shared/dto/payment-gateway.dto";
-import { PaymentStatusDto } from "@/shared/dto/payment-status.dto";
+import { PaymentGatewayDto } from "@/shared/enums/payment-gateway.enum";
+import { PaymentStatusDto } from "@/shared/enums/payment-status.enum";
 import { z } from "zod";
 
 /**

@@ -1,8 +1,8 @@
 import { DeepPartial } from "@/common/domain/types/DeepPartial";
-import { DeliveryMethodDto } from "@/shared/dto/delivery-method.dto";
-import { OrderStatusDto } from "@/shared/dto/order-status.dto";
-import { PaymentMethodDto } from "@/shared/dto/payment-method.dto";
-import { PaymentStatusDto } from "@/shared/dto/payment-status.dto";
+import { DeliveryMethodDto } from "@/shared/enums/delivery-method.enum";
+import { OrderStatusDto } from "@/shared/enums/order-status.enum";
+import { PaymentMethodDto } from "@/shared/enums/payment-method.enum";
+import { PaymentStatusDto } from "@/shared/enums/payment-status.enum";
 
 export interface CreateOrderDto {
   licenseId?: number;

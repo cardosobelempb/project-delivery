@@ -1,8 +1,8 @@
 import { ValidatorMessage } from "@/common/domain/validations";
-import { DeliveryFeeTypeDto } from "@/shared/dto/delivery-fee-type.dto";
-import { DocumentTypeDto } from "@/shared/dto/document-type.dto";
-import { EntityStatusDto } from "@/shared/dto/entity-status.dto";
-import { YesNoStatusDto } from "@/shared/dto/yes-no-status.dto";
+import { DeliveryFeeTypeDto } from "@/shared/enums/delivery-fee-type.enum";
+import { DocumentTypeDto } from "@/shared/enums/document-type.enum";
+import { EntityStatusDto } from "@/shared/enums/entity-status.enum";
+import { YesNoStatusDto } from "@/shared/enums/yes-no-status.enum";
 import { z } from "zod";
 
 /**

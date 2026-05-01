@@ -1,4 +1,4 @@
-export enum UserLevelDto {
+export enum UserLevel {
   OWNER = "OWNER",
   ADMIN = "ADMIN",
   AFFILIATE = "AFFILIATE",

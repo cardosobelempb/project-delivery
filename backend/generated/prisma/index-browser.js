@@ -318,32 +318,25 @@ exports.Prisma.ScheduleScalarFieldEnum = {
   friday: 'friday',
   saturday: 'saturday',
   time: 'time',
-  action: 'action',
-  addressid: 'addressid'
+  action: 'action'
 };
 
 exports.Prisma.CategoryScalarFieldEnum = {
   id: 'id',
   establishmentId: 'establishmentId',
+  parentId: 'parentId',
   order: 'order',
   name: 'name',
+  slug: 'slug',
   visible: 'visible',
   status: 'status',
-  updatedAt: 'updatedAt',
-  sunday: 'sunday',
-  monday: 'monday',
-  tuesday: 'tuesday',
-  wednesday: 'wednesday',
-  thursday: 'thursday',
-  friday: 'friday',
-  saturday: 'saturday',
-  holidays: 'holidays'
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
 };
 
 exports.Prisma.ProductScalarFieldEnum = {
   id: 'id',
   establishmentId: 'establishmentId',
-  categoryId: 'categoryId',
   featured: 'featured',
   reference: 'reference',
   pdvCode: 'pdvCode',
@@ -370,6 +363,11 @@ exports.Prisma.ProductScalarFieldEnum = {
   position: 'position',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
+};
+
+exports.Prisma.ProductCategoryScalarFieldEnum = {
+  productId: 'productId',
+  categoryId: 'categoryId'
 };
 
 exports.Prisma.BannerScalarFieldEnum = {
@@ -668,7 +666,8 @@ exports.ScheduleAction = exports.$Enums.ScheduleAction = {
 
 exports.VisibilityStatus = exports.$Enums.VisibilityStatus = {
   VISIBLE: 'VISIBLE',
-  HIDDEN: 'HIDDEN'
+  HIDDEN: 'HIDDEN',
+  ARCHIVED: 'ARCHIVED'
 };
 
 exports.MediaType = exports.$Enums.MediaType = {
@@ -766,6 +765,7 @@ exports.Prisma.ModelName = {
   Schedule: 'Schedule',
   Category: 'Category',
   Product: 'Product',
+  ProductCategory: 'ProductCategory',
   Banner: 'Banner',
   MarketplaceBanner: 'MarketplaceBanner',
   Customer: 'Customer',

@@ -1,4 +1,4 @@
-export enum ScheduleActionDto {
+export enum ScheduleAction {
   OPEN = "OPEN",
   CLOSE = "CLOSE",
 }

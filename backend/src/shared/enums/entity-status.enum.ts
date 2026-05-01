@@ -1,4 +1,4 @@
-export enum EntityStatusDto {
+export enum EntityStatus {
   ACTIVE = "ACTIVE",
   INACTIVE = "INACTIVE",
   BLOCKED = "BLOCKED",

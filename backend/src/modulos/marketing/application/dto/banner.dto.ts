@@ -1,5 +1,5 @@
 import { DeepPartial } from "@/common/domain/types/DeepPartial";
-import { EntityStatusDto } from "@/shared/dto/entity-status.dto";
+import { EntityStatusDto } from "@/shared/enums/entity-status.enum";
 
 export interface CreateBannerDto {
   establishmentId?: string;

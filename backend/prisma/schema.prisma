@@ -17,6 +17,7 @@ enum EntityStatus {
 enum VisibilityStatus {
   VISIBLE
   HIDDEN
+  ARCHIVED
 }
 
 enum YesNoStatus {
@@ -466,27 +467,26 @@ model Schedule {
 model Category {
   id              String           @id @default(uuid()) @db.Uuid
   establishmentId String?          @map("establishment_id") @db.Uuid
-  order           Int              @map("sort_order")
+  parentId  String?          @map("parent_id") @db.Uuid
+  order           Int              @map("order")
   name            String?          @map("name") @db.VarChar(255)
-  visible         VisibilityStatus? @map("visible")
+  slug            String?          @map("slug") @db.VarChar(255)
+  visible         VisibilityStatus @default(VISIBLE)
   status          EntityStatus     @default(ACTIVE)
-  updatedAt       DateTime?        @updatedAt @map("last_modified")
-  sunday          Boolean          @default(true) @map("sunday")
-  monday          Boolean          @default(true) @map("monday")
-  tuesday         Boolean          @default(true) @map("tuesday")
-  wednesday       Boolean          @default(true) @map("wednesday")
-  thursday        Boolean          @default(true) @map("thursday")
-  friday          Boolean          @default(true) @map("friday")
-  saturday        Boolean          @default(true) @map("saturday")
-  holidays        Boolean          @default(false) @map("holidays")
+  createdAt DateTime @default(now())
+  updatedAt DateTime?
+
+  parent    Category?  @relation("CategoryTree", fields: [parentId], references: [id])
+  children  Category[] @relation("CategoryTree")
 
   establishment Establishment? @relation(fields: [establishmentId], references: [id], onDelete: Cascade)
-  products      Product[]
+  products      ProductCategory[]
 
   @@index([establishmentId])
   @@index([status])
   @@map("categories")
 }
+
 
 model Product {
   id               String            @id @default(uuid()) @db.Uuid
@@ -519,7 +519,7 @@ model Product {
   updatedAt        DateTime?         @updatedAt @map("last_modified")
 
   establishment Establishment? @relation(fields: [establishmentId], references: [id], onDelete: Cascade)
-  categories      Category[]
+  categories      ProductCategory[]
   medias         Media[]
   validities    Validity[]
 
@@ -527,6 +527,17 @@ model Product {
   @@index([status])
   @@index([name])
   @@map("products")
+}
+
+model ProductCategory {
+  productId   String @map("product_id") @db.Uuid
+  categoryId String @map("category_id") @db.Uuid
+
+  product  Product  @relation(fields: [productId], references: [id])
+  category Category @relation(fields: [categoryId], references: [id])
+
+  @@id([productId, categoryId])
+  @@map("product_categories")
 }
 
 

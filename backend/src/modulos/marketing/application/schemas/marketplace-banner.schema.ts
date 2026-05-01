@@ -1,5 +1,5 @@
 import { ValidatorMessage } from "@/common/domain/validations";
-import { EntityStatusDto } from "@/shared/dto/entity-status.dto";
+import { EntityStatusDto } from "@/shared/enums/entity-status.enum";
 import { z } from "zod";
 
 /**

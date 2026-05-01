@@ -1,4 +1,4 @@
-export enum YesNoStatusDto {
+export enum YesNoStatus {
   YES = "YES",
   NO = "NO",
 }

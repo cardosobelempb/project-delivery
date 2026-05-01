@@ -3,6 +3,7 @@
 // import { mikrotikRoutes } from "@/modulos/mikrotik/infrastructure/http/routes/mikrtik.routes";
 // import { oerganizationRoutes } from "@/modulos/organization/infrastructure/http/routers/organization.routes";
 // import { userRoutes } from "@/modulos/user/infrastructure/htttp/routes/user.routes";
+import { categoryRoutes } from "@/modulos/category/http/routers/category.routes";
 import type { FastifyInstance } from "fastify";
 import { ZodTypeProvider } from "fastify-type-provider-zod";
 import { z } from "zod";
@@ -23,6 +24,7 @@ export async function registerRoutes(app: FastifyInstance): Promise<void> {
   });
 
   // API routes
+  await app.register(categoryRoutes, { prefix: "/api/v1/categories" });
   // await app.register(accountRoutes, { prefix: "/api/accounts" });
   // await app.register(authRoutes, { prefix: "/api/auth" });
   // await app.register(userRoutes, { prefix: "/api/users" });
