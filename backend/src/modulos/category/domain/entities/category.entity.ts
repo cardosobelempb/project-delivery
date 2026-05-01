@@ -15,6 +15,7 @@ export interface CategoryProps {
   status: EntityStatus;
   createdAt: Date; // ISO 8601
   updatedAt: Date | null; // ISO 8601
+  deletedAt: Date | null; // ISO 8601
 }
 
 export class CategoryEntity extends BaseEntity<CategoryProps> {
@@ -54,6 +55,10 @@ export class CategoryEntity extends BaseEntity<CategoryProps> {
     return this.props.updatedAt;
   }
 
+  get deletedAt() {
+    return this.props.deletedAt;
+  }
+
   static create(
     props: Optional<
       CategoryProps,
@@ -64,6 +69,7 @@ export class CategoryEntity extends BaseEntity<CategoryProps> {
       | "status"
       | "createdAt"
       | "updatedAt"
+      | "deletedAt"
     >,
     id?: UUIDVO,
   ) {
@@ -77,6 +83,7 @@ export class CategoryEntity extends BaseEntity<CategoryProps> {
         status: props.status ?? EntityStatus.ACTIVE,
         createdAt: props.createdAt ?? new Date(),
         updatedAt: props.updatedAt ?? null,
+        deletedAt: props.deletedAt ?? null,
       },
       id,
     );

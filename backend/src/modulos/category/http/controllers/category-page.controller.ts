@@ -1,10 +1,9 @@
+import { PageQuerySchema } from "@/shared/schemas/page-query.schema";
 import type { FastifyInstance } from "fastify";
 import { ZodTypeProvider } from "fastify-type-provider-zod";
+
+import { CategoryPageResponseSchema } from "../../application/schemas/category.schema";
 import { CategoryPageUseCase } from "../../application/usecases/category-page.usecase";
-import {
-  CategoryPageQuerySchema,
-  CategoryPageResponseSchema,
-} from "../schemas/category.schema";
 
 export const categoryPageController = (
   categoryPageUseCase: CategoryPageUseCase,
@@ -16,10 +15,8 @@ export const categoryPageController = (
       schema: {
         tags: ["Category"],
         summary: "Lista organizações com paginação e filtro",
-        querystring: CategoryPageQuerySchema,
-        response: {
-          200: CategoryPageResponseSchema,
-        },
+        querystring: PageQuerySchema,
+        response: CategoryPageResponseSchema,
       },
       handler: async (request, reply) => {
         const result = await categoryPageUseCase.execute({

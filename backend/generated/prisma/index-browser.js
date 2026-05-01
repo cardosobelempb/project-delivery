@@ -331,7 +331,8 @@ exports.Prisma.CategoryScalarFieldEnum = {
   visible: 'visible',
   status: 'status',
   createdAt: 'createdAt',
-  updatedAt: 'updatedAt'
+  updatedAt: 'updatedAt',
+  deletedAt: 'deletedAt'
 };
 
 exports.Prisma.ProductScalarFieldEnum = {

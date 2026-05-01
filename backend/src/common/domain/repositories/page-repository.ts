@@ -3,7 +3,7 @@
 // Repositório abstrato com suporte a paginação no padrão Spring Boot.
 // ============================================================
 
-import { Repository } from "./Repository";
+import { BaseRepository } from "./base.repository";
 import { Page, PageInput } from "./types/pagination.types";
 
 /**
@@ -26,7 +26,7 @@ import { Page, PageInput } from "./types/pagination.types";
  * console.log(result.totalPages);     // 5
  * console.log(result.first);          // true
  */
-export abstract class PageRepository<TEntity> extends Repository<TEntity> {
+export abstract class PageRepository<TEntity> extends BaseRepository<TEntity> {
   /**
    * Busca entidades de forma paginada.
    *

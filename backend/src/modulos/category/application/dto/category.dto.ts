@@ -10,7 +10,6 @@ export interface CategoryDto {
   slug: string;
   visible: VisibilityStatus;
   status: EntityStatus;
-  parentId: string | null;
   createdAt: Date;
   updatedAt: Date | null;
 }

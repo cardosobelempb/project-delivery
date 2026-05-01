@@ -1,7 +1,7 @@
 import z from "zod";
 import { HttpErrorSchema } from "./error";
-import { PageableSchema } from "./pageable.schema";
-import { SortSchema } from "./sort.schema";
+import { PageableSchema } from "./page-pageable.schema";
+import { SortSchema } from "./page-sort.schema";
 
 /**
  * Generic paginated response schema

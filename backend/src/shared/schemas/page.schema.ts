@@ -1,59 +1,46 @@
 // ============================================================
-// page-response.schema.ts
-// Schema Zod genérico para validação/parsing de respostas paginadas
+// pagination.schema.ts
+// Schemas genéricos de paginação — padrão Spring Data Page<T>
 // ============================================================
 
 import { z } from "zod";
+import { PagePageableSchema } from "./page-pageable.schema";
+import { PageSortSchema } from "./page-sort.schema";
 
 /**
- * Schema de metadados de ordenação
- */
-export const SortSchema = z.object({
-  sorted: z.boolean(),
-  unsorted: z.boolean(),
-  empty: z.boolean(),
-});
-
-/**
- * Schema de metadados de paginação
- */
-export const PageableSchema = z.object({
-  sort: SortSchema,
-  offset: z.number().int().nonnegative(),
-  pageSize: z.number().int().positive(),
-  pageNumber: z.number().int().nonnegative(),
-  paged: z.boolean(),
-  unpaged: z.boolean(),
-});
-
-/**
- * Factory de schema paginado — recebe o schema do conteúdo e retorna
- * o schema completo no contrato Spring Data Page<T>.
+ * Factory de Page<T> — recebe o schema do item e retorna
+ * o schema completo no contrato Spring Data Page.
  *
- * @param contentSchema - Schema Zod do item individual do content
+ * @param contentSchema - Schema Zod do item individual
  *
  * @example
- * const OrganizationPageSchema = PageResponseSchema(OrganizationSchema);
- * type OrganizationPage = z.infer<typeof OrganizationPageSchema>;
+ * // Gera Page<Organization>
+ * const OrgPageSchema = PageSchema(OrganizationSchema);
+ * type OrgPage = z.infer<typeof OrgPageSchema>;
+ *
+ * // Gera Page<User>
+ * const UserPageSchema = PageSchema(UserSchema);
  */
 export const PageSchema = <T extends z.ZodTypeAny>(contentSchema: T) =>
   z.object({
     content: z.array(contentSchema),
-    pageable: PageableSchema,
+    pageable: PagePageableSchema,
+    sort: PageSortSchema,
     totalPages: z.number().int().nonnegative(),
     totalElements: z.number().int().nonnegative(),
-    last: z.boolean(),
+    numberOfElements: z.number().int().nonnegative(),
     size: z.number().int().positive(),
     number: z.number().int().nonnegative(),
-    sort: SortSchema,
-    numberOfElements: z.number().int().nonnegative(),
     first: z.boolean(),
+    last: z.boolean(),
     empty: z.boolean(),
   });
 
 // ─── Tipos inferidos ──────────────────────────────────────────────────────────
-export type SortSchema = z.infer<typeof SortSchema>;
-export type PageableSchema = z.infer<typeof PageableSchema>;
-export type PageResponse<T> = ReturnType<
-  typeof PageSchema<z.ZodType<T>>
->["type"];
+export type SortMeta = z.infer<typeof PagePageableSchema>;
+export type PageableMeta = z.infer<typeof PagePageableSchema>;
+
+// ✅ Corrigido: "_type" em vez de "type"
+export type PageResponse<T> = z.infer<
+  ReturnType<typeof PageSchema<z.ZodType<T>>>
+>;

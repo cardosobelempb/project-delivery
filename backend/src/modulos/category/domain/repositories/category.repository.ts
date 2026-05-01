@@ -1,4 +1,6 @@
 import { PageRepository } from "@/common/domain/repositories/page-repository";
 import { CategoryEntity } from "@/modulos/category/domain/entities/category.entity";
 
-export abstract class CategoryRepository extends PageRepository<CategoryEntity> {}
+export abstract class CategoryRepository extends PageRepository<CategoryEntity> {
+  abstract findByName(name: string): Promise<CategoryEntity | null>;
+}

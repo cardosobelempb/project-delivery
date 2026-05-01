@@ -137,6 +137,18 @@ export class PrismaCategoryRepository implements CategoryRepository {
 
     return !!category;
   }
+  async findByName(name: string): Promise<CategoryEntity | null> {
+    const category = await this.prisma.category.findFirst({
+      where: { name },
+    });
+
+    if (!category) {
+      return null;
+    }
+
+    return PrismaCategoryMapper.toDomain(category);
+  }
+
   async save(entity: CategoryEntity): Promise<CategoryEntity> {
     const raw = PrismaCategoryMapper.toPrisma(entity);
     const updated = await this.prisma.category.update({

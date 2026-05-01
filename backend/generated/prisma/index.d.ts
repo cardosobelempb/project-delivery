@@ -20597,6 +20597,7 @@ export namespace Prisma {
     status: $Enums.EntityStatus | null
     createdAt: Date | null
     updatedAt: Date | null
+    deletedAt: Date | null
   }
 
   export type CategoryMaxAggregateOutputType = {
@@ -20610,6 +20611,7 @@ export namespace Prisma {
     status: $Enums.EntityStatus | null
     createdAt: Date | null
     updatedAt: Date | null
+    deletedAt: Date | null
   }
 
   export type CategoryCountAggregateOutputType = {
@@ -20623,6 +20625,7 @@ export namespace Prisma {
     status: number
     createdAt: number
     updatedAt: number
+    deletedAt: number
     _all: number
   }
 
@@ -20646,6 +20649,7 @@ export namespace Prisma {
     status?: true
     createdAt?: true
     updatedAt?: true
+    deletedAt?: true
   }
 
   export type CategoryMaxAggregateInputType = {
@@ -20659,6 +20663,7 @@ export namespace Prisma {
     status?: true
     createdAt?: true
     updatedAt?: true
+    deletedAt?: true
   }
 
   export type CategoryCountAggregateInputType = {
@@ -20672,6 +20677,7 @@ export namespace Prisma {
     status?: true
     createdAt?: true
     updatedAt?: true
+    deletedAt?: true
     _all?: true
   }
 
@@ -20772,6 +20778,7 @@ export namespace Prisma {
     status: $Enums.EntityStatus
     createdAt: Date
     updatedAt: Date | null
+    deletedAt: Date | null
     _count: CategoryCountAggregateOutputType | null
     _avg: CategoryAvgAggregateOutputType | null
     _sum: CategorySumAggregateOutputType | null
@@ -20804,6 +20811,7 @@ export namespace Prisma {
     status?: boolean
     createdAt?: boolean
     updatedAt?: boolean
+    deletedAt?: boolean
     parent?: boolean | Category$parentArgs<ExtArgs>
     children?: boolean | Category$childrenArgs<ExtArgs>
     establishment?: boolean | Category$establishmentArgs<ExtArgs>
@@ -20822,6 +20830,7 @@ export namespace Prisma {
     status?: boolean
     createdAt?: boolean
     updatedAt?: boolean
+    deletedAt?: boolean
     parent?: boolean | Category$parentArgs<ExtArgs>
     establishment?: boolean | Category$establishmentArgs<ExtArgs>
   }, ExtArgs["result"]["category"]>
@@ -20837,6 +20846,7 @@ export namespace Prisma {
     status?: boolean
     createdAt?: boolean
     updatedAt?: boolean
+    deletedAt?: boolean
     parent?: boolean | Category$parentArgs<ExtArgs>
     establishment?: boolean | Category$establishmentArgs<ExtArgs>
   }, ExtArgs["result"]["category"]>
@@ -20852,9 +20862,10 @@ export namespace Prisma {
     status?: boolean
     createdAt?: boolean
     updatedAt?: boolean
+    deletedAt?: boolean
   }
 
-  export type CategoryOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "establishmentId" | "parentId" | "order" | "name" | "slug" | "visible" | "status" | "createdAt" | "updatedAt", ExtArgs["result"]["category"]>
+  export type CategoryOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "establishmentId" | "parentId" | "order" | "name" | "slug" | "visible" | "status" | "createdAt" | "updatedAt" | "deletedAt", ExtArgs["result"]["category"]>
   export type CategoryInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     parent?: boolean | Category$parentArgs<ExtArgs>
     children?: boolean | Category$childrenArgs<ExtArgs>
@@ -20890,6 +20901,7 @@ export namespace Prisma {
       status: $Enums.EntityStatus
       createdAt: Date
       updatedAt: Date | null
+      deletedAt: Date | null
     }, ExtArgs["result"]["category"]>
     composites: {}
   }
@@ -21327,6 +21339,7 @@ export namespace Prisma {
     readonly status: FieldRef<"Category", 'EntityStatus'>
     readonly createdAt: FieldRef<"Category", 'DateTime'>
     readonly updatedAt: FieldRef<"Category", 'DateTime'>
+    readonly deletedAt: FieldRef<"Category", 'DateTime'>
   }
     
 
@@ -43672,7 +43685,8 @@ export namespace Prisma {
     visible: 'visible',
     status: 'status',
     createdAt: 'createdAt',
-    updatedAt: 'updatedAt'
+    updatedAt: 'updatedAt',
+    deletedAt: 'deletedAt'
   };
 
   export type CategoryScalarFieldEnum = (typeof CategoryScalarFieldEnum)[keyof typeof CategoryScalarFieldEnum]
@@ -45667,6 +45681,7 @@ export namespace Prisma {
     status?: EnumEntityStatusFilter<"Category"> | $Enums.EntityStatus
     createdAt?: DateTimeFilter<"Category"> | Date | string
     updatedAt?: DateTimeNullableFilter<"Category"> | Date | string | null
+    deletedAt?: DateTimeNullableFilter<"Category"> | Date | string | null
     parent?: XOR<CategoryNullableScalarRelationFilter, CategoryWhereInput> | null
     children?: CategoryListRelationFilter
     establishment?: XOR<EstablishmentNullableScalarRelationFilter, EstablishmentWhereInput> | null
@@ -45684,6 +45699,7 @@ export namespace Prisma {
     status?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrderInput | SortOrder
+    deletedAt?: SortOrderInput | SortOrder
     parent?: CategoryOrderByWithRelationInput
     children?: CategoryOrderByRelationAggregateInput
     establishment?: EstablishmentOrderByWithRelationInput
@@ -45704,6 +45720,7 @@ export namespace Prisma {
     status?: EnumEntityStatusFilter<"Category"> | $Enums.EntityStatus
     createdAt?: DateTimeFilter<"Category"> | Date | string
     updatedAt?: DateTimeNullableFilter<"Category"> | Date | string | null
+    deletedAt?: DateTimeNullableFilter<"Category"> | Date | string | null
     parent?: XOR<CategoryNullableScalarRelationFilter, CategoryWhereInput> | null
     children?: CategoryListRelationFilter
     establishment?: XOR<EstablishmentNullableScalarRelationFilter, EstablishmentWhereInput> | null
@@ -45721,6 +45738,7 @@ export namespace Prisma {
     status?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrderInput | SortOrder
+    deletedAt?: SortOrderInput | SortOrder
     _count?: CategoryCountOrderByAggregateInput
     _avg?: CategoryAvgOrderByAggregateInput
     _max?: CategoryMaxOrderByAggregateInput
@@ -45742,6 +45760,7 @@ export namespace Prisma {
     status?: EnumEntityStatusWithAggregatesFilter<"Category"> | $Enums.EntityStatus
     createdAt?: DateTimeWithAggregatesFilter<"Category"> | Date | string
     updatedAt?: DateTimeNullableWithAggregatesFilter<"Category"> | Date | string | null
+    deletedAt?: DateTimeNullableWithAggregatesFilter<"Category"> | Date | string | null
   }
 
   export type ProductWhereInput = {
@@ -48968,6 +48987,7 @@ export namespace Prisma {
     status?: $Enums.EntityStatus
     createdAt?: Date | string
     updatedAt?: Date | string | null
+    deletedAt?: Date | string | null
     parent?: CategoryCreateNestedOneWithoutChildrenInput
     children?: CategoryCreateNestedManyWithoutParentInput
     establishment?: EstablishmentCreateNestedOneWithoutCategoriesInput
@@ -48985,6 +49005,7 @@ export namespace Prisma {
     status?: $Enums.EntityStatus
     createdAt?: Date | string
     updatedAt?: Date | string | null
+    deletedAt?: Date | string | null
     children?: CategoryUncheckedCreateNestedManyWithoutParentInput
     products?: ProductCategoryUncheckedCreateNestedManyWithoutCategoryInput
   }
@@ -48998,6 +49019,7 @@ export namespace Prisma {
     status?: EnumEntityStatusFieldUpdateOperationsInput | $Enums.EntityStatus
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     parent?: CategoryUpdateOneWithoutChildrenNestedInput
     children?: CategoryUpdateManyWithoutParentNestedInput
     establishment?: EstablishmentUpdateOneWithoutCategoriesNestedInput
@@ -49015,6 +49037,7 @@ export namespace Prisma {
     status?: EnumEntityStatusFieldUpdateOperationsInput | $Enums.EntityStatus
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     children?: CategoryUncheckedUpdateManyWithoutParentNestedInput
     products?: ProductCategoryUncheckedUpdateManyWithoutCategoryNestedInput
   }
@@ -49030,6 +49053,7 @@ export namespace Prisma {
     status?: $Enums.EntityStatus
     createdAt?: Date | string
     updatedAt?: Date | string | null
+    deletedAt?: Date | string | null
   }
 
   export type CategoryUpdateManyMutationInput = {
@@ -49041,6 +49065,7 @@ export namespace Prisma {
     status?: EnumEntityStatusFieldUpdateOperationsInput | $Enums.EntityStatus
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   }
 
   export type CategoryUncheckedUpdateManyInput = {
@@ -49054,6 +49079,7 @@ export namespace Prisma {
     status?: EnumEntityStatusFieldUpdateOperationsInput | $Enums.EntityStatus
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   }
 
   export type ProductCreateInput = {
@@ -52236,6 +52262,7 @@ export namespace Prisma {
     status?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
+    deletedAt?: SortOrder
   }
 
   export type CategoryAvgOrderByAggregateInput = {
@@ -52253,6 +52280,7 @@ export namespace Prisma {
     status?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
+    deletedAt?: SortOrder
   }
 
   export type CategoryMinOrderByAggregateInput = {
@@ -52266,6 +52294,7 @@ export namespace Prisma {
     status?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
+    deletedAt?: SortOrder
   }
 
   export type CategorySumOrderByAggregateInput = {
@@ -57994,6 +58023,7 @@ export namespace Prisma {
     status?: $Enums.EntityStatus
     createdAt?: Date | string
     updatedAt?: Date | string | null
+    deletedAt?: Date | string | null
     parent?: CategoryCreateNestedOneWithoutChildrenInput
     children?: CategoryCreateNestedManyWithoutParentInput
     products?: ProductCategoryCreateNestedManyWithoutCategoryInput
@@ -58009,6 +58039,7 @@ export namespace Prisma {
     status?: $Enums.EntityStatus
     createdAt?: Date | string
     updatedAt?: Date | string | null
+    deletedAt?: Date | string | null
     children?: CategoryUncheckedCreateNestedManyWithoutParentInput
     products?: ProductCategoryUncheckedCreateNestedManyWithoutCategoryInput
   }
@@ -58923,6 +58954,7 @@ export namespace Prisma {
     status?: EnumEntityStatusFilter<"Category"> | $Enums.EntityStatus
     createdAt?: DateTimeFilter<"Category"> | Date | string
     updatedAt?: DateTimeNullableFilter<"Category"> | Date | string | null
+    deletedAt?: DateTimeNullableFilter<"Category"> | Date | string | null
   }
 
   export type CustomerUpsertWithWhereUniqueWithoutEstablishmentInput = {
@@ -60851,6 +60883,7 @@ export namespace Prisma {
     status?: $Enums.EntityStatus
     createdAt?: Date | string
     updatedAt?: Date | string | null
+    deletedAt?: Date | string | null
     parent?: CategoryCreateNestedOneWithoutChildrenInput
     establishment?: EstablishmentCreateNestedOneWithoutCategoriesInput
     products?: ProductCategoryCreateNestedManyWithoutCategoryInput
@@ -60867,6 +60900,7 @@ export namespace Prisma {
     status?: $Enums.EntityStatus
     createdAt?: Date | string
     updatedAt?: Date | string | null
+    deletedAt?: Date | string | null
     products?: ProductCategoryUncheckedCreateNestedManyWithoutCategoryInput
   }
 
@@ -60884,6 +60918,7 @@ export namespace Prisma {
     status?: $Enums.EntityStatus
     createdAt?: Date | string
     updatedAt?: Date | string | null
+    deletedAt?: Date | string | null
     children?: CategoryCreateNestedManyWithoutParentInput
     establishment?: EstablishmentCreateNestedOneWithoutCategoriesInput
     products?: ProductCategoryCreateNestedManyWithoutCategoryInput
@@ -60899,6 +60934,7 @@ export namespace Prisma {
     status?: $Enums.EntityStatus
     createdAt?: Date | string
     updatedAt?: Date | string | null
+    deletedAt?: Date | string | null
     children?: CategoryUncheckedCreateNestedManyWithoutParentInput
     products?: ProductCategoryUncheckedCreateNestedManyWithoutCategoryInput
   }
@@ -61042,6 +61078,7 @@ export namespace Prisma {
     status?: EnumEntityStatusFieldUpdateOperationsInput | $Enums.EntityStatus
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     parent?: CategoryUpdateOneWithoutChildrenNestedInput
     establishment?: EstablishmentUpdateOneWithoutCategoriesNestedInput
     products?: ProductCategoryUpdateManyWithoutCategoryNestedInput
@@ -61058,6 +61095,7 @@ export namespace Prisma {
     status?: EnumEntityStatusFieldUpdateOperationsInput | $Enums.EntityStatus
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     products?: ProductCategoryUncheckedUpdateManyWithoutCategoryNestedInput
   }
 
@@ -61584,6 +61622,7 @@ export namespace Prisma {
     status?: $Enums.EntityStatus
     createdAt?: Date | string
     updatedAt?: Date | string | null
+    deletedAt?: Date | string | null
     parent?: CategoryCreateNestedOneWithoutChildrenInput
     children?: CategoryCreateNestedManyWithoutParentInput
     establishment?: EstablishmentCreateNestedOneWithoutCategoriesInput
@@ -61600,6 +61639,7 @@ export namespace Prisma {
     status?: $Enums.EntityStatus
     createdAt?: Date | string
     updatedAt?: Date | string | null
+    deletedAt?: Date | string | null
     children?: CategoryUncheckedCreateNestedManyWithoutParentInput
   }
 
@@ -61705,6 +61745,7 @@ export namespace Prisma {
     status?: EnumEntityStatusFieldUpdateOperationsInput | $Enums.EntityStatus
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     parent?: CategoryUpdateOneWithoutChildrenNestedInput
     children?: CategoryUpdateManyWithoutParentNestedInput
     establishment?: EstablishmentUpdateOneWithoutCategoriesNestedInput
@@ -61721,6 +61762,7 @@ export namespace Prisma {
     status?: EnumEntityStatusFieldUpdateOperationsInput | $Enums.EntityStatus
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     children?: CategoryUncheckedUpdateManyWithoutParentNestedInput
   }
 
@@ -65647,6 +65689,7 @@ export namespace Prisma {
     status?: $Enums.EntityStatus
     createdAt?: Date | string
     updatedAt?: Date | string | null
+    deletedAt?: Date | string | null
   }
 
   export type CustomerCreateManyEstablishmentInput = {
@@ -65987,6 +66030,7 @@ export namespace Prisma {
     status?: EnumEntityStatusFieldUpdateOperationsInput | $Enums.EntityStatus
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     parent?: CategoryUpdateOneWithoutChildrenNestedInput
     children?: CategoryUpdateManyWithoutParentNestedInput
     products?: ProductCategoryUpdateManyWithoutCategoryNestedInput
@@ -66002,6 +66046,7 @@ export namespace Prisma {
     status?: EnumEntityStatusFieldUpdateOperationsInput | $Enums.EntityStatus
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     children?: CategoryUncheckedUpdateManyWithoutParentNestedInput
     products?: ProductCategoryUncheckedUpdateManyWithoutCategoryNestedInput
   }
@@ -66016,6 +66061,7 @@ export namespace Prisma {
     status?: EnumEntityStatusFieldUpdateOperationsInput | $Enums.EntityStatus
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   }
 
   export type CustomerUpdateWithoutEstablishmentInput = {
@@ -66479,6 +66525,7 @@ export namespace Prisma {
     status?: $Enums.EntityStatus
     createdAt?: Date | string
     updatedAt?: Date | string | null
+    deletedAt?: Date | string | null
   }
 
   export type ProductCategoryCreateManyCategoryInput = {
@@ -66494,6 +66541,7 @@ export namespace Prisma {
     status?: EnumEntityStatusFieldUpdateOperationsInput | $Enums.EntityStatus
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     children?: CategoryUpdateManyWithoutParentNestedInput
     establishment?: EstablishmentUpdateOneWithoutCategoriesNestedInput
     products?: ProductCategoryUpdateManyWithoutCategoryNestedInput
@@ -66509,6 +66557,7 @@ export namespace Prisma {
     status?: EnumEntityStatusFieldUpdateOperationsInput | $Enums.EntityStatus
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     children?: CategoryUncheckedUpdateManyWithoutParentNestedInput
     products?: ProductCategoryUncheckedUpdateManyWithoutCategoryNestedInput
   }
@@ -66523,6 +66572,7 @@ export namespace Prisma {
     status?: EnumEntityStatusFieldUpdateOperationsInput | $Enums.EntityStatus
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   }
 
   export type ProductCategoryUpdateWithoutCategoryInput = {

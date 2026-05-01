@@ -1,5 +1,6 @@
 // ── Repositories ──────────────────────────────────────────────────────────────
 
+import { CategoryCreateUseCase } from "../application/usecases/category-create.usecase";
 import { CategoryPageUseCase } from "../application/usecases/category-page.usecase";
 import { PrismaCategoryRepository } from "../infra/repositories/prisma-category.repository";
 
@@ -9,9 +10,9 @@ const categoryRepository = new PrismaCategoryRepository();
 
 // ── Use Cases ─────────────────────────────────────────────────────────────────
 
-// export const categoryCreateUseCase = new CategoryCreateUseCase(
-//   categoryRepository,
-// );
+export const categoryCreateUseCase = new CategoryCreateUseCase(
+  categoryRepository,
+);
 // export const categoryFindByIdUseCase = new CategoryFindByIdUseCase(
 //   categoryRepository,
 // );

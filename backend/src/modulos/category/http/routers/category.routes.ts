@@ -1,9 +1,10 @@
 import { FastifyInstance } from "fastify";
-import { categoryPageUseCase } from "../../container";
+import { categoryCreateUseCase, categoryPageUseCase } from "../../container";
+import { categoryCreateController } from "../controllers/category-create.controller";
 import { categoryPageController } from "../controllers/category-page.controller";
 
 export async function categoryRoutes(app: FastifyInstance): Promise<void> {
-  // await app.register(categoryCreateController(categoryCreateUseCase));
+  await app.register(categoryCreateController(categoryCreateUseCase));
   // await app.register(
   //   categoryFindByIdController(categoryFindByIdUseCase),
   // );

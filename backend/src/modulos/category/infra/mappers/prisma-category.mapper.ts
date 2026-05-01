@@ -30,16 +30,16 @@ export class PrismaCategoryMapper {
     return {
       id: entity.id.toString(),
       establishmentId: entity.establishmentId
-        ? entity.establishmentId.toString()
+        ? entity.establishmentId.getValue()
         : null,
-      patentId: entity.patentId ? entity.patentId.toString() : null,
+      patentId: entity.patentId ? entity.patentId.getValue() : null,
       name: entity.name || "",
-      slug: entity.slug ? entity.slug.toString() : "",
+      slug: entity.slug ? entity.slug.getValue() : "",
       visible: entity.visible as VisibilityStatus,
       status: entity.status,
       order: entity.order,
-      createdAt: entity.createdAt.toISOString(),
-      updatedAt: entity.updatedAt ? entity.updatedAt.toISOString() : null,
+      createdAt: entity.createdAt,
+      updatedAt: entity.updatedAt ? entity.updatedAt : null,
     };
   }
 
@@ -55,9 +55,9 @@ export class PrismaCategoryMapper {
       order: entity.order,
       visible: entity.visible,
       status: entity.status,
-
       createdAt: entity.createdAt,
       updatedAt: entity.updatedAt,
+      deletedAt: entity.deletedAt,
     };
   }
 }
