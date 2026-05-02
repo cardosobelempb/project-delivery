@@ -131,9 +131,10 @@ exports.Prisma.UserScalarFieldEnum = {
   recoverKey: 'recoverKey',
   keepAlive: 'keepAlive',
   commission: 'commission',
-  createdAt: 'createdAt',
   lastLoginAt: 'lastLoginAt',
-  updatedAt: 'updatedAt'
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt',
+  deletedAt: 'deletedAt'
 };
 
 exports.Prisma.UserDataScalarFieldEnum = {

@@ -1,91 +1,133 @@
-import { ValidatorMessage } from "@/common/domain/validations";
+// ============================================================
+// user.schema.ts
+// Schemas exclusivos da entidade User.
+// Importa dos shared — zero duplicação de erros/paginação.
+// ============================================================
+
 import { z } from "zod";
 
-/**
- * Validações Zod para User.
- *
- * Convenção:
- * - create: valida payload de entrada para criação.
- * - update: valida payload parcial para atualização.
- * - presenter: valida objeto de saída/retorno da API.
- */
-export const createUserSchema = z
+import { ValidatorMessage } from "@/common/domain/validations";
+import { EntityStatus } from "@/shared/enums/entity-status.enum";
+import { UserLevel } from "@/shared/enums/user-level.enum";
+import { YesNoStatus } from "@/shared/enums/yes-no-status.enum";
+import { IsoDateTimeInput, UUIDString } from "@/shared/schemas/helpers";
+import {
+  actionResponseSchema,
+  createResponseSchema,
+  findResponseSchema,
+  pageResponseSchema,
+  updateResponseSchema,
+} from "@/shared/schemas/response.factory";
+
+// ─── Params ───────────────────────────────────────────────────────────────────
+
+export const UserParamsSchema = z.object({
+  userId: UUIDString,
+});
+
+export type UserParams = z.infer<typeof UserParamsSchema>;
+
+// ─── Schema base da entidade ──────────────────────────────────────────────────
+//
+// Fonte única de verdade para todos os schemas derivados.
+//
+// ⚠️  z.nativeEnum() — obrigatório para enums TypeScript.
+//     z.enum() só aceita tuplas de string literal ["A","B"],
+//     não enums compilados. Usar z.enum(EnumTS) quebra em runtime.
+
+export const UserSchema = z
   .object({
+    id: UUIDString,
     name: z.string(ValidatorMessage.REQUIRED_FIELD).optional(),
     email: z.string(ValidatorMessage.REQUIRED_FIELD).optional(),
     passwordHash: z.string(ValidatorMessage.REQUIRED_FIELD).optional(),
-    level: z
-      .enum(["OWNER", "ADMIN", "AFFILIATE", "OPERATOR", "CUSTOMER"])
-      .optional(),
-    operation: z.enum(["YES", "NO"]).optional(),
-    status: z.enum(["ACTIVE", "INACTIVE", "BLOCKED", "DELETED"]).optional(),
+    level: z.nativeEnum(UserLevel).optional(),
+    operation: z.nativeEnum(YesNoStatus).optional(),
+    status: z.nativeEnum(EntityStatus).optional(),
     recoverKey: z.string(ValidatorMessage.REQUIRED_FIELD).optional(),
     keepAlive: z.string(ValidatorMessage.REQUIRED_FIELD).optional(),
     commission: z.string(ValidatorMessage.REQUIRED_FIELD).optional(),
     lastLoginAt: z.string(ValidatorMessage.REQUIRED_FIELD).optional(),
+    createdAt: IsoDateTimeInput.optional().nullable(),
+    updatedAt: IsoDateTimeInput.optional().nullable(),
+    deletedAt: IsoDateTimeInput.optional().nullable(),
   })
   .strict();
 
-export const updateUserSchema = createUserSchema.partial().strict();
+// ─── Body schemas (entrada) ───────────────────────────────────────────────────
 
-export const userPresenterSchema = z
-  .object({
-    id: z.string(ValidatorMessage.REQUIRED_FIELD).uuid(),
-    name: z.string(ValidatorMessage.REQUIRED_FIELD).nullable().optional(),
-    email: z.string(ValidatorMessage.REQUIRED_FIELD).nullable().optional(),
-    passwordHash: z
-      .string(ValidatorMessage.REQUIRED_FIELD)
-      .nullable()
-      .optional(),
-    level: z
-      .enum(["OWNER", "ADMIN", "AFFILIATE", "OPERATOR", "CUSTOMER"])
-      .nullable()
-      .optional(),
-    operation: z.enum(["YES", "NO"]).nullable().optional(),
-    status: z
-      .enum(["ACTIVE", "INACTIVE", "BLOCKED", "DELETED"])
-      .nullable()
-      .optional(),
-    recoverKey: z.string(ValidatorMessage.REQUIRED_FIELD).nullable().optional(),
-    keepAlive: z.string(ValidatorMessage.REQUIRED_FIELD).nullable().optional(),
-    commission: z.string(ValidatorMessage.REQUIRED_FIELD).nullable().optional(),
-    createdAt: z.string(ValidatorMessage.REQUIRED_FIELD).nullable().optional(),
-    lastLoginAt: z
-      .string(ValidatorMessage.REQUIRED_FIELD)
-      .nullable()
-      .optional(),
-    updatedAt: z.string(ValidatorMessage.REQUIRED_FIELD).nullable().optional(),
-  })
-  .strict();
+// Payload de criação: sem campos gerados pelo servidor
+export const CreateUserSchema = UserSchema.omit({
+  id: true,
+  status: true,
+  level: true,
+  operation: true,
+  commission: true,
+  keepAlive: true,
+  recoverKey: true,
+  lastLoginAt: true,
+  createdAt: true,
+  updatedAt: true,
+  deletedAt: true,
+});
 
-export type CreateUserInput = z.infer<typeof createUserSchema>;
-export type UpdateUserInput = z.infer<typeof updateUserSchema>;
-export type UserPresenter = z.infer<typeof userPresenterSchema>;
+// Payload de atualização: todos os campos opcionais
+// Não precisa de .strict() extra — já herdado do UserSchema base
+export const UpdateUserSchema = UserSchema.partial();
 
-export const createUserRawExample: CreateUserInput = {
-  name: "Exemplo",
-  email: "cliente@example.com",
-  passwordHash: "secret-value",
-  level: "OWNER",
-  operation: "YES",
-  status: "ACTIVE",
-  recoverKey: "secret-value",
-  keepAlive: "example",
-  commission: "example",
-};
+// ─── Response schemas (saída) ─────────────────────────────────────────────────
 
-export const userPresenterRawExample: UserPresenter = {
-  id: "00000000-0000-4000-8000-000000000000",
-  name: "Exemplo",
-  email: "cliente@example.com",
-  passwordHash: "secret-value",
-  level: "OWNER",
-  operation: "YES",
-  status: "ACTIVE",
-  recoverKey: "secret-value",
-  keepAlive: "example",
-  commission: "example",
-  createdAt: "2026-04-28T12:00:00.000Z",
-  lastLoginAt: "2026-04-28T12:00:00.000Z",
-  updatedAt: "2026-04-28T12:00:00.000Z",
-};
+// Resposta completa: expõe tudo exceto campos de soft-delete
+export const UserResponseSchema = UserSchema.omit({
+  passwordHash: true, // Nunca exponha hashes de senha em respostas HTTP!
+  deletedAt: true,
+  updatedAt: true,
+});
+
+// Resumo para listagem: versão compacta — evita over-fetching
+export const UserSummarySchema = UserSchema.pick({
+  id: true,
+  name: true,
+  email: true,
+  level: true,
+  status: true,
+});
+
+// ─── Response wrappers via factory ───────────────────────────────────────────
+//
+// Cada wrapper envelopa UserResponseSchema (entidade completa),
+// não o schema de input — a resposta de create/update devolve a entidade
+// persistida, não o payload que o cliente enviou.
+
+export const UserCreateResponseSchema =
+  createResponseSchema(UserResponseSchema);
+export const UserFindByIdResponseSchema =
+  findResponseSchema(UserResponseSchema);
+export const UserUpdateResponseSchema =
+  updateResponseSchema(UserResponseSchema);
+export const UserActivateResponseSchema = actionResponseSchema();
+export const UserDeactivateResponseSchema = actionResponseSchema();
+export const UserPageResponseSchema = pageResponseSchema(UserSummarySchema);
+
+// ─── Tipos inferidos ──────────────────────────────────────────────────────────
+//
+// Nunca escreva tipos manualmente — inferidos diretamente dos schemas.
+// Se o schema mudar, o tipo muda junto automaticamente.
+
+export type UserDto = z.infer<typeof UserSchema>;
+export type CreateUserDto = z.infer<typeof CreateUserSchema>;
+export type UpdateUserDto = z.infer<typeof UpdateUserSchema>;
+export type UserSummaryDto = z.infer<typeof UserSummarySchema>;
+export type UserResponseDto = z.infer<typeof UserResponseSchema>;
+export type UserCreateResponseDto = z.infer<typeof UserCreateResponseSchema>;
+export type UserFindByIdResponseDto = z.infer<
+  typeof UserFindByIdResponseSchema
+>;
+export type UserUpdateResponseDto = z.infer<typeof UserUpdateResponseSchema>;
+export type UserActivateResponseDto = z.infer<
+  typeof UserActivateResponseSchema
+>;
+export type UserDeactivateResponseDto = z.infer<
+  typeof UserDeactivateResponseSchema
+>;
+export type UserPageResponseDto = z.infer<typeof UserPageResponseSchema>;

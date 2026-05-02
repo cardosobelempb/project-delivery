@@ -4488,9 +4488,10 @@ export namespace Prisma {
     recoverKey: string | null
     keepAlive: string | null
     commission: string | null
-    createdAt: Date | null
     lastLoginAt: Date | null
+    createdAt: Date | null
     updatedAt: Date | null
+    deletedAt: Date | null
   }
 
   export type UserMaxAggregateOutputType = {
@@ -4504,9 +4505,10 @@ export namespace Prisma {
     recoverKey: string | null
     keepAlive: string | null
     commission: string | null
-    createdAt: Date | null
     lastLoginAt: Date | null
+    createdAt: Date | null
     updatedAt: Date | null
+    deletedAt: Date | null
   }
 
   export type UserCountAggregateOutputType = {
@@ -4520,9 +4522,10 @@ export namespace Prisma {
     recoverKey: number
     keepAlive: number
     commission: number
-    createdAt: number
     lastLoginAt: number
+    createdAt: number
     updatedAt: number
+    deletedAt: number
     _all: number
   }
 
@@ -4538,9 +4541,10 @@ export namespace Prisma {
     recoverKey?: true
     keepAlive?: true
     commission?: true
-    createdAt?: true
     lastLoginAt?: true
+    createdAt?: true
     updatedAt?: true
+    deletedAt?: true
   }
 
   export type UserMaxAggregateInputType = {
@@ -4554,9 +4558,10 @@ export namespace Prisma {
     recoverKey?: true
     keepAlive?: true
     commission?: true
-    createdAt?: true
     lastLoginAt?: true
+    createdAt?: true
     updatedAt?: true
+    deletedAt?: true
   }
 
   export type UserCountAggregateInputType = {
@@ -4570,9 +4575,10 @@ export namespace Prisma {
     recoverKey?: true
     keepAlive?: true
     commission?: true
-    createdAt?: true
     lastLoginAt?: true
+    createdAt?: true
     updatedAt?: true
+    deletedAt?: true
     _all?: true
   }
 
@@ -4659,9 +4665,10 @@ export namespace Prisma {
     recoverKey: string | null
     keepAlive: string | null
     commission: string | null
-    createdAt: Date | null
     lastLoginAt: Date | null
+    createdAt: Date | null
     updatedAt: Date | null
+    deletedAt: Date | null
     _count: UserCountAggregateOutputType | null
     _min: UserMinAggregateOutputType | null
     _max: UserMaxAggregateOutputType | null
@@ -4692,9 +4699,10 @@ export namespace Prisma {
     recoverKey?: boolean
     keepAlive?: boolean
     commission?: boolean
-    createdAt?: boolean
     lastLoginAt?: boolean
+    createdAt?: boolean
     updatedAt?: boolean
+    deletedAt?: boolean
     profile?: boolean | User$profileArgs<ExtArgs>
     address?: boolean | User$addressArgs<ExtArgs>
     establishments?: boolean | User$establishmentsArgs<ExtArgs>
@@ -4713,9 +4721,10 @@ export namespace Prisma {
     recoverKey?: boolean
     keepAlive?: boolean
     commission?: boolean
-    createdAt?: boolean
     lastLoginAt?: boolean
+    createdAt?: boolean
     updatedAt?: boolean
+    deletedAt?: boolean
   }, ExtArgs["result"]["user"]>
 
   export type UserSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
@@ -4729,9 +4738,10 @@ export namespace Prisma {
     recoverKey?: boolean
     keepAlive?: boolean
     commission?: boolean
-    createdAt?: boolean
     lastLoginAt?: boolean
+    createdAt?: boolean
     updatedAt?: boolean
+    deletedAt?: boolean
   }, ExtArgs["result"]["user"]>
 
   export type UserSelectScalar = {
@@ -4745,12 +4755,13 @@ export namespace Prisma {
     recoverKey?: boolean
     keepAlive?: boolean
     commission?: boolean
-    createdAt?: boolean
     lastLoginAt?: boolean
+    createdAt?: boolean
     updatedAt?: boolean
+    deletedAt?: boolean
   }
 
-  export type UserOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "email" | "passwordHash" | "level" | "operation" | "status" | "recoverKey" | "keepAlive" | "commission" | "createdAt" | "lastLoginAt" | "updatedAt", ExtArgs["result"]["user"]>
+  export type UserOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "email" | "passwordHash" | "level" | "operation" | "status" | "recoverKey" | "keepAlive" | "commission" | "lastLoginAt" | "createdAt" | "updatedAt" | "deletedAt", ExtArgs["result"]["user"]>
   export type UserInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     profile?: boolean | User$profileArgs<ExtArgs>
     address?: boolean | User$addressArgs<ExtArgs>
@@ -4780,9 +4791,10 @@ export namespace Prisma {
       recoverKey: string | null
       keepAlive: string | null
       commission: string | null
-      createdAt: Date | null
       lastLoginAt: Date | null
+      createdAt: Date | null
       updatedAt: Date | null
+      deletedAt: Date | null
     }, ExtArgs["result"]["user"]>
     composites: {}
   }
@@ -5220,9 +5232,10 @@ export namespace Prisma {
     readonly recoverKey: FieldRef<"User", 'String'>
     readonly keepAlive: FieldRef<"User", 'String'>
     readonly commission: FieldRef<"User", 'String'>
-    readonly createdAt: FieldRef<"User", 'DateTime'>
     readonly lastLoginAt: FieldRef<"User", 'DateTime'>
+    readonly createdAt: FieldRef<"User", 'DateTime'>
     readonly updatedAt: FieldRef<"User", 'DateTime'>
+    readonly deletedAt: FieldRef<"User", 'DateTime'>
   }
     
 
@@ -43446,9 +43459,10 @@ export namespace Prisma {
     recoverKey: 'recoverKey',
     keepAlive: 'keepAlive',
     commission: 'commission',
-    createdAt: 'createdAt',
     lastLoginAt: 'lastLoginAt',
-    updatedAt: 'updatedAt'
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt',
+    deletedAt: 'deletedAt'
   };
 
   export type UserScalarFieldEnum = (typeof UserScalarFieldEnum)[keyof typeof UserScalarFieldEnum]
@@ -44384,9 +44398,10 @@ export namespace Prisma {
     recoverKey?: StringNullableFilter<"User"> | string | null
     keepAlive?: StringNullableFilter<"User"> | string | null
     commission?: StringNullableFilter<"User"> | string | null
-    createdAt?: DateTimeNullableFilter<"User"> | Date | string | null
     lastLoginAt?: DateTimeNullableFilter<"User"> | Date | string | null
+    createdAt?: DateTimeNullableFilter<"User"> | Date | string | null
     updatedAt?: DateTimeNullableFilter<"User"> | Date | string | null
+    deletedAt?: DateTimeNullableFilter<"User"> | Date | string | null
     profile?: XOR<UserDataNullableScalarRelationFilter, UserDataWhereInput> | null
     address?: XOR<AddressNullableScalarRelationFilter, AddressWhereInput> | null
     establishments?: EstablishmentListRelationFilter
@@ -44404,9 +44419,10 @@ export namespace Prisma {
     recoverKey?: SortOrderInput | SortOrder
     keepAlive?: SortOrderInput | SortOrder
     commission?: SortOrderInput | SortOrder
-    createdAt?: SortOrderInput | SortOrder
     lastLoginAt?: SortOrderInput | SortOrder
+    createdAt?: SortOrderInput | SortOrder
     updatedAt?: SortOrderInput | SortOrder
+    deletedAt?: SortOrderInput | SortOrder
     profile?: UserDataOrderByWithRelationInput
     address?: AddressOrderByWithRelationInput
     establishments?: EstablishmentOrderByRelationAggregateInput
@@ -44427,9 +44443,10 @@ export namespace Prisma {
     recoverKey?: StringNullableFilter<"User"> | string | null
     keepAlive?: StringNullableFilter<"User"> | string | null
     commission?: StringNullableFilter<"User"> | string | null
-    createdAt?: DateTimeNullableFilter<"User"> | Date | string | null
     lastLoginAt?: DateTimeNullableFilter<"User"> | Date | string | null
+    createdAt?: DateTimeNullableFilter<"User"> | Date | string | null
     updatedAt?: DateTimeNullableFilter<"User"> | Date | string | null
+    deletedAt?: DateTimeNullableFilter<"User"> | Date | string | null
     profile?: XOR<UserDataNullableScalarRelationFilter, UserDataWhereInput> | null
     address?: XOR<AddressNullableScalarRelationFilter, AddressWhereInput> | null
     establishments?: EstablishmentListRelationFilter
@@ -44447,9 +44464,10 @@ export namespace Prisma {
     recoverKey?: SortOrderInput | SortOrder
     keepAlive?: SortOrderInput | SortOrder
     commission?: SortOrderInput | SortOrder
-    createdAt?: SortOrderInput | SortOrder
     lastLoginAt?: SortOrderInput | SortOrder
+    createdAt?: SortOrderInput | SortOrder
     updatedAt?: SortOrderInput | SortOrder
+    deletedAt?: SortOrderInput | SortOrder
     _count?: UserCountOrderByAggregateInput
     _max?: UserMaxOrderByAggregateInput
     _min?: UserMinOrderByAggregateInput
@@ -44469,9 +44487,10 @@ export namespace Prisma {
     recoverKey?: StringNullableWithAggregatesFilter<"User"> | string | null
     keepAlive?: StringNullableWithAggregatesFilter<"User"> | string | null
     commission?: StringNullableWithAggregatesFilter<"User"> | string | null
-    createdAt?: DateTimeNullableWithAggregatesFilter<"User"> | Date | string | null
     lastLoginAt?: DateTimeNullableWithAggregatesFilter<"User"> | Date | string | null
+    createdAt?: DateTimeNullableWithAggregatesFilter<"User"> | Date | string | null
     updatedAt?: DateTimeNullableWithAggregatesFilter<"User"> | Date | string | null
+    deletedAt?: DateTimeNullableWithAggregatesFilter<"User"> | Date | string | null
   }
 
   export type UserDataWhereInput = {
@@ -47481,9 +47500,10 @@ export namespace Prisma {
     recoverKey?: string | null
     keepAlive?: string | null
     commission?: string | null
-    createdAt?: Date | string | null
     lastLoginAt?: Date | string | null
+    createdAt?: Date | string | null
     updatedAt?: Date | string | null
+    deletedAt?: Date | string | null
     profile?: UserDataCreateNestedOneWithoutUserInput
     address?: AddressCreateNestedOneWithoutUserInput
     establishments?: EstablishmentCreateNestedManyWithoutUserInput
@@ -47501,9 +47521,10 @@ export namespace Prisma {
     recoverKey?: string | null
     keepAlive?: string | null
     commission?: string | null
-    createdAt?: Date | string | null
     lastLoginAt?: Date | string | null
+    createdAt?: Date | string | null
     updatedAt?: Date | string | null
+    deletedAt?: Date | string | null
     profile?: UserDataUncheckedCreateNestedOneWithoutUserInput
     address?: AddressUncheckedCreateNestedOneWithoutUserInput
     establishments?: EstablishmentUncheckedCreateNestedManyWithoutUserInput
@@ -47521,9 +47542,10 @@ export namespace Prisma {
     recoverKey?: NullableStringFieldUpdateOperationsInput | string | null
     keepAlive?: NullableStringFieldUpdateOperationsInput | string | null
     commission?: NullableStringFieldUpdateOperationsInput | string | null
-    createdAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     lastLoginAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     updatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     profile?: UserDataUpdateOneWithoutUserNestedInput
     address?: AddressUpdateOneWithoutUserNestedInput
     establishments?: EstablishmentUpdateManyWithoutUserNestedInput
@@ -47541,9 +47563,10 @@ export namespace Prisma {
     recoverKey?: NullableStringFieldUpdateOperationsInput | string | null
     keepAlive?: NullableStringFieldUpdateOperationsInput | string | null
     commission?: NullableStringFieldUpdateOperationsInput | string | null
-    createdAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     lastLoginAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     updatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     profile?: UserDataUncheckedUpdateOneWithoutUserNestedInput
     address?: AddressUncheckedUpdateOneWithoutUserNestedInput
     establishments?: EstablishmentUncheckedUpdateManyWithoutUserNestedInput
@@ -47561,9 +47584,10 @@ export namespace Prisma {
     recoverKey?: string | null
     keepAlive?: string | null
     commission?: string | null
-    createdAt?: Date | string | null
     lastLoginAt?: Date | string | null
+    createdAt?: Date | string | null
     updatedAt?: Date | string | null
+    deletedAt?: Date | string | null
   }
 
   export type UserUpdateManyMutationInput = {
@@ -47577,9 +47601,10 @@ export namespace Prisma {
     recoverKey?: NullableStringFieldUpdateOperationsInput | string | null
     keepAlive?: NullableStringFieldUpdateOperationsInput | string | null
     commission?: NullableStringFieldUpdateOperationsInput | string | null
-    createdAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     lastLoginAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     updatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   }
 
   export type UserUncheckedUpdateManyInput = {
@@ -47593,9 +47618,10 @@ export namespace Prisma {
     recoverKey?: NullableStringFieldUpdateOperationsInput | string | null
     keepAlive?: NullableStringFieldUpdateOperationsInput | string | null
     commission?: NullableStringFieldUpdateOperationsInput | string | null
-    createdAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     lastLoginAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     updatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   }
 
   export type UserDataCreateInput = {
@@ -51137,9 +51163,10 @@ export namespace Prisma {
     recoverKey?: SortOrder
     keepAlive?: SortOrder
     commission?: SortOrder
-    createdAt?: SortOrder
     lastLoginAt?: SortOrder
+    createdAt?: SortOrder
     updatedAt?: SortOrder
+    deletedAt?: SortOrder
   }
 
   export type UserMaxOrderByAggregateInput = {
@@ -51153,9 +51180,10 @@ export namespace Prisma {
     recoverKey?: SortOrder
     keepAlive?: SortOrder
     commission?: SortOrder
-    createdAt?: SortOrder
     lastLoginAt?: SortOrder
+    createdAt?: SortOrder
     updatedAt?: SortOrder
+    deletedAt?: SortOrder
   }
 
   export type UserMinOrderByAggregateInput = {
@@ -51169,9 +51197,10 @@ export namespace Prisma {
     recoverKey?: SortOrder
     keepAlive?: SortOrder
     commission?: SortOrder
-    createdAt?: SortOrder
     lastLoginAt?: SortOrder
+    createdAt?: SortOrder
     updatedAt?: SortOrder
+    deletedAt?: SortOrder
   }
 
   export type UuidWithAggregatesFilter<$PrismaModel = never> = {
@@ -56935,9 +56964,10 @@ export namespace Prisma {
     recoverKey?: string | null
     keepAlive?: string | null
     commission?: string | null
-    createdAt?: Date | string | null
     lastLoginAt?: Date | string | null
+    createdAt?: Date | string | null
     updatedAt?: Date | string | null
+    deletedAt?: Date | string | null
     address?: AddressCreateNestedOneWithoutUserInput
     establishments?: EstablishmentCreateNestedManyWithoutUserInput
     logs?: LogCreateNestedManyWithoutUserInput
@@ -56954,9 +56984,10 @@ export namespace Prisma {
     recoverKey?: string | null
     keepAlive?: string | null
     commission?: string | null
-    createdAt?: Date | string | null
     lastLoginAt?: Date | string | null
+    createdAt?: Date | string | null
     updatedAt?: Date | string | null
+    deletedAt?: Date | string | null
     address?: AddressUncheckedCreateNestedOneWithoutUserInput
     establishments?: EstablishmentUncheckedCreateNestedManyWithoutUserInput
     logs?: LogUncheckedCreateNestedManyWithoutUserInput
@@ -56989,9 +57020,10 @@ export namespace Prisma {
     recoverKey?: NullableStringFieldUpdateOperationsInput | string | null
     keepAlive?: NullableStringFieldUpdateOperationsInput | string | null
     commission?: NullableStringFieldUpdateOperationsInput | string | null
-    createdAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     lastLoginAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     updatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     address?: AddressUpdateOneWithoutUserNestedInput
     establishments?: EstablishmentUpdateManyWithoutUserNestedInput
     logs?: LogUpdateManyWithoutUserNestedInput
@@ -57008,9 +57040,10 @@ export namespace Prisma {
     recoverKey?: NullableStringFieldUpdateOperationsInput | string | null
     keepAlive?: NullableStringFieldUpdateOperationsInput | string | null
     commission?: NullableStringFieldUpdateOperationsInput | string | null
-    createdAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     lastLoginAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     updatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     address?: AddressUncheckedUpdateOneWithoutUserNestedInput
     establishments?: EstablishmentUncheckedUpdateManyWithoutUserNestedInput
     logs?: LogUncheckedUpdateManyWithoutUserNestedInput
@@ -57565,9 +57598,10 @@ export namespace Prisma {
     recoverKey?: string | null
     keepAlive?: string | null
     commission?: string | null
-    createdAt?: Date | string | null
     lastLoginAt?: Date | string | null
+    createdAt?: Date | string | null
     updatedAt?: Date | string | null
+    deletedAt?: Date | string | null
     profile?: UserDataCreateNestedOneWithoutUserInput
     address?: AddressCreateNestedOneWithoutUserInput
     logs?: LogCreateNestedManyWithoutUserInput
@@ -57584,9 +57618,10 @@ export namespace Prisma {
     recoverKey?: string | null
     keepAlive?: string | null
     commission?: string | null
-    createdAt?: Date | string | null
     lastLoginAt?: Date | string | null
+    createdAt?: Date | string | null
     updatedAt?: Date | string | null
+    deletedAt?: Date | string | null
     profile?: UserDataUncheckedCreateNestedOneWithoutUserInput
     address?: AddressUncheckedCreateNestedOneWithoutUserInput
     logs?: LogUncheckedCreateNestedManyWithoutUserInput
@@ -58470,9 +58505,10 @@ export namespace Prisma {
     recoverKey?: NullableStringFieldUpdateOperationsInput | string | null
     keepAlive?: NullableStringFieldUpdateOperationsInput | string | null
     commission?: NullableStringFieldUpdateOperationsInput | string | null
-    createdAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     lastLoginAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     updatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     profile?: UserDataUpdateOneWithoutUserNestedInput
     address?: AddressUpdateOneWithoutUserNestedInput
     logs?: LogUpdateManyWithoutUserNestedInput
@@ -58489,9 +58525,10 @@ export namespace Prisma {
     recoverKey?: NullableStringFieldUpdateOperationsInput | string | null
     keepAlive?: NullableStringFieldUpdateOperationsInput | string | null
     commission?: NullableStringFieldUpdateOperationsInput | string | null
-    createdAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     lastLoginAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     updatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     profile?: UserDataUncheckedUpdateOneWithoutUserNestedInput
     address?: AddressUncheckedUpdateOneWithoutUserNestedInput
     logs?: LogUncheckedUpdateManyWithoutUserNestedInput
@@ -59344,9 +59381,10 @@ export namespace Prisma {
     recoverKey?: string | null
     keepAlive?: string | null
     commission?: string | null
-    createdAt?: Date | string | null
     lastLoginAt?: Date | string | null
+    createdAt?: Date | string | null
     updatedAt?: Date | string | null
+    deletedAt?: Date | string | null
     profile?: UserDataCreateNestedOneWithoutUserInput
     establishments?: EstablishmentCreateNestedManyWithoutUserInput
     logs?: LogCreateNestedManyWithoutUserInput
@@ -59363,9 +59401,10 @@ export namespace Prisma {
     recoverKey?: string | null
     keepAlive?: string | null
     commission?: string | null
-    createdAt?: Date | string | null
     lastLoginAt?: Date | string | null
+    createdAt?: Date | string | null
     updatedAt?: Date | string | null
+    deletedAt?: Date | string | null
     profile?: UserDataUncheckedCreateNestedOneWithoutUserInput
     establishments?: EstablishmentUncheckedCreateNestedManyWithoutUserInput
     logs?: LogUncheckedCreateNestedManyWithoutUserInput
@@ -59598,9 +59637,10 @@ export namespace Prisma {
     recoverKey?: NullableStringFieldUpdateOperationsInput | string | null
     keepAlive?: NullableStringFieldUpdateOperationsInput | string | null
     commission?: NullableStringFieldUpdateOperationsInput | string | null
-    createdAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     lastLoginAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     updatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     profile?: UserDataUpdateOneWithoutUserNestedInput
     establishments?: EstablishmentUpdateManyWithoutUserNestedInput
     logs?: LogUpdateManyWithoutUserNestedInput
@@ -59617,9 +59657,10 @@ export namespace Prisma {
     recoverKey?: NullableStringFieldUpdateOperationsInput | string | null
     keepAlive?: NullableStringFieldUpdateOperationsInput | string | null
     commission?: NullableStringFieldUpdateOperationsInput | string | null
-    createdAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     lastLoginAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     updatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     profile?: UserDataUncheckedUpdateOneWithoutUserNestedInput
     establishments?: EstablishmentUncheckedUpdateManyWithoutUserNestedInput
     logs?: LogUncheckedUpdateManyWithoutUserNestedInput
@@ -62695,9 +62736,10 @@ export namespace Prisma {
     recoverKey?: string | null
     keepAlive?: string | null
     commission?: string | null
-    createdAt?: Date | string | null
     lastLoginAt?: Date | string | null
+    createdAt?: Date | string | null
     updatedAt?: Date | string | null
+    deletedAt?: Date | string | null
     profile?: UserDataCreateNestedOneWithoutUserInput
     address?: AddressCreateNestedOneWithoutUserInput
     establishments?: EstablishmentCreateNestedManyWithoutUserInput
@@ -62714,9 +62756,10 @@ export namespace Prisma {
     recoverKey?: string | null
     keepAlive?: string | null
     commission?: string | null
-    createdAt?: Date | string | null
     lastLoginAt?: Date | string | null
+    createdAt?: Date | string | null
     updatedAt?: Date | string | null
+    deletedAt?: Date | string | null
     profile?: UserDataUncheckedCreateNestedOneWithoutUserInput
     address?: AddressUncheckedCreateNestedOneWithoutUserInput
     establishments?: EstablishmentUncheckedCreateNestedManyWithoutUserInput
@@ -62840,9 +62883,10 @@ export namespace Prisma {
     recoverKey?: NullableStringFieldUpdateOperationsInput | string | null
     keepAlive?: NullableStringFieldUpdateOperationsInput | string | null
     commission?: NullableStringFieldUpdateOperationsInput | string | null
-    createdAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     lastLoginAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     updatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     profile?: UserDataUpdateOneWithoutUserNestedInput
     address?: AddressUpdateOneWithoutUserNestedInput
     establishments?: EstablishmentUpdateManyWithoutUserNestedInput
@@ -62859,9 +62903,10 @@ export namespace Prisma {
     recoverKey?: NullableStringFieldUpdateOperationsInput | string | null
     keepAlive?: NullableStringFieldUpdateOperationsInput | string | null
     commission?: NullableStringFieldUpdateOperationsInput | string | null
-    createdAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     lastLoginAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     updatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     profile?: UserDataUncheckedUpdateOneWithoutUserNestedInput
     address?: AddressUncheckedUpdateOneWithoutUserNestedInput
     establishments?: EstablishmentUncheckedUpdateManyWithoutUserNestedInput

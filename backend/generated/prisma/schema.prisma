@@ -150,9 +150,10 @@ model User {
   recoverKey   String?      @map("recover_key") @db.VarChar(255)
   keepAlive    String?      @map("keepalive") @db.VarChar(255)
   commission   String?      @map("commission") @db.VarChar(255)
-  createdAt    DateTime?    @map("created_at")
   lastLoginAt  DateTime?    @map("last_login")
-  updatedAt    DateTime?    @updatedAt @map("updated_at")
+  createdAt    DateTime?    @map("created_at")
+  updatedAt    DateTime?    @updatedAt @map("last_modified")
+  deletedAt    DateTime?    @map("deleted_at")
 
   profile        UserData?
   address        Address?
