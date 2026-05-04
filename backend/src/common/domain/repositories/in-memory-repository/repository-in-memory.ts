@@ -1,10 +1,7 @@
-import { SearchInput } from "../search.repository";
-
 import { NotFoundError } from "../../errors/usecases/not-founde.rror";
-
 import { UUIDVO } from "../../values-objects/uuidvo/uuid.vo";
 import { PageRepository } from "../page-repository";
-import { Page } from "../types/pagination.types";
+import { Page, PageInput } from "../types/pagination.types";
 
 /**
  * Tipos de propriedades genéricas de uma entidade
@@ -28,7 +25,7 @@ export type CreateProps<Entity> = Partial<
  * Repositório genérico em memória
  * Útil para testes ou prototipagem
  */
-export abstract class BaseInMemoryRepository<
+export abstract class RepositoryInMemory<
   Entity extends ModelProps,
 > implements PageRepository<Entity> {
   /** Armazena todas as entidades em memória */
@@ -53,15 +50,15 @@ export abstract class BaseInMemoryRepository<
    * Cria uma nova entidade em memória
    * Não persiste
    */
-  async create(entity: Entity): Promise<Entity> {
-    return {
-      id: UUIDVO.create(),
-      createdAt: new Date(),
-      updatedAt: new Date(),
-      deletedAt: null,
-      ...entity,
-    } as Entity;
-  }
+  // newEntity(props: CreateProps<Entity>): Entity {
+  //   return {
+  //     id: randomUUID(),
+  //     createdAt: new Date(),
+  //     updatedAt: new Date(),
+  //     deletedAt: null,
+  //     ...props,
+  //   } as Entity
+  // }
 
   /**
    * Persiste ou atualiza a entidade em memória
@@ -103,18 +100,18 @@ export abstract class BaseInMemoryRepository<
   /**
    * Busca paginada com filtro e ordenação
    */
-  async page(params: SearchInput): Promise<Page<Entity>> {
+  async page(params: PageInput): Promise<Page<Entity>> {
     const page = params.page ?? 1;
-    const perPage = params.perPage ?? 15;
-    const sortBy = params.sortBy ?? "";
-    const sortDirection = params.sortDirection ?? "asc";
+    const perPage = params.size ?? 10;
+    const sortBy = params.sort ?? "";
     const filter = params.filter ?? "";
 
-    // Aplicar filtro, ordenação e paginação
-    const filteredItems = await this.applyFilter(this.items, filter);
-    const orderedItems = this.applySort(filteredItems, sortBy, sortDirection);
+    let filteredItems = await this.applyFilter(this.items, filter);
+    const totalElements = filteredItems.length;
+
+    filteredItems = this.applySort(filteredItems, sortBy as keyof Entity);
     const paginatedItems = await this.applyPagination(
-      orderedItems,
+      filteredItems,
       page,
       perPage,
     );
@@ -122,9 +119,9 @@ export abstract class BaseInMemoryRepository<
     return {
       content: paginatedItems,
       pageable: {
-        offset: (page - 1) * perPage,
         pageNumber: page,
         pageSize: perPage,
+        offset: (page - 1) * perPage,
         paged: true,
         unpaged: false,
         sort: {
@@ -133,9 +130,9 @@ export abstract class BaseInMemoryRepository<
           empty: !sortBy,
         },
       },
-      totalPages: Math.ceil(filteredItems.length / perPage),
-      totalElements: filteredItems.length,
-      last: page * perPage >= filteredItems.length,
+      totalPages: Math.ceil(totalElements / perPage),
+      totalElements,
+      last: page * perPage >= totalElements,
       size: perPage,
       number: page,
       sort: {
@@ -212,16 +209,13 @@ export abstract class BaseInMemoryRepository<
     return items.slice(start, end);
   }
 
-  async findManyByIds(ids: string[]): Promise<Entity[]> {
-    const foundItems = this.items.filter(
-      (item) => item.id && ids.includes(item.id.getValue()) && !item.deletedAt,
-    );
-    return foundItems;
+  findManyByIds(ids: string[]): Promise<Entity[]> {
+    throw new Error("Method not implemented.");
   }
-  async exists(id: string): Promise<boolean> {
-    const entity = this.items.find(
-      (item) => item.id?.getValue() === id && !item.deletedAt,
-    );
-    return !!entity;
+  create(entity: Entity): Promise<Entity> {
+    throw new Error("Method not implemented.");
+  }
+  exists(id: string): Promise<boolean> {
+    throw new Error("Method not implemented.");
   }
 }

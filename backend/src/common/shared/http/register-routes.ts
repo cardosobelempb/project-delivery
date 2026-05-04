@@ -103,9 +103,11 @@ export async function registerControllers(
            * Em produção, substitua este mock por JWT real.
            */
           if (route.auth || route.roles) {
-            const user = request.user as
-              | { id: string; role: string }
-              | undefined;
+            const user = {
+              id: "123",
+              name: "Usuário de Teste",
+              role: "admin", // ou "user"
+            };
 
             if (!user) {
               return reply.status(401).send({
@@ -147,7 +149,11 @@ export async function registerControllers(
             throw new Error(`Handler ${route.handlerName} não encontrado`);
           }
 
-          const result = await (handler as Function).call(controller, request, reply);
+          const result = await (handler as Function).call(
+            controller,
+            request,
+            reply,
+          );
 
           if (route.cache && route.method === "GET") {
             memoryCache.set(cacheKey, {

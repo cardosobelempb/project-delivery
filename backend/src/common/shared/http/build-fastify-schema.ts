@@ -1,5 +1,5 @@
 import type { FastifySchema } from "fastify";
-import type { RouteDefinition } from "./types";
+import { RouteDefinition } from "./decorators/types";
 
 export function buildFastifySchema(route: RouteDefinition): FastifySchema {
   const schema: FastifySchema = {};

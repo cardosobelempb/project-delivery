@@ -1,7 +1,11 @@
-import { Either, left, right } from "@/common/domain/errors/handle-errors";
 import { AlreadyExistsError } from "@/common/domain/errors/usecases/already-exists.error";
 import { UserEntity } from "../../domain/entities/user.entity";
 
+import {
+  Either,
+  left,
+  right,
+} from "@/common/domain/errors/handle-errors/either";
 import { UserMapper } from "../../domain/mappers/user.mapper";
 import { PrismaUserRepository } from "../../infra/repositories/prisma-user.repository";
 import { CreateUserDto, UserResponseDto } from "../schemas/user.schema";

@@ -1,4 +1,5 @@
 import { BcryptHasher } from "@/common/shared/cryptography/bcrypt-hasher";
+
 import { UserPrismaRepository } from "@/modulos/user/infrastructure/htttp/repositories/prisma/user-prisma.repository";
 import { CreateAccountUseCase } from "../application/usecases/create-account.use-case";
 import { AccountPrismaRepository } from "../infrastructure/http/repositories/prisma/account-prisma.repository";
