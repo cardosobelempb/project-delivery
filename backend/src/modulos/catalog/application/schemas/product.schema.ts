@@ -1,7 +1,7 @@
 import { ValidatorMessage } from "@/common/domain/validations";
-import { EntityStatusDto } from "@/shared/enums/entity-status.enum";
-import { VisibilityStatusDto } from "@/shared/enums/visibility-status.enum";
-import { YesNoStatusDto } from "@/shared/enums/yes-no-status.enum";
+import { EntityStatusDto } from "@/common/shared/enums/entity-status.enum";
+import { VisibilityStatusDto } from "@/common/shared/enums/visibility-status.enum";
+import { YesNoStatusDto } from "@/common/shared/enums/yes-no-status.enum";
 import { z } from "zod";
 
 /**

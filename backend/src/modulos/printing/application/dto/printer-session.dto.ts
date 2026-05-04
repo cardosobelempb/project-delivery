@@ -1,5 +1,5 @@
 import { DeepPartial } from "@/common/domain/types/DeepPartial";
-import { YesNoStatusDto } from "@/shared/enums/yes-no-status.enum";
+import { YesNoStatusDto } from "@/common/shared/enums/yes-no-status.enum";
 
 export interface CreatePrinterSessionDto {
   ide?: string;

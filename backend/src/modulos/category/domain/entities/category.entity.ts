@@ -2,8 +2,8 @@ import { BaseEntity } from "@/common/domain/entities/base.entity";
 import { Optional } from "@/common/domain/types/Optional";
 import { SlugVO } from "@/common/domain/values-objects/slug/slug.vo";
 import { UUIDVO } from "@/common/domain/values-objects/uuidvo/uuid.vo";
-import { EntityStatus } from "@/shared/enums/entity-status.enum";
-import { VisibilityStatus } from "@/shared/enums/visibility-status.enum";
+import { EntityStatus } from "@/common/shared/enums/entity-status.enum";
+import { VisibilityStatus } from "@/common/shared/enums/visibility-status.enum";
 
 export interface CategoryProps {
   establishmentId: UUIDVO | null;

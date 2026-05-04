@@ -1,5 +1,5 @@
 import { ValidatorMessage } from "@/common/domain/validations";
-import { VoucherStatusDto } from "@/shared/enums/voucher-status.enum";
+import { VoucherStatusDto } from "@/common/shared/enums/voucher-status.enum";
 import { z } from "zod";
 
 /**

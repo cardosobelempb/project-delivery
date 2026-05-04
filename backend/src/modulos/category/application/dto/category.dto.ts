@@ -1,5 +1,5 @@
-import { EntityStatus } from "@/shared/enums/entity-status.enum";
-import { VisibilityStatus } from "@/shared/enums/visibility-status.enum";
+import { EntityStatus } from "@/common/shared/enums/entity-status.enum";
+import { VisibilityStatus } from "@/common/shared/enums/visibility-status.enum";
 
 export interface CategoryDto {
   id: string;

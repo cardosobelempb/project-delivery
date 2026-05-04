@@ -1,9 +1,9 @@
 import { BaseEntity } from "@/common/domain/entities/base.entity";
 import { Optional } from "@/common/domain/types/Optional";
 import { UUIDVO } from "@/common/domain/values-objects/uuidvo/uuid.vo";
-import { EntityStatus } from "@/shared/enums/entity-status.enum";
-import { UserLevel } from "@/shared/enums/user-level.enum";
-import { YesNoStatus } from "@/shared/enums/yes-no-status.enum";
+import { EntityStatus } from "@/common/shared/enums/entity-status.enum";
+import { UserLevel } from "@/common/shared/enums/user-level.enum";
+import { YesNoStatus } from "@/common/shared/enums/yes-no-status.enum";
 
 export interface UserProps {
   name: string;

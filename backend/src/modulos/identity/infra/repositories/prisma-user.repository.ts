@@ -3,15 +3,14 @@ import {
   PageInput,
   Sort,
 } from "@/common/domain/repositories/types/pagination.types";
-import { getPrismaClient } from "@/common/infrastructure/db/prisma.client";
-import { EntityStatus } from "@/shared/enums/entity-status.enum";
-import { Prisma } from "../../../../../generated/prisma";
+import { EntityStatus } from "@/common/shared/enums/entity-status.enum";
+import { Prisma, PrismaClient } from "../../../../../generated/prisma";
 import { UserEntity } from "../../domain/entities/user.entity";
 import { UserRepository } from "../../domain/repositories/user.repository";
 import { PrismaUserMapper } from "../mappers/prisma-user.mapper";
 
 export class PrismaUserRepository implements UserRepository {
-  private prisma = getPrismaClient();
+  constructor(private readonly prisma: PrismaClient) {}
 
   async page(params: PageInput): Promise<Page<UserEntity>> {
     // ─── Paginação (zero-based, padrão Spring Boot) ───────────────────────

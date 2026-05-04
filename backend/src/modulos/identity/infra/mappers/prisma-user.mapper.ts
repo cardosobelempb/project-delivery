@@ -1,9 +1,9 @@
 import { UUIDVO } from "@/common/domain/values-objects/uuidvo/uuid.vo";
-import { EntityStatus } from "@/shared/enums/entity-status.enum";
+import { EntityStatus } from "@/common/shared/enums/entity-status.enum";
 import { User as PrismaUser } from "../../../../../generated/prisma";
 
-import { UserLevel } from "@/shared/enums/user-level.enum";
-import { YesNoStatus } from "@/shared/enums/yes-no-status.enum";
+import { UserLevel } from "@/common/shared/enums/user-level.enum";
+import { YesNoStatus } from "@/common/shared/enums/yes-no-status.enum";
 import { UserDto } from "../../application/schemas/user.schema";
 import { UserEntity } from "../../domain/entities/user.entity";
 
@@ -33,10 +33,10 @@ export class PrismaUserMapper {
       email: entity.email,
       passwordHash: entity.passwordHash,
       level: entity.level,
-      operation: entity.operation,
+      operation: entity.operation as YesNoStatus,
       status: entity.status,
-      recoverKey: entity.recoverKey,
-      keepAlive: entity.keepAlive,
+      recoverKey: entity.recoverKey || "",
+      keepAlive: entity.keepAlive || "",
       commission: entity.commission,
     };
   }
@@ -48,7 +48,7 @@ export class PrismaUserMapper {
       email: entity.email,
       passwordHash: entity.passwordHash,
       level: entity.level,
-      operation: entity.operation,
+      operation: entity.operation as YesNoStatus,
       status: entity.status,
       recoverKey: entity.recoverKey,
       keepAlive: entity.keepAlive,

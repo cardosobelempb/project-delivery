@@ -1,6 +1,6 @@
 import { DeepPartial } from "@/common/domain/types/DeepPartial";
-import { PaymentGatewayDto } from "@/shared/enums/payment-gateway.enum";
-import { PaymentStatusDto } from "@/shared/enums/payment-status.enum";
+import { PaymentGatewayDto } from "@/common/shared/enums/payment-gateway.enum";
+import { PaymentStatusDto } from "@/common/shared/enums/payment-status.enum";
 
 export interface CreatePaymentDto {
   establishmentId: string;

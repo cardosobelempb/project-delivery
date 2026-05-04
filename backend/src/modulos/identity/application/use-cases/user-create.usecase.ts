@@ -3,7 +3,7 @@ import { AlreadyExistsError } from "@/common/domain/errors/usecases/already-exis
 import { UserEntity } from "../../domain/entities/user.entity";
 
 import { UserMapper } from "../../domain/mappers/user.mapper";
-import { UserRepository } from "../../domain/repositories/user.repository";
+import { PrismaUserRepository } from "../../infra/repositories/prisma-user.repository";
 import { CreateUserDto, UserResponseDto } from "../schemas/user.schema";
 
 export type UserCreateUseCaseResponse = Either<
@@ -12,7 +12,9 @@ export type UserCreateUseCaseResponse = Either<
 >;
 
 export class UserCreateUseCase {
-  constructor(private readonly userRepository: UserRepository) {}
+  static inject = [PrismaUserRepository];
+
+  constructor(private readonly userRepository: PrismaUserRepository) {}
 
   async execute(input: CreateUserDto): Promise<UserCreateUseCaseResponse> {
     if (!input.name || !input.email || !input.passwordHash) {

@@ -1,5 +1,5 @@
 import { ValidatorMessage } from "@/common/domain/validations";
-import { ScheduleActionDto } from "@/shared/enums/schedule-action.enum";
+import { ScheduleActionDto } from "@/common/shared/enums/schedule-action.enum";
 import { z } from "zod";
 
 /**

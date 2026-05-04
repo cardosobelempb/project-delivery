@@ -4,7 +4,7 @@ import { AccountEntity } from "../../domain/entities/account.entity";
 import { AccountRepository } from "../../domain/repositories/account-repository";
 
 import { prisma } from "@/shared/lib/db";
-import { BcryptHasher } from "../../../../shared/cryptography/bcrypt-hasher";
+import { BcryptHasher } from "../../../../common/shared/cryptography/bcrypt-hasher";
 
 import { Either, left, right } from "@/common/domain/errors/handle-errors";
 import { ConflictError } from "@/common/domain/errors/usecases/conflict.error";

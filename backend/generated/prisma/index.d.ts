@@ -33558,7 +33558,7 @@ export namespace Prisma {
     id: string | null
     type: $Enums.MediaType | null
     establishmentId: string | null
-    relatedId: string | null
+    productId: string | null
     url: string | null
   }
 
@@ -33566,7 +33566,7 @@ export namespace Prisma {
     id: string | null
     type: $Enums.MediaType | null
     establishmentId: string | null
-    relatedId: string | null
+    productId: string | null
     url: string | null
   }
 
@@ -33574,7 +33574,7 @@ export namespace Prisma {
     id: number
     type: number
     establishmentId: number
-    relatedId: number
+    productId: number
     url: number
     _all: number
   }
@@ -33584,7 +33584,7 @@ export namespace Prisma {
     id?: true
     type?: true
     establishmentId?: true
-    relatedId?: true
+    productId?: true
     url?: true
   }
 
@@ -33592,7 +33592,7 @@ export namespace Prisma {
     id?: true
     type?: true
     establishmentId?: true
-    relatedId?: true
+    productId?: true
     url?: true
   }
 
@@ -33600,7 +33600,7 @@ export namespace Prisma {
     id?: true
     type?: true
     establishmentId?: true
-    relatedId?: true
+    productId?: true
     url?: true
     _all?: true
   }
@@ -33681,7 +33681,7 @@ export namespace Prisma {
     id: string
     type: $Enums.MediaType | null
     establishmentId: string | null
-    relatedId: string | null
+    productId: string | null
     url: string | null
     _count: MediaCountAggregateOutputType | null
     _min: MediaMinAggregateOutputType | null
@@ -33706,7 +33706,7 @@ export namespace Prisma {
     id?: boolean
     type?: boolean
     establishmentId?: boolean
-    relatedId?: boolean
+    productId?: boolean
     url?: boolean
     establishment?: boolean | Media$establishmentArgs<ExtArgs>
     product?: boolean | Media$productArgs<ExtArgs>
@@ -33716,7 +33716,7 @@ export namespace Prisma {
     id?: boolean
     type?: boolean
     establishmentId?: boolean
-    relatedId?: boolean
+    productId?: boolean
     url?: boolean
     establishment?: boolean | Media$establishmentArgs<ExtArgs>
     product?: boolean | Media$productArgs<ExtArgs>
@@ -33726,7 +33726,7 @@ export namespace Prisma {
     id?: boolean
     type?: boolean
     establishmentId?: boolean
-    relatedId?: boolean
+    productId?: boolean
     url?: boolean
     establishment?: boolean | Media$establishmentArgs<ExtArgs>
     product?: boolean | Media$productArgs<ExtArgs>
@@ -33736,11 +33736,11 @@ export namespace Prisma {
     id?: boolean
     type?: boolean
     establishmentId?: boolean
-    relatedId?: boolean
+    productId?: boolean
     url?: boolean
   }
 
-  export type MediaOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "type" | "establishmentId" | "relatedId" | "url", ExtArgs["result"]["media"]>
+  export type MediaOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "type" | "establishmentId" | "productId" | "url", ExtArgs["result"]["media"]>
   export type MediaInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     establishment?: boolean | Media$establishmentArgs<ExtArgs>
     product?: boolean | Media$productArgs<ExtArgs>
@@ -33764,7 +33764,7 @@ export namespace Prisma {
       id: string
       type: $Enums.MediaType | null
       establishmentId: string | null
-      relatedId: string | null
+      productId: string | null
       url: string | null
     }, ExtArgs["result"]["media"]>
     composites: {}
@@ -34194,7 +34194,7 @@ export namespace Prisma {
     readonly id: FieldRef<"Media", 'String'>
     readonly type: FieldRef<"Media", 'MediaType'>
     readonly establishmentId: FieldRef<"Media", 'String'>
-    readonly relatedId: FieldRef<"Media", 'String'>
+    readonly productId: FieldRef<"Media", 'String'>
     readonly url: FieldRef<"Media", 'String'>
   }
     
@@ -41330,7 +41330,7 @@ export namespace Prisma {
 
   export type SubdomainMinAggregateOutputType = {
     id: string | null
-    relatedId: string | null
+    establishmentId: string | null
     type: $Enums.DomainType | null
     subdomain: string | null
     url: string | null
@@ -41338,7 +41338,7 @@ export namespace Prisma {
 
   export type SubdomainMaxAggregateOutputType = {
     id: string | null
-    relatedId: string | null
+    establishmentId: string | null
     type: $Enums.DomainType | null
     subdomain: string | null
     url: string | null
@@ -41346,7 +41346,7 @@ export namespace Prisma {
 
   export type SubdomainCountAggregateOutputType = {
     id: number
-    relatedId: number
+    establishmentId: number
     type: number
     subdomain: number
     url: number
@@ -41356,7 +41356,7 @@ export namespace Prisma {
 
   export type SubdomainMinAggregateInputType = {
     id?: true
-    relatedId?: true
+    establishmentId?: true
     type?: true
     subdomain?: true
     url?: true
@@ -41364,7 +41364,7 @@ export namespace Prisma {
 
   export type SubdomainMaxAggregateInputType = {
     id?: true
-    relatedId?: true
+    establishmentId?: true
     type?: true
     subdomain?: true
     url?: true
@@ -41372,7 +41372,7 @@ export namespace Prisma {
 
   export type SubdomainCountAggregateInputType = {
     id?: true
-    relatedId?: true
+    establishmentId?: true
     type?: true
     subdomain?: true
     url?: true
@@ -41453,7 +41453,7 @@ export namespace Prisma {
 
   export type SubdomainGroupByOutputType = {
     id: string
-    relatedId: string | null
+    establishmentId: string | null
     type: $Enums.DomainType | null
     subdomain: string | null
     url: string | null
@@ -41478,7 +41478,7 @@ export namespace Prisma {
 
   export type SubdomainSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
-    relatedId?: boolean
+    establishmentId?: boolean
     type?: boolean
     subdomain?: boolean
     url?: boolean
@@ -41486,7 +41486,7 @@ export namespace Prisma {
 
   export type SubdomainSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
-    relatedId?: boolean
+    establishmentId?: boolean
     type?: boolean
     subdomain?: boolean
     url?: boolean
@@ -41494,7 +41494,7 @@ export namespace Prisma {
 
   export type SubdomainSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
-    relatedId?: boolean
+    establishmentId?: boolean
     type?: boolean
     subdomain?: boolean
     url?: boolean
@@ -41502,20 +41502,20 @@ export namespace Prisma {
 
   export type SubdomainSelectScalar = {
     id?: boolean
-    relatedId?: boolean
+    establishmentId?: boolean
     type?: boolean
     subdomain?: boolean
     url?: boolean
   }
 
-  export type SubdomainOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "relatedId" | "type" | "subdomain" | "url", ExtArgs["result"]["subdomain"]>
+  export type SubdomainOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "establishmentId" | "type" | "subdomain" | "url", ExtArgs["result"]["subdomain"]>
 
   export type $SubdomainPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "Subdomain"
     objects: {}
     scalars: $Extensions.GetPayloadResult<{
       id: string
-      relatedId: string | null
+      establishmentId: string | null
       type: $Enums.DomainType | null
       subdomain: string | null
       url: string | null
@@ -41943,7 +41943,7 @@ export namespace Prisma {
    */
   interface SubdomainFieldRefs {
     readonly id: FieldRef<"Subdomain", 'String'>
-    readonly relatedId: FieldRef<"Subdomain", 'String'>
+    readonly establishmentId: FieldRef<"Subdomain", 'String'>
     readonly type: FieldRef<"Subdomain", 'DomainType'>
     readonly subdomain: FieldRef<"Subdomain", 'String'>
     readonly url: FieldRef<"Subdomain", 'String'>
@@ -43874,7 +43874,7 @@ export namespace Prisma {
     id: 'id',
     type: 'type',
     establishmentId: 'establishmentId',
-    relatedId: 'relatedId',
+    productId: 'productId',
     url: 'url'
   };
 
@@ -44015,7 +44015,7 @@ export namespace Prisma {
 
   export const SubdomainScalarFieldEnum: {
     id: 'id',
-    relatedId: 'relatedId',
+    establishmentId: 'establishmentId',
     type: 'type',
     subdomain: 'subdomain',
     url: 'url'
@@ -46634,7 +46634,7 @@ export namespace Prisma {
     id?: UuidFilter<"Media"> | string
     type?: EnumMediaTypeNullableFilter<"Media"> | $Enums.MediaType | null
     establishmentId?: UuidNullableFilter<"Media"> | string | null
-    relatedId?: UuidNullableFilter<"Media"> | string | null
+    productId?: UuidNullableFilter<"Media"> | string | null
     url?: StringNullableFilter<"Media"> | string | null
     establishment?: XOR<EstablishmentNullableScalarRelationFilter, EstablishmentWhereInput> | null
     product?: XOR<ProductNullableScalarRelationFilter, ProductWhereInput> | null
@@ -46644,7 +46644,7 @@ export namespace Prisma {
     id?: SortOrder
     type?: SortOrderInput | SortOrder
     establishmentId?: SortOrderInput | SortOrder
-    relatedId?: SortOrderInput | SortOrder
+    productId?: SortOrderInput | SortOrder
     url?: SortOrderInput | SortOrder
     establishment?: EstablishmentOrderByWithRelationInput
     product?: ProductOrderByWithRelationInput
@@ -46657,7 +46657,7 @@ export namespace Prisma {
     NOT?: MediaWhereInput | MediaWhereInput[]
     type?: EnumMediaTypeNullableFilter<"Media"> | $Enums.MediaType | null
     establishmentId?: UuidNullableFilter<"Media"> | string | null
-    relatedId?: UuidNullableFilter<"Media"> | string | null
+    productId?: UuidNullableFilter<"Media"> | string | null
     url?: StringNullableFilter<"Media"> | string | null
     establishment?: XOR<EstablishmentNullableScalarRelationFilter, EstablishmentWhereInput> | null
     product?: XOR<ProductNullableScalarRelationFilter, ProductWhereInput> | null
@@ -46667,7 +46667,7 @@ export namespace Prisma {
     id?: SortOrder
     type?: SortOrderInput | SortOrder
     establishmentId?: SortOrderInput | SortOrder
-    relatedId?: SortOrderInput | SortOrder
+    productId?: SortOrderInput | SortOrder
     url?: SortOrderInput | SortOrder
     _count?: MediaCountOrderByAggregateInput
     _max?: MediaMaxOrderByAggregateInput
@@ -46681,7 +46681,7 @@ export namespace Prisma {
     id?: UuidWithAggregatesFilter<"Media"> | string
     type?: EnumMediaTypeNullableWithAggregatesFilter<"Media"> | $Enums.MediaType | null
     establishmentId?: UuidNullableWithAggregatesFilter<"Media"> | string | null
-    relatedId?: UuidNullableWithAggregatesFilter<"Media"> | string | null
+    productId?: UuidNullableWithAggregatesFilter<"Media"> | string | null
     url?: StringNullableWithAggregatesFilter<"Media"> | string | null
   }
 
@@ -47374,7 +47374,7 @@ export namespace Prisma {
     OR?: SubdomainWhereInput[]
     NOT?: SubdomainWhereInput | SubdomainWhereInput[]
     id?: UuidFilter<"Subdomain"> | string
-    relatedId?: UuidNullableFilter<"Subdomain"> | string | null
+    establishmentId?: UuidNullableFilter<"Subdomain"> | string | null
     type?: EnumDomainTypeNullableFilter<"Subdomain"> | $Enums.DomainType | null
     subdomain?: StringNullableFilter<"Subdomain"> | string | null
     url?: StringNullableFilter<"Subdomain"> | string | null
@@ -47382,7 +47382,7 @@ export namespace Prisma {
 
   export type SubdomainOrderByWithRelationInput = {
     id?: SortOrder
-    relatedId?: SortOrderInput | SortOrder
+    establishmentId?: SortOrderInput | SortOrder
     type?: SortOrderInput | SortOrder
     subdomain?: SortOrderInput | SortOrder
     url?: SortOrderInput | SortOrder
@@ -47393,7 +47393,7 @@ export namespace Prisma {
     AND?: SubdomainWhereInput | SubdomainWhereInput[]
     OR?: SubdomainWhereInput[]
     NOT?: SubdomainWhereInput | SubdomainWhereInput[]
-    relatedId?: UuidNullableFilter<"Subdomain"> | string | null
+    establishmentId?: UuidNullableFilter<"Subdomain"> | string | null
     type?: EnumDomainTypeNullableFilter<"Subdomain"> | $Enums.DomainType | null
     subdomain?: StringNullableFilter<"Subdomain"> | string | null
     url?: StringNullableFilter<"Subdomain"> | string | null
@@ -47401,7 +47401,7 @@ export namespace Prisma {
 
   export type SubdomainOrderByWithAggregationInput = {
     id?: SortOrder
-    relatedId?: SortOrderInput | SortOrder
+    establishmentId?: SortOrderInput | SortOrder
     type?: SortOrderInput | SortOrder
     subdomain?: SortOrderInput | SortOrder
     url?: SortOrderInput | SortOrder
@@ -47415,7 +47415,7 @@ export namespace Prisma {
     OR?: SubdomainScalarWhereWithAggregatesInput[]
     NOT?: SubdomainScalarWhereWithAggregatesInput | SubdomainScalarWhereWithAggregatesInput[]
     id?: UuidWithAggregatesFilter<"Subdomain"> | string
-    relatedId?: UuidNullableWithAggregatesFilter<"Subdomain"> | string | null
+    establishmentId?: UuidNullableWithAggregatesFilter<"Subdomain"> | string | null
     type?: EnumDomainTypeNullableWithAggregatesFilter<"Subdomain"> | $Enums.DomainType | null
     subdomain?: StringNullableWithAggregatesFilter<"Subdomain"> | string | null
     url?: StringNullableWithAggregatesFilter<"Subdomain"> | string | null
@@ -50064,7 +50064,7 @@ export namespace Prisma {
     id?: string
     type?: $Enums.MediaType | null
     establishmentId?: string | null
-    relatedId?: string | null
+    productId?: string | null
     url?: string | null
   }
 
@@ -50080,7 +50080,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     type?: NullableEnumMediaTypeFieldUpdateOperationsInput | $Enums.MediaType | null
     establishmentId?: NullableStringFieldUpdateOperationsInput | string | null
-    relatedId?: NullableStringFieldUpdateOperationsInput | string | null
+    productId?: NullableStringFieldUpdateOperationsInput | string | null
     url?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
@@ -50088,7 +50088,7 @@ export namespace Prisma {
     id?: string
     type?: $Enums.MediaType | null
     establishmentId?: string | null
-    relatedId?: string | null
+    productId?: string | null
     url?: string | null
   }
 
@@ -50102,7 +50102,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     type?: NullableEnumMediaTypeFieldUpdateOperationsInput | $Enums.MediaType | null
     establishmentId?: NullableStringFieldUpdateOperationsInput | string | null
-    relatedId?: NullableStringFieldUpdateOperationsInput | string | null
+    productId?: NullableStringFieldUpdateOperationsInput | string | null
     url?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
@@ -50936,7 +50936,7 @@ export namespace Prisma {
 
   export type SubdomainCreateInput = {
     id?: string
-    relatedId?: string | null
+    establishmentId?: string | null
     type?: $Enums.DomainType | null
     subdomain?: string | null
     url?: string | null
@@ -50944,7 +50944,7 @@ export namespace Prisma {
 
   export type SubdomainUncheckedCreateInput = {
     id?: string
-    relatedId?: string | null
+    establishmentId?: string | null
     type?: $Enums.DomainType | null
     subdomain?: string | null
     url?: string | null
@@ -50952,7 +50952,7 @@ export namespace Prisma {
 
   export type SubdomainUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
-    relatedId?: NullableStringFieldUpdateOperationsInput | string | null
+    establishmentId?: NullableStringFieldUpdateOperationsInput | string | null
     type?: NullableEnumDomainTypeFieldUpdateOperationsInput | $Enums.DomainType | null
     subdomain?: NullableStringFieldUpdateOperationsInput | string | null
     url?: NullableStringFieldUpdateOperationsInput | string | null
@@ -50960,7 +50960,7 @@ export namespace Prisma {
 
   export type SubdomainUncheckedUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
-    relatedId?: NullableStringFieldUpdateOperationsInput | string | null
+    establishmentId?: NullableStringFieldUpdateOperationsInput | string | null
     type?: NullableEnumDomainTypeFieldUpdateOperationsInput | $Enums.DomainType | null
     subdomain?: NullableStringFieldUpdateOperationsInput | string | null
     url?: NullableStringFieldUpdateOperationsInput | string | null
@@ -50968,7 +50968,7 @@ export namespace Prisma {
 
   export type SubdomainCreateManyInput = {
     id?: string
-    relatedId?: string | null
+    establishmentId?: string | null
     type?: $Enums.DomainType | null
     subdomain?: string | null
     url?: string | null
@@ -50976,7 +50976,7 @@ export namespace Prisma {
 
   export type SubdomainUpdateManyMutationInput = {
     id?: StringFieldUpdateOperationsInput | string
-    relatedId?: NullableStringFieldUpdateOperationsInput | string | null
+    establishmentId?: NullableStringFieldUpdateOperationsInput | string | null
     type?: NullableEnumDomainTypeFieldUpdateOperationsInput | $Enums.DomainType | null
     subdomain?: NullableStringFieldUpdateOperationsInput | string | null
     url?: NullableStringFieldUpdateOperationsInput | string | null
@@ -50984,7 +50984,7 @@ export namespace Prisma {
 
   export type SubdomainUncheckedUpdateManyInput = {
     id?: StringFieldUpdateOperationsInput | string
-    relatedId?: NullableStringFieldUpdateOperationsInput | string | null
+    establishmentId?: NullableStringFieldUpdateOperationsInput | string | null
     type?: NullableEnumDomainTypeFieldUpdateOperationsInput | $Enums.DomainType | null
     subdomain?: NullableStringFieldUpdateOperationsInput | string | null
     url?: NullableStringFieldUpdateOperationsInput | string | null
@@ -52948,7 +52948,7 @@ export namespace Prisma {
     id?: SortOrder
     type?: SortOrder
     establishmentId?: SortOrder
-    relatedId?: SortOrder
+    productId?: SortOrder
     url?: SortOrder
   }
 
@@ -52956,7 +52956,7 @@ export namespace Prisma {
     id?: SortOrder
     type?: SortOrder
     establishmentId?: SortOrder
-    relatedId?: SortOrder
+    productId?: SortOrder
     url?: SortOrder
   }
 
@@ -52964,7 +52964,7 @@ export namespace Prisma {
     id?: SortOrder
     type?: SortOrder
     establishmentId?: SortOrder
-    relatedId?: SortOrder
+    productId?: SortOrder
     url?: SortOrder
   }
 
@@ -53587,7 +53587,7 @@ export namespace Prisma {
 
   export type SubdomainCountOrderByAggregateInput = {
     id?: SortOrder
-    relatedId?: SortOrder
+    establishmentId?: SortOrder
     type?: SortOrder
     subdomain?: SortOrder
     url?: SortOrder
@@ -53595,7 +53595,7 @@ export namespace Prisma {
 
   export type SubdomainMaxOrderByAggregateInput = {
     id?: SortOrder
-    relatedId?: SortOrder
+    establishmentId?: SortOrder
     type?: SortOrder
     subdomain?: SortOrder
     url?: SortOrder
@@ -53603,7 +53603,7 @@ export namespace Prisma {
 
   export type SubdomainMinOrderByAggregateInput = {
     id?: SortOrder
-    relatedId?: SortOrder
+    establishmentId?: SortOrder
     type?: SortOrder
     subdomain?: SortOrder
     url?: SortOrder
@@ -58249,7 +58249,7 @@ export namespace Prisma {
   export type MediaUncheckedCreateWithoutEstablishmentInput = {
     id?: string
     type?: $Enums.MediaType | null
-    relatedId?: string | null
+    productId?: string | null
     url?: string | null
   }
 
@@ -59109,7 +59109,7 @@ export namespace Prisma {
     id?: UuidFilter<"Media"> | string
     type?: EnumMediaTypeNullableFilter<"Media"> | $Enums.MediaType | null
     establishmentId?: UuidNullableFilter<"Media"> | string | null
-    relatedId?: UuidNullableFilter<"Media"> | string | null
+    productId?: UuidNullableFilter<"Media"> | string | null
     url?: StringNullableFilter<"Media"> | string | null
   }
 
@@ -65794,7 +65794,7 @@ export namespace Prisma {
   export type MediaCreateManyEstablishmentInput = {
     id?: string
     type?: $Enums.MediaType | null
-    relatedId?: string | null
+    productId?: string | null
     url?: string | null
   }
 
@@ -66283,14 +66283,14 @@ export namespace Prisma {
   export type MediaUncheckedUpdateWithoutEstablishmentInput = {
     id?: StringFieldUpdateOperationsInput | string
     type?: NullableEnumMediaTypeFieldUpdateOperationsInput | $Enums.MediaType | null
-    relatedId?: NullableStringFieldUpdateOperationsInput | string | null
+    productId?: NullableStringFieldUpdateOperationsInput | string | null
     url?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type MediaUncheckedUpdateManyWithoutEstablishmentInput = {
     id?: StringFieldUpdateOperationsInput | string
     type?: NullableEnumMediaTypeFieldUpdateOperationsInput | $Enums.MediaType | null
-    relatedId?: NullableStringFieldUpdateOperationsInput | string | null
+    productId?: NullableStringFieldUpdateOperationsInput | string | null
     url?: NullableStringFieldUpdateOperationsInput | string | null
   }
 

@@ -1,7 +1,7 @@
 import { DeepPartial } from "@/common/domain/types/DeepPartial";
-import { SubscriptionModeDto } from "@/shared/enums/subscription-mode.enum";
-import { SubscriptionStatusDto } from "@/shared/enums/subscription-status.enum";
-import { YesNoStatusDto } from "@/shared/enums/yes-no-status.enum";
+import { SubscriptionModeDto } from "@/common/shared/enums/subscription-mode.enum";
+import { SubscriptionStatusDto } from "@/common/shared/enums/subscription-status.enum";
+import { YesNoStatusDto } from "@/common/shared/enums/yes-no-status.enum";
 
 export interface CreateSubscriptionDto {
   planId?: string;

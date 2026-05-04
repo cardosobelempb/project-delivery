@@ -4,7 +4,7 @@ import {
   Sort,
 } from "@/common/domain/repositories/types/pagination.types";
 import { getPrismaClient } from "@/common/infrastructure/db/prisma.client";
-import { EntityStatus } from "@/shared/enums/entity-status.enum";
+import { EntityStatus } from "@/common/shared/enums/entity-status.enum";
 import { Prisma } from "../../../../../generated/prisma";
 import { CategoryEntity } from "../../domain/entities/category.entity";
 import { CategoryRepository } from "../../domain/repositories/category.repository";

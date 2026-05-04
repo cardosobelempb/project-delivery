@@ -1,5 +1,5 @@
 import { ValidatorMessage } from "@/common/domain/validations";
-import { YesNoStatusDto } from "@/shared/enums/yes-no-status.enum";
+import { YesNoStatusDto } from "@/common/shared/enums/yes-no-status.enum";
 import { z } from "zod";
 
 /**

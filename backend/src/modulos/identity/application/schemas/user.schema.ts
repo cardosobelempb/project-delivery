@@ -7,17 +7,17 @@
 import { z } from "zod";
 
 import { ValidatorMessage } from "@/common/domain/validations";
-import { EntityStatus } from "@/shared/enums/entity-status.enum";
-import { UserLevel } from "@/shared/enums/user-level.enum";
-import { YesNoStatus } from "@/shared/enums/yes-no-status.enum";
-import { IsoDateTimeInput, UUIDString } from "@/shared/schemas/helpers";
+import { EntityStatus } from "@/common/shared/enums/entity-status.enum";
+import { UserLevel } from "@/common/shared/enums/user-level.enum";
+import { YesNoStatus } from "@/common/shared/enums/yes-no-status.enum";
+import { IsoDateTimeInput, UUIDString } from "@/common/shared/schemas/helpers";
 import {
   actionResponseSchema,
   createResponseSchema,
   findResponseSchema,
   pageResponseSchema,
   updateResponseSchema,
-} from "@/shared/schemas/response.factory";
+} from "@/common/shared/schemas/response.factory";
 
 // ─── Params ───────────────────────────────────────────────────────────────────
 

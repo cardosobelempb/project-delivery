@@ -1,7 +1,6 @@
 import z from "zod";
 
-import { UserStatusSchema } from "@/modulos/user/domain/enums/user-status.enum";
-import { HttpErrorSchema } from "@/shared/schemas/error";
+import { HttpErrorSchema } from "@/common/shared/schemas/error";
 import {
   CpfString,
   EmailString,
@@ -10,7 +9,8 @@ import {
   PhoneString,
   UUIDString,
   withPasswordConfirmation,
-} from "@/shared/schemas/helpers";
+} from "@/common/shared/schemas/helpers";
+import { UserStatusSchema } from "@/modulos/user/domain/enums/user-status.enum";
 
 // ── Base ──────────────────────────────────────────────────────────────────────
 

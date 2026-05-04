@@ -7,16 +7,16 @@
 import { z } from "zod";
 
 import { ValidatorMessage } from "@/common/domain/validations";
-import { EntityStatus } from "@/shared/enums/entity-status.enum";
-import { VisibilityStatus } from "@/shared/enums/visibility-status.enum";
-import { IsoDateTimeInput, UUIDString } from "@/shared/schemas/helpers";
+import { EntityStatus } from "@/common/shared/enums/entity-status.enum";
+import { VisibilityStatus } from "@/common/shared/enums/visibility-status.enum";
+import { IsoDateTimeInput, UUIDString } from "@/common/shared/schemas/helpers";
 import {
   actionResponseSchema,
   createResponseSchema,
   findResponseSchema,
   pageResponseSchema,
   updateResponseSchema,
-} from "@/shared/schemas/response.factory";
+} from "@/common/shared/schemas/response.factory";
 
 // ─── Params ───────────────────────────────────────────────────────────────────
 

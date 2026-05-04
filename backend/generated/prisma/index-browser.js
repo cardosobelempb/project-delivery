@@ -474,7 +474,7 @@ exports.Prisma.MediaScalarFieldEnum = {
   id: 'id',
   type: 'type',
   establishmentId: 'establishmentId',
-  relatedId: 'relatedId',
+  productId: 'productId',
   url: 'url'
 };
 
@@ -597,7 +597,7 @@ exports.Prisma.VoucherScalarFieldEnum = {
 
 exports.Prisma.SubdomainScalarFieldEnum = {
   id: 'id',
-  relatedId: 'relatedId',
+  establishmentId: 'establishmentId',
   type: 'type',
   subdomain: 'subdomain',
   url: 'url'

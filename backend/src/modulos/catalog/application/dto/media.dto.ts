@@ -1,5 +1,5 @@
 import { DeepPartial } from "@/common/domain/types/DeepPartial";
-import { MediaTypeDto } from "@/shared/enums/media-type.enum";
+import { MediaTypeDto } from "@/common/shared/enums/media-type.enum";
 
 export interface CreateMediaDto {
   type?: MediaTypeDto;

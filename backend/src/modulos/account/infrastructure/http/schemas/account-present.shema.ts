@@ -1,5 +1,5 @@
+import { HttpErrorSchema } from "@/common/shared/schemas/error";
 import { UUIDString } from "@/schemas/helpers";
-import { HttpErrorSchema } from "@/shared/schemas/error";
 import z from "zod";
 
 export const AccountBaseSchema = z.object({

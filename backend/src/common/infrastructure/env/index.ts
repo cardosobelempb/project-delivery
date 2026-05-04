@@ -1,4 +1,4 @@
-import { parseEnvArray } from "@/shared/schemas/helpers";
+import { parseEnvArray } from "@/common/shared/schemas/helpers";
 import "dotenv/config";
 import { z } from "zod";
 import { EnvValidationError } from "./env-validation.error";

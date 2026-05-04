@@ -1,4 +1,4 @@
-import { PageQuerySchema } from "@/shared/schemas/page-query.schema";
+import { PageQuerySchema } from "@/common/shared/schemas/page-query.schema";
 import type { FastifyInstance } from "fastify";
 import { ZodTypeProvider } from "fastify-type-provider-zod";
 
