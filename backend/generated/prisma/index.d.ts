@@ -466,6 +466,17 @@ export const TokenType: {
 export type TokenType = (typeof TokenType)[keyof typeof TokenType]
 
 
+export const ProviderType: {
+  GOOGLE: 'GOOGLE',
+  FACEBOOK: 'FACEBOOK',
+  APPLE: 'APPLE',
+  CREDENTIALS: 'CREDENTIALS',
+  OTHER: 'OTHER'
+};
+
+export type ProviderType = (typeof ProviderType)[keyof typeof ProviderType]
+
+
 export const TenantStatus: {
   TRIALING: 'TRIALING',
   ACTIVE: 'ACTIVE',
@@ -581,6 +592,10 @@ export const ConsentStatus: typeof $Enums.ConsentStatus
 export type TokenType = $Enums.TokenType
 
 export const TokenType: typeof $Enums.TokenType
+
+export type ProviderType = $Enums.ProviderType
+
+export const ProviderType: typeof $Enums.ProviderType
 
 export type TenantStatus = $Enums.TenantStatus
 
@@ -7008,37 +7023,43 @@ export namespace Prisma {
   export type AccountMinAggregateOutputType = {
     id: string | null
     userId: string | null
-    type: string | null
+    providerType: $Enums.ProviderType | null
     provider: string | null
     providerAccountId: string | null
     refreshToken: string | null
     accessToken: string | null
     expiresAt: number | null
-    tokenType: string | null
+    tokenType: $Enums.TokenType | null
     scope: string | null
     idToken: string | null
     sessionState: string | null
+    createdAt: Date | null
+    updatedAt: Date | null
+    deletedAt: Date | null
   }
 
   export type AccountMaxAggregateOutputType = {
     id: string | null
     userId: string | null
-    type: string | null
+    providerType: $Enums.ProviderType | null
     provider: string | null
     providerAccountId: string | null
     refreshToken: string | null
     accessToken: string | null
     expiresAt: number | null
-    tokenType: string | null
+    tokenType: $Enums.TokenType | null
     scope: string | null
     idToken: string | null
     sessionState: string | null
+    createdAt: Date | null
+    updatedAt: Date | null
+    deletedAt: Date | null
   }
 
   export type AccountCountAggregateOutputType = {
     id: number
     userId: number
-    type: number
+    providerType: number
     provider: number
     providerAccountId: number
     refreshToken: number
@@ -7048,6 +7069,9 @@ export namespace Prisma {
     scope: number
     idToken: number
     sessionState: number
+    createdAt: number
+    updatedAt: number
+    deletedAt: number
     _all: number
   }
 
@@ -7063,7 +7087,7 @@ export namespace Prisma {
   export type AccountMinAggregateInputType = {
     id?: true
     userId?: true
-    type?: true
+    providerType?: true
     provider?: true
     providerAccountId?: true
     refreshToken?: true
@@ -7073,12 +7097,15 @@ export namespace Prisma {
     scope?: true
     idToken?: true
     sessionState?: true
+    createdAt?: true
+    updatedAt?: true
+    deletedAt?: true
   }
 
   export type AccountMaxAggregateInputType = {
     id?: true
     userId?: true
-    type?: true
+    providerType?: true
     provider?: true
     providerAccountId?: true
     refreshToken?: true
@@ -7088,12 +7115,15 @@ export namespace Prisma {
     scope?: true
     idToken?: true
     sessionState?: true
+    createdAt?: true
+    updatedAt?: true
+    deletedAt?: true
   }
 
   export type AccountCountAggregateInputType = {
     id?: true
     userId?: true
-    type?: true
+    providerType?: true
     provider?: true
     providerAccountId?: true
     refreshToken?: true
@@ -7103,6 +7133,9 @@ export namespace Prisma {
     scope?: true
     idToken?: true
     sessionState?: true
+    createdAt?: true
+    updatedAt?: true
+    deletedAt?: true
     _all?: true
   }
 
@@ -7195,16 +7228,19 @@ export namespace Prisma {
   export type AccountGroupByOutputType = {
     id: string
     userId: string
-    type: string
+    providerType: $Enums.ProviderType
     provider: string
     providerAccountId: string
     refreshToken: string | null
     accessToken: string | null
     expiresAt: number | null
-    tokenType: string | null
+    tokenType: $Enums.TokenType | null
     scope: string | null
     idToken: string | null
     sessionState: string | null
+    createdAt: Date
+    updatedAt: Date | null
+    deletedAt: Date | null
     _count: AccountCountAggregateOutputType | null
     _avg: AccountAvgAggregateOutputType | null
     _sum: AccountSumAggregateOutputType | null
@@ -7229,7 +7265,7 @@ export namespace Prisma {
   export type AccountSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     userId?: boolean
-    type?: boolean
+    providerType?: boolean
     provider?: boolean
     providerAccountId?: boolean
     refreshToken?: boolean
@@ -7239,13 +7275,16 @@ export namespace Prisma {
     scope?: boolean
     idToken?: boolean
     sessionState?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    deletedAt?: boolean
     user?: boolean | UserDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["account"]>
 
   export type AccountSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     userId?: boolean
-    type?: boolean
+    providerType?: boolean
     provider?: boolean
     providerAccountId?: boolean
     refreshToken?: boolean
@@ -7255,13 +7294,16 @@ export namespace Prisma {
     scope?: boolean
     idToken?: boolean
     sessionState?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    deletedAt?: boolean
     user?: boolean | UserDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["account"]>
 
   export type AccountSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     userId?: boolean
-    type?: boolean
+    providerType?: boolean
     provider?: boolean
     providerAccountId?: boolean
     refreshToken?: boolean
@@ -7271,13 +7313,16 @@ export namespace Prisma {
     scope?: boolean
     idToken?: boolean
     sessionState?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    deletedAt?: boolean
     user?: boolean | UserDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["account"]>
 
   export type AccountSelectScalar = {
     id?: boolean
     userId?: boolean
-    type?: boolean
+    providerType?: boolean
     provider?: boolean
     providerAccountId?: boolean
     refreshToken?: boolean
@@ -7287,9 +7332,12 @@ export namespace Prisma {
     scope?: boolean
     idToken?: boolean
     sessionState?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    deletedAt?: boolean
   }
 
-  export type AccountOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "userId" | "type" | "provider" | "providerAccountId" | "refreshToken" | "accessToken" | "expiresAt" | "tokenType" | "scope" | "idToken" | "sessionState", ExtArgs["result"]["account"]>
+  export type AccountOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "userId" | "providerType" | "provider" | "providerAccountId" | "refreshToken" | "accessToken" | "expiresAt" | "tokenType" | "scope" | "idToken" | "sessionState" | "createdAt" | "updatedAt" | "deletedAt", ExtArgs["result"]["account"]>
   export type AccountInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     user?: boolean | UserDefaultArgs<ExtArgs>
   }
@@ -7308,16 +7356,19 @@ export namespace Prisma {
     scalars: $Extensions.GetPayloadResult<{
       id: string
       userId: string
-      type: string
+      providerType: $Enums.ProviderType
       provider: string
       providerAccountId: string
       refreshToken: string | null
       accessToken: string | null
       expiresAt: number | null
-      tokenType: string | null
+      tokenType: $Enums.TokenType | null
       scope: string | null
       idToken: string | null
       sessionState: string | null
+      createdAt: Date
+      updatedAt: Date | null
+      deletedAt: Date | null
     }, ExtArgs["result"]["account"]>
     composites: {}
   }
@@ -7744,16 +7795,19 @@ export namespace Prisma {
   interface AccountFieldRefs {
     readonly id: FieldRef<"Account", 'String'>
     readonly userId: FieldRef<"Account", 'String'>
-    readonly type: FieldRef<"Account", 'String'>
+    readonly providerType: FieldRef<"Account", 'ProviderType'>
     readonly provider: FieldRef<"Account", 'String'>
     readonly providerAccountId: FieldRef<"Account", 'String'>
     readonly refreshToken: FieldRef<"Account", 'String'>
     readonly accessToken: FieldRef<"Account", 'String'>
     readonly expiresAt: FieldRef<"Account", 'Int'>
-    readonly tokenType: FieldRef<"Account", 'String'>
+    readonly tokenType: FieldRef<"Account", 'TokenType'>
     readonly scope: FieldRef<"Account", 'String'>
     readonly idToken: FieldRef<"Account", 'String'>
     readonly sessionState: FieldRef<"Account", 'String'>
+    readonly createdAt: FieldRef<"Account", 'DateTime'>
+    readonly updatedAt: FieldRef<"Account", 'DateTime'>
+    readonly deletedAt: FieldRef<"Account", 'DateTime'>
   }
     
 
@@ -55331,7 +55385,7 @@ export namespace Prisma {
   export const AccountScalarFieldEnum: {
     id: 'id',
     userId: 'userId',
-    type: 'type',
+    providerType: 'providerType',
     provider: 'provider',
     providerAccountId: 'providerAccountId',
     refreshToken: 'refreshToken',
@@ -55340,7 +55394,10 @@ export namespace Prisma {
     tokenType: 'tokenType',
     scope: 'scope',
     idToken: 'idToken',
-    sessionState: 'sessionState'
+    sessionState: 'sessionState',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt',
+    deletedAt: 'deletedAt'
   };
 
   export type AccountScalarFieldEnum = (typeof AccountScalarFieldEnum)[keyof typeof AccountScalarFieldEnum]
@@ -56121,6 +56178,20 @@ export namespace Prisma {
 
 
   /**
+   * Reference to a field of type 'ProviderType'
+   */
+  export type EnumProviderTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'ProviderType'>
+    
+
+
+  /**
+   * Reference to a field of type 'ProviderType[]'
+   */
+  export type ListEnumProviderTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'ProviderType[]'>
+    
+
+
+  /**
    * Reference to a field of type 'Int'
    */
   export type IntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Int'>
@@ -56131,6 +56202,20 @@ export namespace Prisma {
    * Reference to a field of type 'Int[]'
    */
   export type ListIntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Int[]'>
+    
+
+
+  /**
+   * Reference to a field of type 'TokenType'
+   */
+  export type EnumTokenTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'TokenType'>
+    
+
+
+  /**
+   * Reference to a field of type 'TokenType[]'
+   */
+  export type ListEnumTokenTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'TokenType[]'>
     
 
 
@@ -56166,20 +56251,6 @@ export namespace Prisma {
    * Reference to a field of type 'ConsentStatus[]'
    */
   export type ListEnumConsentStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'ConsentStatus[]'>
-    
-
-
-  /**
-   * Reference to a field of type 'TokenType'
-   */
-  export type EnumTokenTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'TokenType'>
-    
-
-
-  /**
-   * Reference to a field of type 'TokenType[]'
-   */
-  export type ListEnumTokenTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'TokenType[]'>
     
 
 
@@ -56607,23 +56678,26 @@ export namespace Prisma {
     NOT?: AccountWhereInput | AccountWhereInput[]
     id?: UuidFilter<"Account"> | string
     userId?: UuidFilter<"Account"> | string
-    type?: StringFilter<"Account"> | string
+    providerType?: EnumProviderTypeFilter<"Account"> | $Enums.ProviderType
     provider?: StringFilter<"Account"> | string
     providerAccountId?: StringFilter<"Account"> | string
     refreshToken?: StringNullableFilter<"Account"> | string | null
     accessToken?: StringNullableFilter<"Account"> | string | null
     expiresAt?: IntNullableFilter<"Account"> | number | null
-    tokenType?: StringNullableFilter<"Account"> | string | null
+    tokenType?: EnumTokenTypeNullableFilter<"Account"> | $Enums.TokenType | null
     scope?: StringNullableFilter<"Account"> | string | null
     idToken?: StringNullableFilter<"Account"> | string | null
     sessionState?: StringNullableFilter<"Account"> | string | null
+    createdAt?: DateTimeFilter<"Account"> | Date | string
+    updatedAt?: DateTimeNullableFilter<"Account"> | Date | string | null
+    deletedAt?: DateTimeNullableFilter<"Account"> | Date | string | null
     user?: XOR<UserScalarRelationFilter, UserWhereInput>
   }
 
   export type AccountOrderByWithRelationInput = {
     id?: SortOrder
     userId?: SortOrder
-    type?: SortOrder
+    providerType?: SortOrder
     provider?: SortOrder
     providerAccountId?: SortOrder
     refreshToken?: SortOrderInput | SortOrder
@@ -56633,6 +56707,9 @@ export namespace Prisma {
     scope?: SortOrderInput | SortOrder
     idToken?: SortOrderInput | SortOrder
     sessionState?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrderInput | SortOrder
+    deletedAt?: SortOrderInput | SortOrder
     user?: UserOrderByWithRelationInput
   }
 
@@ -56643,23 +56720,26 @@ export namespace Prisma {
     OR?: AccountWhereInput[]
     NOT?: AccountWhereInput | AccountWhereInput[]
     userId?: UuidFilter<"Account"> | string
-    type?: StringFilter<"Account"> | string
+    providerType?: EnumProviderTypeFilter<"Account"> | $Enums.ProviderType
     provider?: StringFilter<"Account"> | string
     providerAccountId?: StringFilter<"Account"> | string
     refreshToken?: StringNullableFilter<"Account"> | string | null
     accessToken?: StringNullableFilter<"Account"> | string | null
     expiresAt?: IntNullableFilter<"Account"> | number | null
-    tokenType?: StringNullableFilter<"Account"> | string | null
+    tokenType?: EnumTokenTypeNullableFilter<"Account"> | $Enums.TokenType | null
     scope?: StringNullableFilter<"Account"> | string | null
     idToken?: StringNullableFilter<"Account"> | string | null
     sessionState?: StringNullableFilter<"Account"> | string | null
+    createdAt?: DateTimeFilter<"Account"> | Date | string
+    updatedAt?: DateTimeNullableFilter<"Account"> | Date | string | null
+    deletedAt?: DateTimeNullableFilter<"Account"> | Date | string | null
     user?: XOR<UserScalarRelationFilter, UserWhereInput>
   }, "id" | "provider_providerAccountId">
 
   export type AccountOrderByWithAggregationInput = {
     id?: SortOrder
     userId?: SortOrder
-    type?: SortOrder
+    providerType?: SortOrder
     provider?: SortOrder
     providerAccountId?: SortOrder
     refreshToken?: SortOrderInput | SortOrder
@@ -56669,6 +56749,9 @@ export namespace Prisma {
     scope?: SortOrderInput | SortOrder
     idToken?: SortOrderInput | SortOrder
     sessionState?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrderInput | SortOrder
+    deletedAt?: SortOrderInput | SortOrder
     _count?: AccountCountOrderByAggregateInput
     _avg?: AccountAvgOrderByAggregateInput
     _max?: AccountMaxOrderByAggregateInput
@@ -56682,16 +56765,19 @@ export namespace Prisma {
     NOT?: AccountScalarWhereWithAggregatesInput | AccountScalarWhereWithAggregatesInput[]
     id?: UuidWithAggregatesFilter<"Account"> | string
     userId?: UuidWithAggregatesFilter<"Account"> | string
-    type?: StringWithAggregatesFilter<"Account"> | string
+    providerType?: EnumProviderTypeWithAggregatesFilter<"Account"> | $Enums.ProviderType
     provider?: StringWithAggregatesFilter<"Account"> | string
     providerAccountId?: StringWithAggregatesFilter<"Account"> | string
     refreshToken?: StringNullableWithAggregatesFilter<"Account"> | string | null
     accessToken?: StringNullableWithAggregatesFilter<"Account"> | string | null
     expiresAt?: IntNullableWithAggregatesFilter<"Account"> | number | null
-    tokenType?: StringNullableWithAggregatesFilter<"Account"> | string | null
+    tokenType?: EnumTokenTypeNullableWithAggregatesFilter<"Account"> | $Enums.TokenType | null
     scope?: StringNullableWithAggregatesFilter<"Account"> | string | null
     idToken?: StringNullableWithAggregatesFilter<"Account"> | string | null
     sessionState?: StringNullableWithAggregatesFilter<"Account"> | string | null
+    createdAt?: DateTimeWithAggregatesFilter<"Account"> | Date | string
+    updatedAt?: DateTimeNullableWithAggregatesFilter<"Account"> | Date | string | null
+    deletedAt?: DateTimeNullableWithAggregatesFilter<"Account"> | Date | string | null
   }
 
   export type SessionWhereInput = {
@@ -60531,106 +60617,127 @@ export namespace Prisma {
 
   export type AccountCreateInput = {
     id?: string
-    type: string
+    providerType?: $Enums.ProviderType
     provider: string
     providerAccountId: string
     refreshToken?: string | null
     accessToken?: string | null
     expiresAt?: number | null
-    tokenType?: string | null
+    tokenType?: $Enums.TokenType | null
     scope?: string | null
     idToken?: string | null
     sessionState?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string | null
+    deletedAt?: Date | string | null
     user: UserCreateNestedOneWithoutAccountsInput
   }
 
   export type AccountUncheckedCreateInput = {
     id?: string
     userId: string
-    type: string
+    providerType?: $Enums.ProviderType
     provider: string
     providerAccountId: string
     refreshToken?: string | null
     accessToken?: string | null
     expiresAt?: number | null
-    tokenType?: string | null
+    tokenType?: $Enums.TokenType | null
     scope?: string | null
     idToken?: string | null
     sessionState?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string | null
+    deletedAt?: Date | string | null
   }
 
   export type AccountUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
-    type?: StringFieldUpdateOperationsInput | string
+    providerType?: EnumProviderTypeFieldUpdateOperationsInput | $Enums.ProviderType
     provider?: StringFieldUpdateOperationsInput | string
     providerAccountId?: StringFieldUpdateOperationsInput | string
     refreshToken?: NullableStringFieldUpdateOperationsInput | string | null
     accessToken?: NullableStringFieldUpdateOperationsInput | string | null
     expiresAt?: NullableIntFieldUpdateOperationsInput | number | null
-    tokenType?: NullableStringFieldUpdateOperationsInput | string | null
+    tokenType?: NullableEnumTokenTypeFieldUpdateOperationsInput | $Enums.TokenType | null
     scope?: NullableStringFieldUpdateOperationsInput | string | null
     idToken?: NullableStringFieldUpdateOperationsInput | string | null
     sessionState?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     user?: UserUpdateOneRequiredWithoutAccountsNestedInput
   }
 
   export type AccountUncheckedUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
     userId?: StringFieldUpdateOperationsInput | string
-    type?: StringFieldUpdateOperationsInput | string
+    providerType?: EnumProviderTypeFieldUpdateOperationsInput | $Enums.ProviderType
     provider?: StringFieldUpdateOperationsInput | string
     providerAccountId?: StringFieldUpdateOperationsInput | string
     refreshToken?: NullableStringFieldUpdateOperationsInput | string | null
     accessToken?: NullableStringFieldUpdateOperationsInput | string | null
     expiresAt?: NullableIntFieldUpdateOperationsInput | number | null
-    tokenType?: NullableStringFieldUpdateOperationsInput | string | null
+    tokenType?: NullableEnumTokenTypeFieldUpdateOperationsInput | $Enums.TokenType | null
     scope?: NullableStringFieldUpdateOperationsInput | string | null
     idToken?: NullableStringFieldUpdateOperationsInput | string | null
     sessionState?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   }
 
   export type AccountCreateManyInput = {
     id?: string
     userId: string
-    type: string
+    providerType?: $Enums.ProviderType
     provider: string
     providerAccountId: string
     refreshToken?: string | null
     accessToken?: string | null
     expiresAt?: number | null
-    tokenType?: string | null
+    tokenType?: $Enums.TokenType | null
     scope?: string | null
     idToken?: string | null
     sessionState?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string | null
+    deletedAt?: Date | string | null
   }
 
   export type AccountUpdateManyMutationInput = {
     id?: StringFieldUpdateOperationsInput | string
-    type?: StringFieldUpdateOperationsInput | string
+    providerType?: EnumProviderTypeFieldUpdateOperationsInput | $Enums.ProviderType
     provider?: StringFieldUpdateOperationsInput | string
     providerAccountId?: StringFieldUpdateOperationsInput | string
     refreshToken?: NullableStringFieldUpdateOperationsInput | string | null
     accessToken?: NullableStringFieldUpdateOperationsInput | string | null
     expiresAt?: NullableIntFieldUpdateOperationsInput | number | null
-    tokenType?: NullableStringFieldUpdateOperationsInput | string | null
+    tokenType?: NullableEnumTokenTypeFieldUpdateOperationsInput | $Enums.TokenType | null
     scope?: NullableStringFieldUpdateOperationsInput | string | null
     idToken?: NullableStringFieldUpdateOperationsInput | string | null
     sessionState?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   }
 
   export type AccountUncheckedUpdateManyInput = {
     id?: StringFieldUpdateOperationsInput | string
     userId?: StringFieldUpdateOperationsInput | string
-    type?: StringFieldUpdateOperationsInput | string
+    providerType?: EnumProviderTypeFieldUpdateOperationsInput | $Enums.ProviderType
     provider?: StringFieldUpdateOperationsInput | string
     providerAccountId?: StringFieldUpdateOperationsInput | string
     refreshToken?: NullableStringFieldUpdateOperationsInput | string | null
     accessToken?: NullableStringFieldUpdateOperationsInput | string | null
     expiresAt?: NullableIntFieldUpdateOperationsInput | number | null
-    tokenType?: NullableStringFieldUpdateOperationsInput | string | null
+    tokenType?: NullableEnumTokenTypeFieldUpdateOperationsInput | $Enums.TokenType | null
     scope?: NullableStringFieldUpdateOperationsInput | string | null
     idToken?: NullableStringFieldUpdateOperationsInput | string | null
     sessionState?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   }
 
   export type SessionCreateInput = {
@@ -65119,6 +65226,13 @@ export namespace Prisma {
     _max?: NestedDateTimeFilter<$PrismaModel>
   }
 
+  export type EnumProviderTypeFilter<$PrismaModel = never> = {
+    equals?: $Enums.ProviderType | EnumProviderTypeFieldRefInput<$PrismaModel>
+    in?: $Enums.ProviderType[] | ListEnumProviderTypeFieldRefInput<$PrismaModel>
+    notIn?: $Enums.ProviderType[] | ListEnumProviderTypeFieldRefInput<$PrismaModel>
+    not?: NestedEnumProviderTypeFilter<$PrismaModel> | $Enums.ProviderType
+  }
+
   export type StringFilter<$PrismaModel = never> = {
     equals?: string | StringFieldRefInput<$PrismaModel>
     in?: string[] | ListStringFieldRefInput<$PrismaModel>
@@ -65145,6 +65259,13 @@ export namespace Prisma {
     not?: NestedIntNullableFilter<$PrismaModel> | number | null
   }
 
+  export type EnumTokenTypeNullableFilter<$PrismaModel = never> = {
+    equals?: $Enums.TokenType | EnumTokenTypeFieldRefInput<$PrismaModel> | null
+    in?: $Enums.TokenType[] | ListEnumTokenTypeFieldRefInput<$PrismaModel> | null
+    notIn?: $Enums.TokenType[] | ListEnumTokenTypeFieldRefInput<$PrismaModel> | null
+    not?: NestedEnumTokenTypeNullableFilter<$PrismaModel> | $Enums.TokenType | null
+  }
+
   export type UserScalarRelationFilter = {
     is?: UserWhereInput
     isNot?: UserWhereInput
@@ -65158,7 +65279,7 @@ export namespace Prisma {
   export type AccountCountOrderByAggregateInput = {
     id?: SortOrder
     userId?: SortOrder
-    type?: SortOrder
+    providerType?: SortOrder
     provider?: SortOrder
     providerAccountId?: SortOrder
     refreshToken?: SortOrder
@@ -65168,6 +65289,9 @@ export namespace Prisma {
     scope?: SortOrder
     idToken?: SortOrder
     sessionState?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    deletedAt?: SortOrder
   }
 
   export type AccountAvgOrderByAggregateInput = {
@@ -65177,7 +65301,7 @@ export namespace Prisma {
   export type AccountMaxOrderByAggregateInput = {
     id?: SortOrder
     userId?: SortOrder
-    type?: SortOrder
+    providerType?: SortOrder
     provider?: SortOrder
     providerAccountId?: SortOrder
     refreshToken?: SortOrder
@@ -65187,12 +65311,15 @@ export namespace Prisma {
     scope?: SortOrder
     idToken?: SortOrder
     sessionState?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    deletedAt?: SortOrder
   }
 
   export type AccountMinOrderByAggregateInput = {
     id?: SortOrder
     userId?: SortOrder
-    type?: SortOrder
+    providerType?: SortOrder
     provider?: SortOrder
     providerAccountId?: SortOrder
     refreshToken?: SortOrder
@@ -65202,10 +65329,23 @@ export namespace Prisma {
     scope?: SortOrder
     idToken?: SortOrder
     sessionState?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    deletedAt?: SortOrder
   }
 
   export type AccountSumOrderByAggregateInput = {
     expiresAt?: SortOrder
+  }
+
+  export type EnumProviderTypeWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.ProviderType | EnumProviderTypeFieldRefInput<$PrismaModel>
+    in?: $Enums.ProviderType[] | ListEnumProviderTypeFieldRefInput<$PrismaModel>
+    notIn?: $Enums.ProviderType[] | ListEnumProviderTypeFieldRefInput<$PrismaModel>
+    not?: NestedEnumProviderTypeWithAggregatesFilter<$PrismaModel> | $Enums.ProviderType
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumProviderTypeFilter<$PrismaModel>
+    _max?: NestedEnumProviderTypeFilter<$PrismaModel>
   }
 
   export type StringWithAggregatesFilter<$PrismaModel = never> = {
@@ -65240,6 +65380,16 @@ export namespace Prisma {
     _sum?: NestedIntNullableFilter<$PrismaModel>
     _min?: NestedIntNullableFilter<$PrismaModel>
     _max?: NestedIntNullableFilter<$PrismaModel>
+  }
+
+  export type EnumTokenTypeNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.TokenType | EnumTokenTypeFieldRefInput<$PrismaModel> | null
+    in?: $Enums.TokenType[] | ListEnumTokenTypeFieldRefInput<$PrismaModel> | null
+    notIn?: $Enums.TokenType[] | ListEnumTokenTypeFieldRefInput<$PrismaModel> | null
+    not?: NestedEnumTokenTypeNullableWithAggregatesFilter<$PrismaModel> | $Enums.TokenType | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedEnumTokenTypeNullableFilter<$PrismaModel>
+    _max?: NestedEnumTokenTypeNullableFilter<$PrismaModel>
   }
 
   export type SessionCountOrderByAggregateInput = {
@@ -68484,12 +68634,20 @@ export namespace Prisma {
     connect?: UserWhereUniqueInput
   }
 
+  export type EnumProviderTypeFieldUpdateOperationsInput = {
+    set?: $Enums.ProviderType
+  }
+
   export type NullableIntFieldUpdateOperationsInput = {
     set?: number | null
     increment?: number
     decrement?: number
     multiply?: number
     divide?: number
+  }
+
+  export type NullableEnumTokenTypeFieldUpdateOperationsInput = {
+    set?: $Enums.TokenType | null
   }
 
   export type UserUpdateOneRequiredWithoutAccountsNestedInput = {
@@ -71297,6 +71455,30 @@ export namespace Prisma {
     _max?: NestedDateTimeFilter<$PrismaModel>
   }
 
+  export type NestedEnumProviderTypeFilter<$PrismaModel = never> = {
+    equals?: $Enums.ProviderType | EnumProviderTypeFieldRefInput<$PrismaModel>
+    in?: $Enums.ProviderType[] | ListEnumProviderTypeFieldRefInput<$PrismaModel>
+    notIn?: $Enums.ProviderType[] | ListEnumProviderTypeFieldRefInput<$PrismaModel>
+    not?: NestedEnumProviderTypeFilter<$PrismaModel> | $Enums.ProviderType
+  }
+
+  export type NestedEnumTokenTypeNullableFilter<$PrismaModel = never> = {
+    equals?: $Enums.TokenType | EnumTokenTypeFieldRefInput<$PrismaModel> | null
+    in?: $Enums.TokenType[] | ListEnumTokenTypeFieldRefInput<$PrismaModel> | null
+    notIn?: $Enums.TokenType[] | ListEnumTokenTypeFieldRefInput<$PrismaModel> | null
+    not?: NestedEnumTokenTypeNullableFilter<$PrismaModel> | $Enums.TokenType | null
+  }
+
+  export type NestedEnumProviderTypeWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.ProviderType | EnumProviderTypeFieldRefInput<$PrismaModel>
+    in?: $Enums.ProviderType[] | ListEnumProviderTypeFieldRefInput<$PrismaModel>
+    notIn?: $Enums.ProviderType[] | ListEnumProviderTypeFieldRefInput<$PrismaModel>
+    not?: NestedEnumProviderTypeWithAggregatesFilter<$PrismaModel> | $Enums.ProviderType
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumProviderTypeFilter<$PrismaModel>
+    _max?: NestedEnumProviderTypeFilter<$PrismaModel>
+  }
+
   export type NestedStringWithAggregatesFilter<$PrismaModel = never> = {
     equals?: string | StringFieldRefInput<$PrismaModel>
     in?: string[] | ListStringFieldRefInput<$PrismaModel>
@@ -71339,6 +71521,16 @@ export namespace Prisma {
     gt?: number | FloatFieldRefInput<$PrismaModel>
     gte?: number | FloatFieldRefInput<$PrismaModel>
     not?: NestedFloatNullableFilter<$PrismaModel> | number | null
+  }
+
+  export type NestedEnumTokenTypeNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.TokenType | EnumTokenTypeFieldRefInput<$PrismaModel> | null
+    in?: $Enums.TokenType[] | ListEnumTokenTypeFieldRefInput<$PrismaModel> | null
+    notIn?: $Enums.TokenType[] | ListEnumTokenTypeFieldRefInput<$PrismaModel> | null
+    not?: NestedEnumTokenTypeNullableWithAggregatesFilter<$PrismaModel> | $Enums.TokenType | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedEnumTokenTypeNullableFilter<$PrismaModel>
+    _max?: NestedEnumTokenTypeNullableFilter<$PrismaModel>
   }
 
   export type NestedEnumDocumentTypeNullableFilter<$PrismaModel = never> = {
@@ -71955,30 +72147,36 @@ export namespace Prisma {
 
   export type AccountCreateWithoutUserInput = {
     id?: string
-    type: string
+    providerType?: $Enums.ProviderType
     provider: string
     providerAccountId: string
     refreshToken?: string | null
     accessToken?: string | null
     expiresAt?: number | null
-    tokenType?: string | null
+    tokenType?: $Enums.TokenType | null
     scope?: string | null
     idToken?: string | null
     sessionState?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string | null
+    deletedAt?: Date | string | null
   }
 
   export type AccountUncheckedCreateWithoutUserInput = {
     id?: string
-    type: string
+    providerType?: $Enums.ProviderType
     provider: string
     providerAccountId: string
     refreshToken?: string | null
     accessToken?: string | null
     expiresAt?: number | null
-    tokenType?: string | null
+    tokenType?: $Enums.TokenType | null
     scope?: string | null
     idToken?: string | null
     sessionState?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string | null
+    deletedAt?: Date | string | null
   }
 
   export type AccountCreateOrConnectWithoutUserInput = {
@@ -72400,16 +72598,19 @@ export namespace Prisma {
     NOT?: AccountScalarWhereInput | AccountScalarWhereInput[]
     id?: UuidFilter<"Account"> | string
     userId?: UuidFilter<"Account"> | string
-    type?: StringFilter<"Account"> | string
+    providerType?: EnumProviderTypeFilter<"Account"> | $Enums.ProviderType
     provider?: StringFilter<"Account"> | string
     providerAccountId?: StringFilter<"Account"> | string
     refreshToken?: StringNullableFilter<"Account"> | string | null
     accessToken?: StringNullableFilter<"Account"> | string | null
     expiresAt?: IntNullableFilter<"Account"> | number | null
-    tokenType?: StringNullableFilter<"Account"> | string | null
+    tokenType?: EnumTokenTypeNullableFilter<"Account"> | $Enums.TokenType | null
     scope?: StringNullableFilter<"Account"> | string | null
     idToken?: StringNullableFilter<"Account"> | string | null
     sessionState?: StringNullableFilter<"Account"> | string | null
+    createdAt?: DateTimeFilter<"Account"> | Date | string
+    updatedAt?: DateTimeNullableFilter<"Account"> | Date | string | null
+    deletedAt?: DateTimeNullableFilter<"Account"> | Date | string | null
   }
 
   export type SessionUpsertWithWhereUniqueWithoutUserInput = {
@@ -82413,16 +82614,19 @@ export namespace Prisma {
 
   export type AccountCreateManyUserInput = {
     id?: string
-    type: string
+    providerType?: $Enums.ProviderType
     provider: string
     providerAccountId: string
     refreshToken?: string | null
     accessToken?: string | null
     expiresAt?: number | null
-    tokenType?: string | null
+    tokenType?: $Enums.TokenType | null
     scope?: string | null
     idToken?: string | null
     sessionState?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string | null
+    deletedAt?: Date | string | null
   }
 
   export type SessionCreateManyUserInput = {
@@ -82542,44 +82746,53 @@ export namespace Prisma {
 
   export type AccountUpdateWithoutUserInput = {
     id?: StringFieldUpdateOperationsInput | string
-    type?: StringFieldUpdateOperationsInput | string
+    providerType?: EnumProviderTypeFieldUpdateOperationsInput | $Enums.ProviderType
     provider?: StringFieldUpdateOperationsInput | string
     providerAccountId?: StringFieldUpdateOperationsInput | string
     refreshToken?: NullableStringFieldUpdateOperationsInput | string | null
     accessToken?: NullableStringFieldUpdateOperationsInput | string | null
     expiresAt?: NullableIntFieldUpdateOperationsInput | number | null
-    tokenType?: NullableStringFieldUpdateOperationsInput | string | null
+    tokenType?: NullableEnumTokenTypeFieldUpdateOperationsInput | $Enums.TokenType | null
     scope?: NullableStringFieldUpdateOperationsInput | string | null
     idToken?: NullableStringFieldUpdateOperationsInput | string | null
     sessionState?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   }
 
   export type AccountUncheckedUpdateWithoutUserInput = {
     id?: StringFieldUpdateOperationsInput | string
-    type?: StringFieldUpdateOperationsInput | string
+    providerType?: EnumProviderTypeFieldUpdateOperationsInput | $Enums.ProviderType
     provider?: StringFieldUpdateOperationsInput | string
     providerAccountId?: StringFieldUpdateOperationsInput | string
     refreshToken?: NullableStringFieldUpdateOperationsInput | string | null
     accessToken?: NullableStringFieldUpdateOperationsInput | string | null
     expiresAt?: NullableIntFieldUpdateOperationsInput | number | null
-    tokenType?: NullableStringFieldUpdateOperationsInput | string | null
+    tokenType?: NullableEnumTokenTypeFieldUpdateOperationsInput | $Enums.TokenType | null
     scope?: NullableStringFieldUpdateOperationsInput | string | null
     idToken?: NullableStringFieldUpdateOperationsInput | string | null
     sessionState?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   }
 
   export type AccountUncheckedUpdateManyWithoutUserInput = {
     id?: StringFieldUpdateOperationsInput | string
-    type?: StringFieldUpdateOperationsInput | string
+    providerType?: EnumProviderTypeFieldUpdateOperationsInput | $Enums.ProviderType
     provider?: StringFieldUpdateOperationsInput | string
     providerAccountId?: StringFieldUpdateOperationsInput | string
     refreshToken?: NullableStringFieldUpdateOperationsInput | string | null
     accessToken?: NullableStringFieldUpdateOperationsInput | string | null
     expiresAt?: NullableIntFieldUpdateOperationsInput | number | null
-    tokenType?: NullableStringFieldUpdateOperationsInput | string | null
+    tokenType?: NullableEnumTokenTypeFieldUpdateOperationsInput | $Enums.TokenType | null
     scope?: NullableStringFieldUpdateOperationsInput | string | null
     idToken?: NullableStringFieldUpdateOperationsInput | string | null
     sessionState?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   }
 
   export type SessionUpdateWithoutUserInput = {

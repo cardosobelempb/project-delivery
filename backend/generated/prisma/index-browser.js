@@ -136,7 +136,7 @@ exports.Prisma.UserScalarFieldEnum = {
 exports.Prisma.AccountScalarFieldEnum = {
   id: 'id',
   userId: 'userId',
-  type: 'type',
+  providerType: 'providerType',
   provider: 'provider',
   providerAccountId: 'providerAccountId',
   refreshToken: 'refreshToken',
@@ -145,7 +145,10 @@ exports.Prisma.AccountScalarFieldEnum = {
   tokenType: 'tokenType',
   scope: 'scope',
   idToken: 'idToken',
-  sessionState: 'sessionState'
+  sessionState: 'sessionState',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt',
+  deletedAt: 'deletedAt'
 };
 
 exports.Prisma.SessionScalarFieldEnum = {
@@ -754,6 +757,21 @@ exports.UserStatus = exports.$Enums.UserStatus = {
   BLOCKED: 'BLOCKED'
 };
 
+exports.ProviderType = exports.$Enums.ProviderType = {
+  GOOGLE: 'GOOGLE',
+  FACEBOOK: 'FACEBOOK',
+  APPLE: 'APPLE',
+  CREDENTIALS: 'CREDENTIALS',
+  OTHER: 'OTHER'
+};
+
+exports.TokenType = exports.$Enums.TokenType = {
+  REFRESH: 'REFRESH',
+  ACCESS: 'ACCESS',
+  RESET_PASSWORD: 'RESET_PASSWORD',
+  API_KEY: 'API_KEY'
+};
+
 exports.DocumentType = exports.$Enums.DocumentType = {
   CPF: 'CPF',
   CNPJ: 'CNPJ',
@@ -765,13 +783,6 @@ exports.ConsentStatus = exports.$Enums.ConsentStatus = {
   ACTIVE: 'ACTIVE',
   REVOKED: 'REVOKED',
   WITHDRAWN: 'WITHDRAWN'
-};
-
-exports.TokenType = exports.$Enums.TokenType = {
-  REFRESH: 'REFRESH',
-  ACCESS: 'ACCESS',
-  RESET_PASSWORD: 'RESET_PASSWORD',
-  API_KEY: 'API_KEY'
 };
 
 exports.TenantStatus = exports.$Enums.TenantStatus = {

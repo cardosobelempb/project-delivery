@@ -5,23 +5,23 @@ import {
 } from "@/common/domain/repositories/types/pagination.types";
 import { getPrismaClient } from "@/common/infrastructure/db/prisma.client";
 import { Prisma } from "../../../../../../../generated/prisma";
-import { AuthAccountEntity } from "../../../../domain/entities/account.entity";
+import { AccountEntity } from "../../../../domain/entities/account.entity";
 import { AccountRepository } from "../../../../domain/repositories/account-repository";
-import { AuthAccountMapper } from "../../../mappers/account.mapper";
+import { AccountMapper } from "../../../mappers/account.mapper";
 
 export class AccountPrismaRepository implements AccountRepository {
   private prisma = getPrismaClient();
 
-  async findByCpf(cpf: string): Promise<AuthAccountEntity | null> {
-    const account = await this.prisma.authAccount.findFirst({
+  async findByCpf(cpf: string): Promise<AccountEntity | null> {
+    const account = await this.prisma.account.findFirst({
       where: { provider: "credentials", providerAccountId: cpf },
       include: { user: true },
     });
 
     if (!account) return null;
-    return AuthAccountMapper.toDomain(account);
+    return AccountMapper.toDomain(account);
   }
-  async page(params: PageInput): Promise<Page<AuthAccountEntity>> {
+  async page(params: PageInput): Promise<Page<AccountEntity>> {
     // ─── Paginação zero-based (padrão Spring) ─────────────────────────────
     const pageNumber = params.page ?? 0; // ✅ zero-based — não mais ?? 1
     const size = params.size ?? 20;
@@ -33,13 +33,13 @@ export class AccountPrismaRepository implements AccountRepository {
     ).split(",");
 
     const allowedSortFields: Array<
-      keyof Prisma.OrganizationOrderByWithRelationInput
-    > = ["name", "slug", "status", "createdAt", "updatedAt"];
+      keyof Prisma.AccountOrderByWithRelationInput
+    > = ["provider", "createdAt", "updatedAt"];
 
     const sortBy = allowedSortFields.includes(
-      rawSortBy as keyof Prisma.OrganizationOrderByWithRelationInput,
+      rawSortBy as keyof Prisma.AccountOrderByWithRelationInput,
     )
-      ? (rawSortBy as keyof Prisma.OrganizationOrderByWithRelationInput)
+      ? (rawSortBy as keyof Prisma.AccountOrderByWithRelationInput)
       : "createdAt";
 
     const sortDirection: Prisma.SortOrder =
@@ -50,9 +50,9 @@ export class AccountPrismaRepository implements AccountRepository {
     const where = this.buildWhere(filter);
 
     // ─── Query ────────────────────────────────────────────────────────────
-    const [totalElements, organizations] = await this.prisma.$transaction([
-      this.prisma.organization.count({ where }),
-      this.prisma.organization.findMany({
+    const [totalElements, accounts] = await this.prisma.$transaction([
+      this.prisma.account.count({ where }),
+      this.prisma.account.findMany({
         where,
         orderBy: { [sortBy]: sortDirection },
         skip, // ✅ sempre >= 0
@@ -62,7 +62,7 @@ export class AccountPrismaRepository implements AccountRepository {
 
     // ─── Metadados ────────────────────────────────────────────────────────
     const totalPages = Math.ceil(totalElements / size);
-    const numberOfElements = organizations.length;
+    const numberOfElements = accounts.length;
     const isSorted = !!params.sort;
 
     const sortMeta: Sort = {
@@ -72,7 +72,7 @@ export class AccountPrismaRepository implements AccountRepository {
     };
 
     return {
-      content: organizations.map(AuthAccountMapper.toDomain),
+      content: accounts.map(AccountMapper.toDomain),
       pageable: {
         sort: sortMeta,
         offset: skip,
@@ -93,55 +93,52 @@ export class AccountPrismaRepository implements AccountRepository {
     };
   }
 
-  private buildWhere(filter: string): Prisma.OrganizationWhereInput {
+  private buildWhere(filter: string): Prisma.AccountWhereInput {
     if (!filter) return {};
 
     return {
-      OR: [
-        { name: { contains: filter, mode: "insensitive" } },
-        { slug: { contains: filter, mode: "insensitive" } },
-      ],
+      OR: [{ provider: { contains: filter, mode: "insensitive" } }],
     };
   }
 
-  async findManyByIds(ids: string[]): Promise<AuthAccountEntity[]> {
-    const accounts = await this.prisma.authAccount.findMany({
+  async findManyByIds(ids: string[]): Promise<AccountEntity[]> {
+    const accounts = await this.prisma.account.findMany({
       where: {
         id: { in: ids },
       },
       include: { user: true },
     });
 
-    return accounts.map(AuthAccountMapper.toDomain);
+    return accounts.map(AccountMapper.toDomain);
   }
 
-  async findByUserId(userId: string): Promise<AuthAccountEntity | null> {
-    const account = await this.prisma.authAccount.findFirst({
+  async findByUserId(userId: string): Promise<AccountEntity | null> {
+    const account = await this.prisma.account.findFirst({
       where: {
         userId,
       },
       include: { user: true },
     });
     if (!account) return null;
-    return AuthAccountMapper.toDomain(account);
+    return AccountMapper.toDomain(account);
   }
 
-  async findById(id: string): Promise<AuthAccountEntity | null> {
-    const account = await this.prisma.authAccount.findUnique({
+  async findById(id: string): Promise<AccountEntity | null> {
+    const account = await this.prisma.account.findUnique({
       where: { id },
       include: { user: true },
     });
     if (!account) return null;
-    return AuthAccountMapper.toDomain(account);
+    return AccountMapper.toDomain(account);
   }
 
   async exists(id: string): Promise<boolean> {
-    const account = await this.prisma.authAccount.findUnique({ where: { id } });
+    const account = await this.prisma.account.findUnique({ where: { id } });
     return !!account;
   }
 
-  async findByEmail(email: string): Promise<AuthAccountEntity | null> {
-    const account = await this.prisma.authAccount.findFirst({
+  async findByEmail(email: string): Promise<AccountEntity | null> {
+    const account = await this.prisma.account.findFirst({
       where: {
         provider: "credentials",
         providerAccountId: email,
@@ -149,41 +146,43 @@ export class AccountPrismaRepository implements AccountRepository {
     });
 
     if (!account) return null;
-    return AuthAccountMapper.toDomain(account);
+    return AccountMapper.toDomain(account);
   }
 
-  async create(entity: AuthAccountEntity): Promise<AuthAccountEntity> {
-    const data = AuthAccountMapper.toPersist(entity);
+  async create(entity: AccountEntity): Promise<AccountEntity> {
+    const data = AccountMapper.toPersist(entity);
 
-    const account = await this.prisma.authAccount.create({
+    const account = await this.prisma.account.create({
       data,
     });
 
-    return AuthAccountMapper.toDomain(account);
+    return AccountMapper.toDomain(account);
   }
 
   async createWithTx(
-    entity: AuthAccountEntity,
+    entity: AccountEntity,
     tx: Prisma.TransactionClient,
-  ): Promise<AuthAccountEntity> {
-    const data = AuthAccountMapper.toPersist(entity);
-    const account = await tx.authAccount.create({
+  ): Promise<AccountEntity> {
+    const data = AccountMapper.toPersist(entity);
+    const account = await tx.account.create({
       data,
     });
-    return AuthAccountMapper.toDomain(account);
+    return AccountMapper.toDomain(account);
   }
 
-  async save(entity: AuthAccountEntity): Promise<AuthAccountEntity> {
-    const account = await this.prisma.authAccount.update({
+  async save(entity: AccountEntity): Promise<AccountEntity> {
+    const data = AccountMapper.toPersist(entity);
+
+    const account = await this.prisma.account.update({
       where: { id: entity.id.toString() },
-      data: entity,
+      data,
     });
 
-    return AuthAccountMapper.toDomain(account);
+    return AccountMapper.toDomain(account);
   }
 
-  async delete(entity: AuthAccountEntity): Promise<void> {
-    await this.prisma.authAccount.delete({
+  async delete(entity: AccountEntity): Promise<void> {
+    await this.prisma.account.delete({
       where: { id: entity.id.toString() },
     });
   }

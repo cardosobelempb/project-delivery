@@ -1,26 +1,33 @@
 import { BaseEntity } from "@/common/domain/entities/base.entity";
 import { Optional } from "@/common/domain/types/Optional";
 import { UUIDVO } from "@/common/domain/values-objects/uuidvo/uuid.vo";
+import { ProviderType } from "@/common/shared/enums/provider-type.enum";
+import { TokenType } from "@/common/shared/enums/token-type.enum";
 
-export interface AuthAccountProps {
+export interface AccountProps {
   userId: UUIDVO;
-  type: string;
-  providerAccountId: UUIDVO;
   provider: string;
-  createdAt: Date;
-  updatedAt: Date | null;
+  providerAccountId: UUIDVO;
+  providerType: ProviderType;
   refreshToken: string | null;
   accessToken: string | null;
   expiresAt: number | null;
-  tokenType: string | null;
+  tokenType: TokenType;
   scope: string | null;
   idToken: string | null;
   sessionState: string | null;
+  createdAt: Date;
+  updatedAt: Date | null;
+  deletedAt: Date | null;
 }
 
-export class AuthAccountEntity extends BaseEntity<AuthAccountProps> {
+export class AccountEntity extends BaseEntity<AccountProps> {
   get userId(): UUIDVO {
     return this.props.userId;
+  }
+
+  get providerType(): ProviderType {
+    return this.props.providerType;
   }
 
   get providerAccountId(): UUIDVO {
@@ -72,14 +79,36 @@ export class AuthAccountEntity extends BaseEntity<AuthAccountProps> {
   }
 
   static create(
-    props: Optional<AuthAccountProps, "createdAt" | "updatedAt">,
+    props: Optional<
+      AccountProps,
+      | "accessToken"
+      | "refreshToken"
+      | "expiresAt"
+      | "tokenType"
+      | "providerType"
+      | "scope"
+      | "idToken"
+      | "sessionState"
+      | "createdAt"
+      | "updatedAt"
+      | "deletedAt"
+    >,
     id?: UUIDVO,
-  ): AuthAccountEntity {
-    return new AuthAccountEntity(
+  ): AccountEntity {
+    return new AccountEntity(
       {
         ...props,
+        accessToken: props.accessToken ?? null,
+        refreshToken: props.refreshToken ?? null,
+        expiresAt: props.expiresAt ?? null,
+        tokenType: props.tokenType ?? TokenType.ACCESS,
+        providerType: props.providerType ?? ProviderType.CREDENTIALS,
+        scope: props.scope ?? null,
+        idToken: props.idToken ?? null,
+        sessionState: props.sessionState ?? null,
         createdAt: props.createdAt ?? new Date(),
         updatedAt: null,
+        deletedAt: null,
       },
       id,
     );
