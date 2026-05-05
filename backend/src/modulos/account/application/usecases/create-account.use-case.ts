@@ -1,18 +1,22 @@
-import { UserEntity } from "@/modulos/user/domain/entities/user.entity";
-import { UserRepository } from "@/modulos/user/domain/repositories/user.repository";
 import { AccountEntity } from "../../domain/entities/account.entity";
 import { AccountRepository } from "../../domain/repositories/account-repository";
 
-import { prisma } from "@/shared/lib/db";
 import { BcryptHasher } from "../../../../common/shared/cryptography/bcrypt-hasher";
 
-import { Either, left, right } from "@/common/domain/errors/handle-errors";
 import { ConflictError } from "@/common/domain/errors/usecases/conflict.error";
 import { CpfVO } from "@/common/domain/values-objects/cpf/cpf.vo";
 import { EmailVO } from "@/common/domain/values-objects/email/email.vo";
 import { PhoneVO } from "@/common/domain/values-objects/phone/phone.vo";
 import { UUIDVO } from "@/common/domain/values-objects/uuidvo/uuid.vo";
-import { UserMapper } from "@/modulos/user/domain/mappers/user-mapper";
+
+import {
+  Either,
+  left,
+  right,
+} from "@/common/domain/errors/handle-errors/either";
+import { UserEntity } from "@/modulos/identity/domain/entities/user.entity";
+import { UserMapper } from "@/modulos/identity/domain/mappers/user.mapper";
+import { UserRepository } from "@/modulos/identity/domain/repositories/user.repository";
 import { CreateAccountInputDto } from "../dto/create-account.input.ts";
 import { CreateAccountOutputDto } from "../dto/create-account.output";
 
@@ -82,7 +86,7 @@ export class CreateAccountUseCase {
     });
 
     return right({
-      user: UserMapper.toOutput(saveUser),
+      user: UserMapper.toHttp(saveUser),
     });
   }
 }

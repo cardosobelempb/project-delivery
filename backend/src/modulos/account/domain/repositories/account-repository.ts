@@ -1,14 +1,13 @@
-import { BaseSearchableRepository } from "@/core/domain/repositories/base-searchable.repository";
-
+import { PageRepository } from "@/common/domain/repositories/page-repository";
 import { Prisma } from "../../../../../generated/prisma";
-import { AccountEntity } from "../entities/account.entity";
+import { AuthAccountEntity } from "../entities/account.entity";
 
-export abstract class AccountRepository extends BaseSearchableRepository<AccountEntity> {
-  abstract findByEmail(email: string): Promise<AccountEntity | null>;
+export abstract class AccountRepository extends PageRepository<AuthAccountEntity> {
+  abstract findByEmail(email: string): Promise<AuthAccountEntity | null>;
   abstract createWithTx(
-    entity: AccountEntity,
+    entity: AuthAccountEntity,
     tx: Prisma.TransactionClient,
-  ): Promise<AccountEntity>;
+  ): Promise<AuthAccountEntity>;
 
-  // abstract findByUserId(userId: string): Promise<AcountEntity | null>;
+  abstract findByCpf(cpf: string): Promise<AuthAccountEntity | null>;
 }

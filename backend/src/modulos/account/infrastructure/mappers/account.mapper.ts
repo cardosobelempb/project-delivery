@@ -1,38 +1,43 @@
 import { UUIDVO } from "@/common/domain/values-objects/uuidvo/uuid.vo";
-import { Account as PrismaAccount } from "../../../../../generated/prisma";
+import { AuthAccount as PrismaAuthAccount } from "../../../../../generated/prisma";
 
-import { AccountEntity } from "../../domain/entities/account.entity";
+import { AuthAccountEntity } from "../../domain/entities/account.entity";
 
-export class AccountMapper {
-  static toDomain(raw: PrismaAccount): AccountEntity {
-    return AccountEntity.create(
+export class AuthAccountMapper {
+  static toDomain(raw: PrismaAuthAccount): AuthAccountEntity {
+    return AuthAccountEntity.create(
       {
         userId: UUIDVO.create(raw.userId),
+        type: raw.type,
         provider: raw.provider,
         providerAccountId: UUIDVO.create(raw.providerAccountId),
-        passwordHash: raw.passwordHash ?? "",
+        refreshToken: raw.refreshToken,
+        accessToken: raw.accessToken,
+        expiresAt: raw.expiresAt,
+        tokenType: raw.tokenType,
+        scope: raw.scope,
+        idToken: raw.idToken,
+        sessionState: raw.sessionState,
       },
       UUIDVO.create(raw.id),
     );
   }
 
-  static toPersist(entity: AccountEntity) {
+  static toPersist(entity: AuthAccountEntity) {
     return {
       id: entity.id.toString(),
       userId: entity.userId.getValue(),
       provider: entity.provider,
       providerAccountId: entity.providerAccountId.toString(),
-      passwordHash: entity.passwordHash,
     };
   }
 
-  static toOutput(entity: AccountEntity) {
+  static toOutput(entity: AuthAccountEntity) {
     return {
       id: entity.id.toString(),
       userId: entity.userId.getValue(),
       provider: entity.provider,
       providerAccountId: entity.providerAccountId.toString(),
-      passwordHash: entity.passwordHash,
     };
   }
 }

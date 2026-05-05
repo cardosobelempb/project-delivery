@@ -124,29 +124,100 @@ exports.Prisma.UserScalarFieldEnum = {
   id: 'id',
   name: 'name',
   email: 'email',
+  emailVerified: 'emailVerified',
+  image: 'image',
   passwordHash: 'passwordHash',
-  level: 'level',
-  operation: 'operation',
   status: 'status',
-  recoverKey: 'recoverKey',
-  keepAlive: 'keepAlive',
-  commission: 'commission',
-  lastLoginAt: 'lastLoginAt',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt',
   deletedAt: 'deletedAt'
 };
 
-exports.Prisma.UserDataScalarFieldEnum = {
+exports.Prisma.AccountScalarFieldEnum = {
   id: 'id',
   userId: 'userId',
-  birthDate: 'birthDate',
+  type: 'type',
+  provider: 'provider',
+  providerAccountId: 'providerAccountId',
+  refreshToken: 'refreshToken',
+  accessToken: 'accessToken',
+  expiresAt: 'expiresAt',
+  tokenType: 'tokenType',
+  scope: 'scope',
+  idToken: 'idToken',
+  sessionState: 'sessionState'
+};
+
+exports.Prisma.SessionScalarFieldEnum = {
+  id: 'id',
+  sessionToken: 'sessionToken',
+  userId: 'userId',
+  expires: 'expires'
+};
+
+exports.Prisma.VerificationTokenScalarFieldEnum = {
+  identifier: 'identifier',
+  token: 'token',
+  expires: 'expires'
+};
+
+exports.Prisma.UserProfileScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  firstName: 'firstName',
+  lastName: 'lastName',
+  displayName: 'displayName',
   documentType: 'documentType',
-  document: 'document',
-  stateLegacyId: 'stateLegacyId',
-  cityLegacyId: 'cityLegacyId',
+  documentNumber: 'documentNumber',
   phone: 'phone',
-  commission: 'commission'
+  birthDate: 'birthDate',
+  avatarUrl: 'avatarUrl',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.LgpdConsentScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  tenantId: 'tenantId',
+  consentTerms: 'consentTerms',
+  consentMarketing: 'consentMarketing',
+  consentDataSharing: 'consentDataSharing',
+  consentAnalytics: 'consentAnalytics',
+  ipAddress: 'ipAddress',
+  macAddress: 'macAddress',
+  userAgent: 'userAgent',
+  consentVersion: 'consentVersion',
+  status: 'status',
+  withdrawnAt: 'withdrawnAt',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt',
+  organizationId: 'organizationId'
+};
+
+exports.Prisma.TokenScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  type: 'type',
+  valueHash: 'valueHash',
+  expiresAt: 'expiresAt',
+  revokedAt: 'revokedAt',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt',
+  deletedAt: 'deletedAt'
+};
+
+exports.Prisma.OtpScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  phone: 'phone',
+  codeHash: 'codeHash',
+  expiresAt: 'expiresAt',
+  attempts: 'attempts',
+  usedAt: 'usedAt',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt',
+  deletedAt: 'deletedAt'
 };
 
 exports.Prisma.StateScalarFieldEnum = {
@@ -167,6 +238,53 @@ exports.Prisma.SegmentScalarFieldEnum = {
   icon: 'icon',
   name: 'name',
   ageRating: 'ageRating'
+};
+
+exports.Prisma.TenantScalarFieldEnum = {
+  id: 'id',
+  name: 'name',
+  slug: 'slug',
+  documentType: 'documentType',
+  documentNumber: 'documentNumber',
+  contactEmail: 'contactEmail',
+  phone: 'phone',
+  status: 'status',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt',
+  deletedAt: 'deletedAt'
+};
+
+exports.Prisma.OrganizationScalarFieldEnum = {
+  id: 'id',
+  name: 'name',
+  slug: 'slug',
+  documentType: 'documentType',
+  documentNumber: 'documentNumber',
+  contactEmail: 'contactEmail',
+  phone: 'phone',
+  logoUrl: 'logoUrl',
+  status: 'status',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt',
+  deletedAt: 'deletedAt',
+  tenantId: 'tenantId'
+};
+
+exports.Prisma.MembershipScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  tenantId: 'tenantId',
+  role: 'role',
+  status: 'status',
+  joinedAt: 'joinedAt',
+  invitedEmail: 'invitedEmail',
+  invitedById: 'invitedById',
+  expiresAt: 'expiresAt',
+  removedAt: 'removedAt',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt',
+  deletedAt: 'deletedAt',
+  organizationId: 'organizationId'
 };
 
 exports.Prisma.EstablishmentScalarFieldEnum = {
@@ -191,26 +309,29 @@ exports.Prisma.EstablishmentScalarFieldEnum = {
   excludedAt: 'excludedAt',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt',
-  lastLoginAt: 'lastLoginAt'
+  lastLoginAt: 'lastLoginAt',
+  addressId: 'addressId'
 };
 
 exports.Prisma.AddressScalarFieldEnum = {
   id: 'id',
-  establishmentId: 'establishmentId',
   userId: 'userId',
-  customerId: 'customerId',
-  stateId: 'stateId',
-  cityId: 'cityId',
-  stateLegacy: 'stateLegacy',
-  cityLegacy: 'cityLegacy',
-  zipCode: 'zipCode',
-  addressNumber: 'addressNumber',
-  neighborhood: 'neighborhood',
+  tenantId: 'tenantId',
+  organizationId: 'organizationId',
+  type: 'type',
   street: 'street',
+  addressNumber: 'addressNumber',
   complement: 'complement',
+  neighborhood: 'neighborhood',
   reference: 'reference',
+  cityId: 'cityId',
+  stateId: 'stateId',
+  zipCode: 'zipCode',
+  country: 'country',
+  isPrimary: 'isPrimary',
   createdAt: 'createdAt',
-  updatedAt: 'updatedAt'
+  updatedAt: 'updatedAt',
+  customerId: 'customerId'
 };
 
 exports.Prisma.ContactScalarFieldEnum = {
@@ -627,17 +748,60 @@ exports.Prisma.NullsOrder = {
   first: 'first',
   last: 'last'
 };
-exports.UserLevel = exports.$Enums.UserLevel = {
-  OWNER: 'OWNER',
-  ADMIN: 'ADMIN',
-  AFFILIATE: 'AFFILIATE',
-  OPERATOR: 'OPERATOR',
-  CUSTOMER: 'CUSTOMER'
+exports.UserStatus = exports.$Enums.UserStatus = {
+  ACTIVE: 'ACTIVE',
+  INACTIVE: 'INACTIVE',
+  BLOCKED: 'BLOCKED'
 };
 
-exports.YesNoStatus = exports.$Enums.YesNoStatus = {
-  YES: 'YES',
-  NO: 'NO'
+exports.DocumentType = exports.$Enums.DocumentType = {
+  CPF: 'CPF',
+  CNPJ: 'CNPJ',
+  RG: 'RG',
+  OTHER: 'OTHER'
+};
+
+exports.ConsentStatus = exports.$Enums.ConsentStatus = {
+  ACTIVE: 'ACTIVE',
+  REVOKED: 'REVOKED',
+  WITHDRAWN: 'WITHDRAWN'
+};
+
+exports.TokenType = exports.$Enums.TokenType = {
+  REFRESH: 'REFRESH',
+  ACCESS: 'ACCESS',
+  RESET_PASSWORD: 'RESET_PASSWORD',
+  API_KEY: 'API_KEY'
+};
+
+exports.TenantStatus = exports.$Enums.TenantStatus = {
+  TRIALING: 'TRIALING',
+  ACTIVE: 'ACTIVE',
+  SUSPENDED: 'SUSPENDED',
+  CANCELED: 'CANCELED'
+};
+
+exports.OrganizationStatus = exports.$Enums.OrganizationStatus = {
+  ACTIVE: 'ACTIVE',
+  INACTIVE: 'INACTIVE',
+  BLOCKED: 'BLOCKED',
+  DELETED: 'DELETED'
+};
+
+exports.MemberRole = exports.$Enums.MemberRole = {
+  OWNER: 'OWNER',
+  ADMIN: 'ADMIN',
+  MANAGER: 'MANAGER',
+  SUPPORT: 'SUPPORT',
+  FINANCE: 'FINANCE',
+  MEMBER: 'MEMBER'
+};
+
+exports.MemberStatus = exports.$Enums.MemberStatus = {
+  ACTIVE: 'ACTIVE',
+  INVITED: 'INVITED',
+  SUSPENDED: 'SUSPENDED',
+  REMOVED: 'REMOVED'
 };
 
 exports.EntityStatus = exports.$Enums.EntityStatus = {
@@ -647,11 +811,15 @@ exports.EntityStatus = exports.$Enums.EntityStatus = {
   DELETED: 'DELETED'
 };
 
-exports.DocumentType = exports.$Enums.DocumentType = {
-  CPF: 'CPF',
-  CNPJ: 'CNPJ',
-  RG: 'RG',
+exports.AddressType = exports.$Enums.AddressType = {
+  HOME: 'HOME',
+  WORK: 'WORK',
   OTHER: 'OTHER'
+};
+
+exports.YesNoStatus = exports.$Enums.YesNoStatus = {
+  YES: 'YES',
+  NO: 'NO'
 };
 
 exports.DeliveryFeeType = exports.$Enums.DeliveryFeeType = {
@@ -753,10 +921,19 @@ exports.DomainType = exports.$Enums.DomainType = {
 
 exports.Prisma.ModelName = {
   User: 'User',
-  UserData: 'UserData',
+  Account: 'Account',
+  Session: 'Session',
+  VerificationToken: 'VerificationToken',
+  UserProfile: 'UserProfile',
+  LgpdConsent: 'LgpdConsent',
+  Token: 'Token',
+  Otp: 'Otp',
   State: 'State',
   City: 'City',
   Segment: 'Segment',
+  Tenant: 'Tenant',
+  Organization: 'Organization',
+  Membership: 'Membership',
   Establishment: 'Establishment',
   Address: 'Address',
   Contact: 'Contact',

@@ -2,16 +2,23 @@ import { BaseEntity } from "@/common/domain/entities/base.entity";
 import { Optional } from "@/common/domain/types/Optional";
 import { UUIDVO } from "@/common/domain/values-objects/uuidvo/uuid.vo";
 
-export interface AccountProps {
+export interface AuthAccountProps {
   userId: UUIDVO;
+  type: string;
   providerAccountId: UUIDVO;
   provider: string;
-  passwordHash: string;
   createdAt: Date;
   updatedAt: Date | null;
+  refreshToken: string | null;
+  accessToken: string | null;
+  expiresAt: number | null;
+  tokenType: string | null;
+  scope: string | null;
+  idToken: string | null;
+  sessionState: string | null;
 }
 
-export class AccountEntity extends BaseEntity<AccountProps> {
+export class AuthAccountEntity extends BaseEntity<AuthAccountProps> {
   get userId(): UUIDVO {
     return this.props.userId;
   }
@@ -24,8 +31,32 @@ export class AccountEntity extends BaseEntity<AccountProps> {
     return this.props.provider;
   }
 
-  get passwordHash(): string {
-    return this.props.passwordHash;
+  get refreshToken(): string | null {
+    return this.props.refreshToken;
+  }
+
+  get accessToken(): string | null {
+    return this.props.accessToken;
+  }
+
+  get expiresAt(): number | null {
+    return this.props.expiresAt;
+  }
+
+  get tokenType(): string | null {
+    return this.props.tokenType;
+  }
+
+  get scope(): string | null {
+    return this.props.scope;
+  }
+
+  get idToken(): string | null {
+    return this.props.idToken;
+  }
+
+  get sessionState(): string | null {
+    return this.props.sessionState;
   }
 
   get createdAt(): Date {
@@ -40,16 +71,11 @@ export class AccountEntity extends BaseEntity<AccountProps> {
     this.props.updatedAt = new Date();
   }
 
-  changePassword(newHash: string): void {
-    this.props.passwordHash = newHash;
-    this.touch();
-  }
-
   static create(
-    props: Optional<AccountProps, "createdAt" | "updatedAt">,
+    props: Optional<AuthAccountProps, "createdAt" | "updatedAt">,
     id?: UUIDVO,
-  ): AccountEntity {
-    return new AccountEntity(
+  ): AuthAccountEntity {
+    return new AuthAccountEntity(
       {
         ...props,
         createdAt: props.createdAt ?? new Date(),
